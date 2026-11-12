@@ -94,12 +94,13 @@ CHECKS = [
     ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离", 26),
     ("pixl_download_check.py", "PIXL清单、官方直链、下载校验、复用/取消与失败隔离", 20),
     ("workflow_alignment_check.py", "工作台操作统一：真实PMC导航、独立导出、全目录报告与共享偏好", 16),
+    ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧", 18),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
 ]
 
 DIST_SCRIPTS={'multi_instrument_check.py','data_integrity_check.py','scientific_evidence_check.py',
-              'fit_profile_check.py','repeatability_check.py','chemcam_passive_check.py','phase11_check.py','pixl_browser_check.py','pixl_download_check.py','workflow_alignment_check.py','theme_check.py','layout_check.py'}
+              'fit_profile_check.py','repeatability_check.py','chemcam_passive_check.py','phase11_check.py','pixl_browser_check.py','pixl_download_check.py','workflow_alignment_check.py','instbkg_check.py','theme_check.py','layout_check.py'}
 
 
 def run(script, args=()):

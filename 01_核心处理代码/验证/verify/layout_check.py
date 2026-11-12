@@ -25,7 +25,7 @@ def main():
     check(all(Path(sys.modules[type(b).__module__].__file__).is_relative_to(core/L.GROUPS[name]) for name,b in modules) and console.__file__.startswith(str(L.APP)),'通用工作台与三个后端的物理归属分离，未从旧目录或临时副本导入')
     check(all(not hasattr(module,'HTML') and not hasattr(module,'JS') for module in (absorption,filtering,rmi,supercam_images)) and (L.APP/'instruments/pixl_output.py').is_file(),'界面HTML/JS及PIXL出图实现移出核心数据读取模块')
     baseline=json.loads((L.VERIFY/'fixtures/历史数值基准/重构前科学源码.json').read_text(encoding='utf-8'))
-    check(len(baseline['files'])==10 and all(hashlib.sha256((L.ROOT/row['new']).read_bytes()).hexdigest()==row['sha256'] for row in baseline['files']),'10个冻结科学核心文件迁移前后逐字节相同')
+    check(len(baseline['files'])==10 and all(hashlib.sha256((L.ROOT/row['new']).read_bytes()).hexdigest()==row['sha256'] for row in baseline['files']),'10个冻结科学核心文件与基线指纹逐字节一致（演进须经 revisions 记录）')
     if distribution:
         rows=json.loads((appenv.resources()/'sample-data/manifest.json').read_text(encoding='utf-8'))['files']
         valid=all(hashlib.sha256((appenv.resources()/row['path']).read_bytes()).hexdigest()==row['sha256'] for row in rows)

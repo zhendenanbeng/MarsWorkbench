@@ -1,65 +1,76 @@
 {
-  "commit": "d3bfcd9",
-  "files": [
-    {
-      "old": "01_软件工作台/sherloc/fitting.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/fitting.py",
-      "bytes": 2886,
-      "sha256": "6230aca740f45bddabaa69ab284422d6fb75dd16a84bd0223790eb8cf152b8c3"
-    },
-    {
-      "old": "01_软件工作台/sherloc/label.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/label.py",
-      "bytes": 10041,
-      "sha256": "aad86be1d545e985a227c7934c03d211038632173b57f7fcb484113f860e36a1"
-    },
-    {
-      "old": "01_软件工作台/sherloc/library.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/library.py",
-      "bytes": 25881,
-      "sha256": "e8878f010bcec6e424f223106fa0972ddee701fb594a68c3c534c80f568f6dda"
-    },
-    {
-      "old": "01_软件工作台/sherloc/minerals.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/minerals.py",
-      "bytes": 71899,
-      "sha256": "2cf39fef1af05af8f898829cefb43ea9d6418a164a0659bf400bd18f7b9f9f34"
-    },
-    {
-      "old": "01_软件工作台/sherloc/organize.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/organize.py",
-      "bytes": 12510,
-      "sha256": "0baa7a88bb6433891d1b31ce63f123474bcb8ba4b2deb02fee8427c1657f9b3e"
-    },
-    {
-      "old": "01_软件工作台/sherloc/peaks.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/peaks.py",
-      "bytes": 1894,
-      "sha256": "364b093390a50a15a4d323abe5b0f687290f7ffc130722948e9f3f9f89efa1e2"
-    },
-    {
-      "old": "01_软件工作台/sherloc/preprocess.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/preprocess.py",
-      "bytes": 15916,
-      "sha256": "c3d6e5f6d0bae9bb0077bec5b376d6e03e620991a8d4fcdc398759a656ee8e21"
-    },
-    {
-      "old": "01_软件工作台/sherloc/qc.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/qc.py",
-      "bytes": 19749,
-      "sha256": "b2acf84e89620044bcbc8ff7f9b4fde5f811245fef2879f8e4a4ea07e827ffee"
-    },
-    {
-      "old": "01_软件工作台/sherloc/reader.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/reader.py",
-      "bytes": 5843,
-      "sha256": "4edb3f7628d3df7e23c59a81c0b5c20da706e1aef467731d8768d305d99a546c"
-    },
-    {
-      "old": "01_软件工作台/sherloc/repeatability.py",
-      "new": "01_核心处理代码/SHERLOC/sherloc/repeatability.py",
-      "bytes": 6634,
-      "sha256": "affd0c07042584083925aa8f135ee40f947d08f90f0b008ce4d02bab72bd26c3"
-    }
-  ]
+ "commit": "d3bfcd9",
+ "files": [
+  {
+   "old": "01_软件工作台/sherloc/fitting.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/fitting.py",
+   "bytes": 2886,
+   "sha256": "6230aca740f45bddabaa69ab284422d6fb75dd16a84bd0223790eb8cf152b8c3"
+  },
+  {
+   "old": "01_软件工作台/sherloc/label.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/label.py",
+   "bytes": 10041,
+   "sha256": "aad86be1d545e985a227c7934c03d211038632173b57f7fcb484113f860e36a1"
+  },
+  {
+   "old": "01_软件工作台/sherloc/library.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/library.py",
+   "bytes": 25881,
+   "sha256": "e8878f010bcec6e424f223106fa0972ddee701fb594a68c3c534c80f568f6dda"
+  },
+  {
+   "old": "01_软件工作台/sherloc/minerals.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/minerals.py",
+   "bytes": 71997,
+   "sha256": "5ae8139b101f918c7b8dd21cf00c176cb9d2d6a210380fc9eb50675b0e4a42f8"
+  },
+  {
+   "old": "01_软件工作台/sherloc/organize.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/organize.py",
+   "bytes": 12510,
+   "sha256": "0baa7a88bb6433891d1b31ce63f123474bcb8ba4b2deb02fee8427c1657f9b3e"
+  },
+  {
+   "old": "01_软件工作台/sherloc/peaks.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/peaks.py",
+   "bytes": 1894,
+   "sha256": "364b093390a50a15a4d323abe5b0f687290f7ffc130722948e9f3f9f89efa1e2"
+  },
+  {
+   "old": "01_软件工作台/sherloc/preprocess.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/preprocess.py",
+   "bytes": 21536,
+   "sha256": "2dd98bbdc9ee9a5c24bf5029f4c7ab0f9a6e6ec71cae0a6adf2c55bee900de11"
+  },
+  {
+   "old": "01_软件工作台/sherloc/qc.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/qc.py",
+   "bytes": 19749,
+   "sha256": "b2acf84e89620044bcbc8ff7f9b4fde5f811245fef2879f8e4a4ea07e827ffee"
+  },
+  {
+   "old": "01_软件工作台/sherloc/reader.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/reader.py",
+   "bytes": 5843,
+   "sha256": "4edb3f7628d3df7e23c59a81c0b5c20da706e1aef467731d8768d305d99a546c"
+  },
+  {
+   "old": "01_软件工作台/sherloc/repeatability.py",
+   "new": "01_核心处理代码/SHERLOC/sherloc/repeatability.py",
+   "bytes": 6634,
+   "sha256": "affd0c07042584083925aa8f135ee40f947d08f90f0b008ce4d02bab72bd26c3"
+  }
+ ],
+ "revisions": [
+  {
+   "date": "2026-11-12",
+   "files": [
+    "01_核心处理代码/SHERLOC/sherloc/minerals.py",
+    "01_核心处理代码/SHERLOC/sherloc/preprocess.py"
+   ],
+   "reason": "精度提升阶段（分支 precision/bkg）：preprocess 新增可选「仪器本底扣除」步骤（Jakubek 2024 收纳臂口径，默认关）；minerals 仅在 800 带警示文本中提及该开关。分类阈值与输入口径未改。护栏 instbkg_check.py（18 项）与 run_all --dist 全绿随行。",
+   "branch": "precision/bkg"
+  }
+ ]
 }

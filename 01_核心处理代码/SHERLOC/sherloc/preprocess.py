@@ -5,6 +5,8 @@
 
 1. deadpixel  去感光死区   SCCD 首尾各 50 个像素不感光，直接裁掉
 2. dark       暗背景扣除   ERA - ERB（只有原始产品才需要，RRS 已经扣过）
+2b. instbkg   仪器本底扣除 收纳臂口径的熔石英本底谱缩放相减（默认关，
+              需先用数据准备脚本 04/05 生成 stowed_background.json）
 3. laser      激光能量归一 按光电二极管能量归一到扫描的第一个点
 4. despike    去宇宙射线   同一通道跨光谱的稳健统计，超阈值用插值替换
 5. baseline   基线扣除     迭代 sigma-clipping 多项式基线
@@ -14,14 +16,20 @@
 
 from __future__ import annotations
 
+import json
+
 import numpy as np
 
 DEAD_LO, DEAD_HI = 50, 2098      # SCCD 首尾各 50 个像素不感光
 DEFAULT_INTEGRATION_MS = 750.0
+LASER_NM = 248.6                 # 深紫外激发波长（与 qc.LASER_NM 同一口径）
+INSTBKG_BAND_CM = 800.0          # 本底主带（橄榄石识别峰 815-865 的直接邻居）
+INSTBKG_BAND_HALF_CM = 25.0      # 主带窗半宽，与残留量化研究脚本同一口径
 
 STEPS = [
     ("deadpixel", "去感光死区"),
     ("dark", "暗背景扣除"),
+    ("instbkg", "仪器本底扣除"),
     ("laser", "激光能量归一"),
     ("despike", "去宇宙射线"),
     ("baseline", "基线扣除"),
@@ -138,6 +146,32 @@ def _poly_fit(x, y, degree=5, n_iter=10, clip=1.5):
     return coef
 
 
+def _load_stowed_background():
+    """读收纳臂本底谱（数据目录 SHERLOC/缓存/stowed_background.json）。
+
+    文件由 数据准备脚本 04（下载收纳臂扫描）+ 05（聚合成谱）生成。
+    缺失、损坏或结构非法一律返回 None，由调用方记 warn 跳过——
+    本底扣除是可选步骤，绝不能因为它把整个预处理挂掉。
+    """
+    try:
+        import project_layout
+        path = project_layout.instrument_data("sherloc", "缓存") / "stowed_background.json"
+        if not path.is_file():
+            return None
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        shift = np.asarray(doc["shift_cm1"], dtype=float)
+        spec = np.asarray(doc["background"], dtype=float)
+        if (shift.shape != spec.shape or shift.size < 64
+                or not np.isfinite(shift).all() or not np.isfinite(spec).all()
+                or not (np.diff(shift) > 0).all()):
+            return None
+        return {"shift": shift, "spec": spec,
+                "laser_nm": float(doc.get("laser_nm", LASER_NM)),
+                "scans": len(doc.get("scans_used", []))}
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
 def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
     """执行预处理。steps 是开关字典，返回处理前后的数组和一份日志。"""
     steps = dict(steps or {})
@@ -225,6 +259,64 @@ def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
             put("dark", "跳过：这份产品没有配对的暗背景帧", "warn")
     else:
         put("dark", "不扣暗背景", "skip")
+
+    # ---------- 2b. 仪器本底扣除（收纳臂口径，默认关） ----------
+    #
+    # 依据 Jakubek et al. 2024（LPSC #1174 / Applied Spectroscopy）：SHERLOC
+    # 无镀膜 SiO2 光学件在 490/800/1055/1190 cm-1 产生固定本底拉曼，单谱
+    # SNR<1 不可见，但逐点中位/平均时会显形；橄榄石识别峰 815-865 与
+    # 800 主带直接重叠。官方做法：暗天空本底谱按缩放因子 M 相减。
+    # 这里 M 只按 800 主带窗估计（Phase 1 实测：多窗联合口径会过校正），
+    # 其余本底带按本底谱形状随减；窗口外通道不动。基线在此步之后跑，
+    # 所以减除发生在"量纲尚未被逐点增益与多项式改写"的最干净位置。
+    if steps.get("instbkg", False):
+        bkg = _load_stowed_background()
+        if bkg is None:
+            put("instbkg", "跳过：找不到可用的收纳臂本底谱。先运行"
+                           " 数据准备脚本/04_fetch_stowed_background.py 与"
+                           " /05_build_stowed_background.py 生成"
+                           " stowed_background.json", "warn")
+        elif abs(bkg["laser_nm"] - LASER_NM) > 0.5:
+            put("instbkg", "跳过：本底谱激光波长 %.1f nm 与当前 %.1f nm 不一致，"
+                           "位移轴不可对齐" % (bkg["laser_nm"], LASER_NM), "warn")
+        elif wl is None:
+            put("instbkg", "跳过：没有波长表，无法把本底谱对齐到当前波长轴", "warn")
+        elif R[region] is None:
+            put("instbkg", "跳过：没有可用的 Region %d 光谱矩阵" % region, "warn")
+        else:
+            bkg_wl = 1.0e7 / (1.0e7 / bkg["laser_nm"] - bkg["shift"])
+            ok = np.isfinite(bkg_wl) & (bkg_wl > 0)
+            bkg_wl, bkg_y = bkg_wl[ok], bkg["spec"][ok]
+            order = np.argsort(bkg_wl)
+            bkg_wl, bkg_y = bkg_wl[order], bkg_y[order]
+            inside = (wl >= bkg_wl[0]) & (wl <= bkg_wl[-1])
+            coverage = float(inside.mean())
+            sh_here = 1.0e7 / LASER_NM - 1.0e7 / np.asarray(wl, dtype=float)
+            w8 = inside & (np.abs(sh_here - INSTBKG_BAND_CM) <= INSTBKG_BAND_HALF_CM)
+            if coverage < 0.5 or w8.sum() < 5:
+                put("instbkg", "跳过：本底谱与当前波长轴的对齐不足"
+                               "（覆盖 %.0f%%，主带窗 %d 个通道）"
+                    % (coverage * 100, int(w8.sum())), "warn")
+            else:
+                med_bg8 = float(np.median(np.interp(wl[w8], bkg_wl, bkg_y)))
+                med8 = float(np.median(R[region][:, w8]))
+                if med_bg8 <= 0 or med8 <= 0:
+                    put("instbkg", "跳过：800 主带中位非正（数据 %.1f / 本底 %.1f）——"
+                                   "基线或暗背景可能已把本底吸收，减除会引入负偏"
+                        % (med8, med_bg8), "warn")
+                else:
+                    scale = float(np.clip(med8 / med_bg8, 0.0, 2.0))
+                    curve = np.interp(wl, bkg_wl, bkg_y)
+                    R[region] = R[region].astype(float) - scale * curve[None, :]
+                    put("instbkg", "已减除收纳臂本底谱（%d 个收纳臂扫描）："
+                                   "M=%.3f（按 800 cm-1 主带窗估计），波长覆盖 %.0f%%，"
+                                   "减后主带中位 %.1f。M 只在主带窗内对齐；"
+                                   "窗口外通道保持原值；结果以「仪器本底扣除」开关"
+                                   "的对照口径为准"
+                        % (bkg["scans"], scale, coverage * 100,
+                           float(np.median(R[region][:, w8]))))
+    else:
+        put("instbkg", "不减仪器本底", "skip")
 
     # ---------- 3. 激光能量归一 ----------
     if steps.get("laser", True):
