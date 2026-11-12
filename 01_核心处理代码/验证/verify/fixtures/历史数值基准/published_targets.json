@@ -1,0 +1,199 @@
+{
+ "scope": "已发表靶点矿物声明的结构化台账 v1（专家标签路径的起点）。行来自可公开获取的出版文本并逐行带页码定位；granularity 标明声明粒度（target=该研磨靶直接陈述、unit=建造级、natural_surface=天然表面）。这不是盲测真值，不是矿物鉴定准确率的证据；分类链不消费本文件。增长路径：Corpolongo 2023 逐靶点类别表（DOI 10.1029/2022JE007455，出版方 OAuth 墙后，QUT/DiVA 无托管副本）待人工转录后把行数扩到 ≥30。",
+ "version": 1,
+ "generated_utc": "2026-11-12T11:50:17Z",
+ "sources": [
+  {
+   "key": "sun2023",
+   "author_year": "Sun et al. 2023",
+   "title": "Overview and Results From the Mars 2020 Perseverance Rover Jezero Crater Floor Campaign",
+   "doi": "10.1029/2022JE007613",
+   "access": "NASA NTRS 直接下载（开放获取）",
+   "ntrs_id": "20230016431",
+   "sha256": "cc21ccdfe84db88b4d72b15d07449d5ca371340f8eb33ba5809428dbfa404daf"
+  },
+  {
+   "key": "corpolongo2023",
+   "author_year": "Corpolongo et al. 2023",
+   "title": "SHERLOC Raman Mineral Class Detections of the Mars 2020 Crater Floor Campaign",
+   "doi": "10.1029/2022JE007455",
+   "access": "出版方开放获取（is_oa=True，Unpaywall 核验）；匿名抓取被 OAuth 墙拦截，摘要经 Semantic Scholar API 核验",
+   "locator_abstract": "JGR Planets 128(3) e2022JE007455"
+  }
+ ],
+ "rows": [
+  {
+   "sol": null,
+   "sol_context": "研磨约 sol 162-166",
+   "target": "Guillaumes",
+   "formation": "Máaz（Roubion 段）",
+   "granularity": "target",
+   "published_classes": [
+    "plagioclase",
+    "pyroxene",
+    "Ca-sulfate",
+    "halite",
+    "perchlorate",
+    "phosphate",
+    "Fe-oxides"
+   ],
+   "note": "深色晶粒=斜长石+辉石（明确无橄榄石）；白斑=Ca硫酸盐/岩盐/高氯酸盐/磷酸盐；褐斑=铁氧化物",
+   "source_key": "sun2023",
+   "locator": "PDF p.38（索引 37）"
+  },
+  {
+   "sol": 185,
+   "sol_context": null,
+   "target": "Bellegarde",
+   "formation": "Máaz（Rochette 段）",
+   "granularity": "target",
+   "published_classes": [
+    "plagioclase",
+    "pyroxene",
+    "FeTi-oxides",
+    "Ca-sulfate",
+    "Ca-phosphate"
+   ],
+   "note": "内部浅色斑=充填型蚀变产物（Ca硫酸盐/Ca磷酸盐）；深色=辉石/斜长石/FeTi氧化物",
+   "source_key": "sun2023",
+   "locator": "PDF p.40（索引 39）"
+  },
+  {
+   "sol": 207,
+   "sol_context": "研磨 sol 206-207",
+   "target": "Garde",
+   "formation": "Séítah",
+   "granularity": "target",
+   "published_classes": [
+    "olivine",
+    "pyroxene",
+    "feldspar"
+   ],
+   "note": "研磨斑以粗粒橄榄石为主，辉石与长石穿插",
+   "source_key": "sun2023",
+   "locator": "PDF p.41（索引 40）"
+  },
+  {
+   "sol": 253,
+   "sol_context": null,
+   "target": "Dourbes",
+   "formation": "Séítah",
+   "granularity": "target",
+   "published_classes": [
+    "sulfate",
+    "carbonate",
+    "amorphous-silicate",
+    "organics"
+   ],
+   "note": "其他蚀变相为硫酸盐/碳酸盐/非晶硅酸盐及有机质（引 Corpolongo 2023; Sharma 2022）",
+   "source_key": "sun2023",
+   "locator": "PDF p.42（索引 41）"
+  },
+  {
+   "sol": 320,
+   "sol_context": null,
+   "target": "Quartier",
+   "formation": "Séítah",
+   "granularity": "target",
+   "published_classes": [
+    "olivine",
+    "Mg-Ca-sulfate",
+    "carbonate",
+    "hydrated-phases",
+    "Fe-oxides"
+   ],
+   "note": "主矿物为橄榄石（褐边铁质蚀变）；浅色斑=Mg/Ca硫酸盐、碳酸盐及其他水合相",
+   "source_key": "sun2023",
+   "locator": "PDF p.43（索引 42）"
+  },
+  {
+   "sol": 346,
+   "sol_context": "研磨约 sol 346-350",
+   "target": "Montpezat",
+   "formation": "Máaz（上部）",
+   "granularity": "target",
+   "published_classes": [
+    "carbonate",
+    "phosphate",
+    "perchlorate"
+   ],
+   "note": "次生矿物与碳酸盐及可能的磷酸盐/高氯酸盐一致（章节归属依 p.44 行文顺序）",
+   "source_key": "sun2023",
+   "locator": "PDF p.44（索引 43，章节首句）"
+  },
+  {
+   "sol": null,
+   "sol_context": "Crater Floor Campaign 后段",
+   "target": "Alfalfa",
+   "formation": "Máaz（上部）",
+   "granularity": "target",
+   "published_classes": [
+    "feldspar",
+    "pyroxene",
+    "olivine",
+    "quartz",
+    "Fe-oxides",
+    "carbonate",
+    "phyllosilicates",
+    "chlorite",
+    "phosphate",
+    "perchlorate",
+    "organics"
+   ],
+   "note": "白色长石板+辉石，可能含橄榄石/石英；蚀变弱于此前研磨斑（引 Corpolongo 2023）",
+   "source_key": "sun2023",
+   "locator": "PDF p.44（索引 43）"
+  },
+  {
+   "sol": null,
+   "sol_context": "Bastide 天然表面",
+   "target": "Bastide",
+   "formation": "Séítah",
+   "granularity": "natural_surface",
+   "published_classes": [
+    "olivine"
+   ],
+   "note": "天然表面灰色橄榄石晶粒与研磨斑内褐色橄榄石对应",
+   "source_key": "sun2023",
+   "locator": "PDF p.42（索引 41）"
+  },
+  {
+   "sol": null,
+   "sol_context": "Séítah 全建造",
+   "target": "Séítah（建造级）",
+   "formation": "Séítah",
+   "granularity": "unit",
+   "published_classes": [
+    "olivine",
+    "carbonate",
+    "phosphate",
+    "sulfate",
+    "perchlorate"
+   ],
+   "note": "Séítah 与 Máaz 矿物学上可区分、均有多期水蚀历史",
+   "source_key": "corpolongo2023",
+   "locator": "摘要 + WebSearch 摘要级要点"
+  },
+  {
+   "sol": null,
+   "sol_context": "Máaz 全建造",
+   "target": "Máaz（建造级）",
+   "formation": "Máaz",
+   "granularity": "unit",
+   "published_classes": [
+    "olivine",
+    "carbonate",
+    "phosphate",
+    "sulfate",
+    "perchlorate"
+   ],
+   "note": "同上建造级结论的 Máaz 侧",
+   "source_key": "corpolongo2023",
+   "locator": "摘要 + WebSearch 摘要级要点"
+  }
+ ],
+ "growth_path": {
+  "target_rows_goal": 30,
+  "blocking": "Corpolongo 2023 Table（逐靶点×类别）需人工转录：出版方 OAuth 墙拦截匿名抓取，机构库（QUT/DiVA）无托管副本。转录后本文件 rows 直接到 30+，护栏下限随之上调。"
+ }
+}
