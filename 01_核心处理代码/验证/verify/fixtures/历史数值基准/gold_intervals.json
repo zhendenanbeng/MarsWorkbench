@@ -1,0 +1,215 @@
+{
+ "scope": "区间数值基准：各仪器自研定量结果的对账容差区间。reference=官方/已发表值；自研值必须落在 [lower, upper] 才算对账通过。这不是精确等于的契约，是防数量级跑偏的区间护栏。",
+ "version": 1,
+ "generated_utc": "2026-11-12T00:00:00Z",
+ "sources": [
+  {
+   "key": "wiens2012",
+   "doi": "10.1007/s11214-012-9902-4",
+   "sha256": "e83983f45b0cd33b3b3f5237405fd2ea8dae61c3c21171fb544747af44061e3d"
+  },
+  {
+   "key": "apxs_rwp_frozen",
+   "doi": null,
+   "access": "fixtures/apxs/sol00102 官方 rwp（independent_manifest 已钉 SHA）"
+  },
+  {
+   "key": "supercam_moc_frozen",
+   "doi": null,
+   "access": "fixtures/supercam/_moc/supercam_moc.csv 官方 MOC 摘录（manifest 已钉 SHA）"
+  }
+ ],
+ "anchors": {
+  "chemcam": {
+   "PLS_loo_rmse_ground": {
+    "note": "Wiens 2012 Table 8c 留一 RMSE（5m）；自研 PLS 留一靶 RMSE 的对照区间（约 ±60% 宽容差）",
+    "oxides": {
+     "SiO2": {
+      "reference": 1.54,
+      "lower": 0.6,
+      "upper": 2.5
+     },
+     "Al2O3": {
+      "reference": 1.55,
+      "lower": 0.6,
+      "upper": 2.5
+     },
+     "CaO": {
+      "reference": 0.89,
+      "lower": 0.35,
+      "upper": 1.45
+     },
+     "Fe2O3": {
+      "reference": 1.61,
+      "lower": 0.65,
+      "upper": 2.6
+     },
+     "MgO": {
+      "reference": 1.18,
+      "lower": 0.5,
+      "upper": 1.9
+     },
+     "Na2O": {
+      "reference": 0.4,
+      "lower": 0.16,
+      "upper": 0.65
+     },
+     "K2O": {
+      "reference": 0.39,
+      "lower": 0.16,
+      "upper": 0.65
+     },
+     "TiO2": {
+      "reference": 0.32,
+      "lower": 0.13,
+      "upper": 0.52
+     }
+    }
+   }
+  },
+  "apxs": {
+   "rocknest3_rp_official_oxides": {
+    "note": "官方 rwp（sol 102, ver 2）±precision 的 3 倍容差；自研浓度对账区间",
+    "oxides": {
+     "Na2O": {
+      "reference": 4.02,
+      "lower": 2.79,
+      "upper": 5.25
+     },
+     "MgO": {
+      "reference": 5.32,
+      "lower": 3.82,
+      "upper": 6.82
+     },
+     "Al2O3": {
+      "reference": 10.52,
+      "lower": 8.78,
+      "upper": 12.26
+     },
+     "SiO2": {
+      "reference": 45.97,
+      "lower": 43.09,
+      "upper": 48.85
+     },
+     "K2O": {
+      "reference": 1.86,
+      "lower": 1.56,
+      "upper": 2.16
+     },
+     "CaO": {
+      "reference": 6.05,
+      "lower": 5.12,
+      "upper": 6.98
+     },
+     "TiO2": {
+      "reference": 0.96,
+      "lower": 0.81,
+      "upper": 1.11
+     },
+     "MnO": {
+      "reference": 0.46,
+      "lower": 0.34,
+      "upper": 0.58
+     },
+     "FeO": {
+      "reference": 18.39,
+      "lower": 17.22,
+      "upper": 19.56
+     },
+     "SO3": {
+      "reference": 4.06,
+      "lower": 3.4,
+      "upper": 4.72
+     }
+    }
+   }
+  },
+  "supercam": {
+   "sol998_aegis_moc": {
+    "note": "官方 MOC sol998 AEGIS 点（冻结摘录）±stdev 3 倍容差；自研 PLS 对账区间",
+    "oxides": {
+     "SiO2": {
+      "reference": 10.27,
+      "lower": 1.66,
+      "upper": 18.88
+     },
+     "Al2O3": {
+      "reference": 4.02,
+      "lower": 0.63,
+      "upper": 7.41
+     },
+     "FeOT": {
+      "reference": 29.53,
+      "lower": 21.88,
+      "upper": 37.18
+     },
+     "MgO": {
+      "reference": 30.82,
+      "lower": 14.14,
+      "upper": 47.5
+     },
+     "CaO": {
+      "reference": 2.4,
+      "lower": 0.51,
+      "upper": 4.29
+     },
+     "Na2O": {
+      "reference": 1.8,
+      "lower": 1.44,
+      "upper": 2.16
+     },
+     "K2O": {
+      "reference": 0.68,
+      "lower": 0.0,
+      "upper": 1.91
+     },
+     "TiO2": {
+      "reference": 0.03,
+      "lower": 0.0,
+      "upper": 0.27
+     }
+    }
+   },
+   "moc_rmsep": {
+    "note": "官方 MOC 训练集 RMSEP（自研 CV 的对照区间 ±60%）",
+    "oxides": {
+     "SiO2": {
+      "reference": 6.1,
+      "lower": 2.4,
+      "upper": 9.8
+     },
+     "Al2O3": {
+      "reference": 1.8,
+      "lower": 0.7,
+      "upper": 2.9
+     },
+     "FeOT": {
+      "reference": 3.1,
+      "lower": 1.2,
+      "upper": 5.0
+     },
+     "MgO": {
+      "reference": 1.1,
+      "lower": 0.4,
+      "upper": 1.8
+     },
+     "CaO": {
+      "reference": 1.3,
+      "lower": 0.5,
+      "upper": 2.1
+     },
+     "Na2O": {
+      "reference": 0.5,
+      "lower": 0.2,
+      "upper": 0.8
+     },
+     "K2O": {
+      "reference": 0.6,
+      "lower": 0.2,
+      "upper": 1.0
+     }
+    }
+   }
+  }
+ }
+}

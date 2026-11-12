@@ -1,0 +1,157 @@
+{
+ "scope": "已发表标定成分与精度声明的结构化台账（四仪器自主定量管线的对账锚点）。行来自可公开获取的出版文本并带定位；granularity: target_inventory=靶清单、metric=精度指标、method=方法路线。不是盲测真值，定量链不消费本文件。",
+ "version": 1,
+ "generated_utc": "2026-11-12T00:00:00Z",
+ "sources": [
+  {
+   "key": "wiens2012",
+   "author_year": "Wiens et al. 2012",
+   "title": "The ChemCam Instrument Suite on the Mars Science Laboratory (MSL) Rover",
+   "doi": "10.1007/s11214-012-9902-4",
+   "access": "repository.hou.usra.edu 开放 PDF（浏览器 UA 可下）",
+   "sha256": "e83983f45b0cd33b3b3f5237405fd2ea8dae61c3c21171fb544747af44061e3d"
+  },
+  {
+   "key": "campbell2010",
+   "author_year": "Campbell et al. 2010",
+   "title": "A fundamental parameters approach to calibration of the Mars Exploration Rover APXS: 2. Analysis of unknown samples",
+   "doi": "10.1029/2009JE003481",
+   "access": "smtaylor.ca 开放 PDF",
+   "sha256": "5cd368847ed4254262bdad18853a3164afb99e18fdd6591864032adddcaa8340"
+  },
+  {
+   "key": "ytsma2023",
+   "author_year": "Ytsma et al. 2023",
+   "title": "Update to Mars-based major element quantification accuracies from calibration targets of ChemCam at 3013 sols and SuperCam at 527 sols",
+   "doi": "10.22541/essoar.167751631.16086403",
+   "access": "ESSOAr 预印本（无正式期刊版）；匿名抓取被 Cloudflare 拦截，数值待人工下载转录",
+   "locator": "essopenarchive.org/doi/10.22541/essoar.167751631.16086403"
+  },
+  {
+   "key": "clegg2017",
+   "author_year": "Clegg et al. 2017",
+   "title": "Recalibration of the Mars Science Laboratory ChemCam instrument with an expanded geochemical database",
+   "doi": "10.1016/j.sab.2016.11.003",
+   "access": "USGS 出版页开放摘要；PLS1+ICA 配方，训练集细节待转录",
+   "locator": "pubs.usgs.gov/publication/70194123"
+  }
+ ],
+ "rows": [
+  {
+   "instrument": "chemcam",
+   "item": "Macusanite",
+   "granularity": "target_inventory",
+   "detail": "天然黑曜石玻璃（安第斯）；成分引用 Pichavant 1988a/b",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #1"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "Norite",
+   "granularity": "target_inventory",
+   "detail": "合成玻璃，Noachian 地壳类似物；成分引用 Fabre 2011",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #2"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "Picrite",
+   "granularity": "target_inventory",
+   "detail": "合成玻璃，火星表面常见成分类似物；Fabre 2011",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #3"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "Shergottite",
+   "granularity": "target_inventory",
+   "detail": "合成玻璃，火星陨石（Bounce rock）类似；Fabre 2011",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #4"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "Graphite",
+   "granularity": "target_inventory",
+   "detail": "石墨棒（C 线标识用）；Ollila 2011",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #5"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "KGa-2med-S",
+   "granularity": "target_inventory",
+   "detail": "陶瓷：CMS 高岭石标样+玄武岩+中量硬石膏；Vaniman et al.",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #6"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "NAu-2lo-S",
+   "granularity": "target_inventory",
+   "detail": "陶瓷：CMS 非闪石标样+玄武岩+低比硬石膏；Vaniman et al.",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #7"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "NAu-2med-S",
+   "granularity": "target_inventory",
+   "detail": "陶瓷：CMS 非闪石标样+玄武岩+中比硬石膏；Vaniman et al.",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #8"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "NAu-2hi-S",
+   "granularity": "target_inventory",
+   "detail": "陶瓷：CMS 非闪石标样+玄武岩+高比硬石膏；Vaniman et al.",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #9"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "Ti plate",
+   "granularity": "target_inventory",
+   "detail": "Ti-6-4 合金板（波长定标/诊断）",
+   "source_key": "wiens2012",
+   "locator": "Table 5, #10"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "PLS_loo_rmse_ground_5m",
+   "granularity": "metric",
+   "detail": "地面 11 标样 PLS 留一分析 RMSE（wt%，5 m 距离）：Na2O 0.40, MgO 1.18, Al2O3 1.55, SiO2 1.54, P2O5 0.14, K2O 0.39, CaO 0.89, TiO2 0.32, MnO 0.03, Fe2O3 1.61",
+   "source_key": "wiens2012",
+   "locator": "Table 8c, 5 m 列"
+  },
+  {
+   "instrument": "chemcam",
+   "item": "PLS_loo_rmse_ground_range",
+   "granularity": "metric",
+   "detail": "同表 1.6-7 m 各距离范围：Na2O 0.40-0.54, MgO 0.98-1.18, Al2O3 1.43-1.55, SiO2 1.54-1.80, K2O 0.39-0.56, CaO 0.82-0.90, TiO2 0.32-0.46, Fe2O3 1.37-1.61",
+   "source_key": "wiens2012",
+   "locator": "Table 8c 全列"
+  },
+  {
+   "instrument": "chemcam+supercam",
+   "item": "inflight_cal_target_rmsep",
+   "granularity": "metric",
+   "detail": "仅用在轨标定靶训练的 RMSEP（ChemCam@3013 sols / SuperCam@527 sols）；数值待人工下载预印本转录",
+   "source_key": "ytsma2023",
+   "locator": "ESSOAr 预印本全文"
+  },
+  {
+   "instrument": "apxs",
+   "item": "GUAPX_routine_analysis",
+   "granularity": "method",
+   "detail": "基本参数法+迭代归一到100%氧化物；含水矿物使归一化产生显著误差（论文扩展了 H2O+ 测定）；常规分析路线=峰面积→标定曲线，TAS 分岩石类型的经验标定可改进",
+   "source_key": "campbell2010",
+   "locator": "摘要+§1-3"
+  }
+ ],
+ "growth_path": {
+  "rows_goal": 25,
+  "blocking": "CCS/SCCT 靶成分数值表（Fabre 2011/Vaniman/Cousin 2022）与 Ytsma 2023 RMSEP 数值需人工从出版方下载转录；转录后 rows 扩到 25+，CCS 观测谱下载与 PLS 训练（Phase 1）随即解锁。"
+ }
+}
