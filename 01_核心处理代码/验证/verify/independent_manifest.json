@@ -1,0 +1,246 @@
+{
+  "version": 1,
+  "official_moc_sha256": "fea407d53b7aaaeba44142e8a12c24a631b91dc733d166b175b922b5e1ddbcc2",
+  "created_utc": "2026-10-23",
+  "policy": "Frozen raw bytes and external-reader wavelength anchors; never regenerate automatically from production output. No independent mineral labels are available.",
+  "files": [
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.csv",
+      "sha256": "a3c2534b90cb5e359feb17d0e037148a55e9c4575baa1143baad43a4610ccecb"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.lbl",
+      "sha256": "26cdd39300b6fb6b504b60866ef3fd631bf5c7e0f1c2dc14a9923d40dae9852c"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.xml",
+      "sha256": "5de7679f153fbe8e0136e568aaf3a8446c4f5194fcd41910274f2eb7debc1304"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.csv",
+      "sha256": "3c18f3f8a8610768dc546682f4c9819baf8f7e706ffdda9eb17232f20e915e1b"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.lbl",
+      "sha256": "486dac6bc08b5b0c0d3d01ca208628cc1495bd7f95a2477adbac905d86f5afe0"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.xml",
+      "sha256": "af33e753208ceeabad907966eb6552e9f4c4a317fd63220a7d38a64e90e9d9ba"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00010/cl1_398380611psv_f0030000ccam04010p3.lbl",
+      "sha256": "1207d68fb224a68e2f14ce7c2435f68f214d2af511a3006de1ec2eae5f5331cb",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol00010/cl1_398380611psv_f0030000ccam04010p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.csv",
+      "sha256": "5bce4c8efb9a10467f4d0e7b5987ea782ddc59f83aa145d1b64451c156cfa651"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.lbl",
+      "sha256": "3b9b1822cd7ddcd921b738c3cdc8b7b09b5c529d035149ff2d708905dcd6686d"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.csv",
+      "sha256": "558fcbcefead3dddc8b0829fab01b6719f932797697df7e6d1fc8b1b44f19913"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.lbl",
+      "sha256": "7cd6027100812168805bf98dc34d9b181017f3b2fa5ab982d0ac8dbdfe2b4502"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/_moc/supercam_moc.csv",
+      "sha256": "0eda76a395412e13e6e476a5cd9415612f0fdffac0bc32ef8a64827dd3347c54"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.fits",
+      "sha256": "c9f47ba4662da6c437cb766284534086c3e22f82c8cc288b183b0ed41ca792cf"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.xml",
+      "sha256": "d7547a14cbb9604555707fa0973dff8e1abeba8ec45b263f17c71aad0a42b448"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp3_scam01700_sharp_top_mountain___01p02.fits",
+      "sha256": "563260cf270d0ed9c40b01fcd0a0778b11c804ef417cd60b9489379d0a09b27f"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.fits",
+      "sha256": "26387d1512796afdd1c9e8cf66b97cb760f4c6462b48e839a4ae75fdf7c646fe"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.xml",
+      "sha256": "559db4d52195392068fc69c474d6194e919d6b55d05271090d22ff6cfbde5d1a"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.csv",
+      "sha256": "918970847e7cc1923e22451ce3d0834b69150e41ca56c27fa887e5e9ef017f82"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.xml",
+      "sha256": "b53d02f0bebd4affb8a8c86b8c86e59fe08b58a440089289b1425d542c4dcb52"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.csv",
+      "sha256": "2341b97bbe7c0f834d9aba3e0dd749d22abe7dbcb92c824e7268bda60b868cae"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.xml",
+      "sha256": "9550103dc73346a8c8a3de1e63a6a1ef4885dddfc1378818d313b08f0beefce7"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263230ccs_f0481570ccam02000p3.lbl",
+      "sha256": "ea2d946cf2609641146b07f1c1c0b4f2ed1ddef86727e3ddf5ef7329d442fd4e",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263230ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263307ccs_f0481570ccam02000p3.lbl",
+      "sha256": "42cfcb61f82ebdac4cefd10ff0b65e07a702c045bf53d377aa89bc5acfc5195c",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263307ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263372ccs_f0481570ccam02000p3.lbl",
+      "sha256": "baa7ce267579ed6265341940e991c395fcd06fcc0cc4c7b71dd16e10527ed561",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263372ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263474ccs_f0481570ccam02000p3.lbl",
+      "sha256": "072ef710a447e38f380bfe4eed0b52cd10cda6bd8fb71f311ac848773ae9afcf",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263474ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263673ccs_f0481570ccam02000p3.lbl",
+      "sha256": "8fd6796cbaabd4be52c1f37c67e954781f3d3d0aa03059df42738f29d3ff046a",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263673ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263738ccs_f0481570ccam02000p3.lbl",
+      "sha256": "9a2d7cbd912300466f7f37361ee359bc19d88a1bcc05cb08f6cb462fc9b7bc8d",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263738ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486263840ccs_f0481570ccam02000p3.lbl",
+      "sha256": "0b525ffaa9b2e2842d2f7def5e65a338f7717f5734202073f5639b6f0af167e7",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486263840ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486264011ccs_f0481570ccam02000p3.lbl",
+      "sha256": "240e87b6abe4c6bd715d01857bce83abd20d93a2f4d027beb5ee16f6614c6d61",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486264011ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl5_486264077ccs_f0481570ccam02000p3.lbl",
+      "sha256": "1d0963c166ccff2e0ac0f4d0dda688a820ff05749f5c7446cb4d6e26bba4d0ab",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl5_486264077ccs_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl9_486263266psv_f0481570ccam02000p3.lbl",
+      "sha256": "a599e5a265c33d201da612a4d9cb0184b52165c770cf9f40d0f0bf7b7c462193",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl9_486263266psv_f0481570ccam02000p3.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cr0_486263086prc_f0481570ccam02000l1.lbl",
+      "sha256": "5ff2d3492e8e2b3e08c6df8c6cb5769db43a58deb2a6425dfdcc001629965a1a",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cr0_486263086prc_f0481570ccam02000l1.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cr0_486264264prc_f0481570ccam02000l1.lbl",
+      "sha256": "3e0296d5f238c12665c1705d43a7965695d5203f28d87929f35e3aaa913bb1d9",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cr0_486264264prc_f0481570ccam02000l1.lbl"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol01000/cl9_486263266psv_f0481570ccam02000p3.tab",
+      "sha256": "9e55c496cd3e0247ecd801665758d8a5bf75f04547ee69a64228cf48834ba583",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol01000/cl9_486263266psv_f0481570ccam02000p3.tab"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00010/cl1_398380611psv_f0030000ccam04010p3.tab",
+      "sha256": "518821b4cb80f85506cde0864bc8642716215601d6f195f06c1b9baf5086a04f",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/data/sol00010/cl1_398380611psv_f0030000ccam04010p3.tab"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/document/ccam_default_wave.tab",
+      "sha256": "d161471c3fc8f35dbcd19579242177502b1e0bf0c79791df55d9736ec4ef6e90",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/document/ccam_default_wave.tab"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/document/ccam_default_wave.lbl",
+      "sha256": "e37111448aabbf696a1b7ac08434f19272672ee60aaab91321df944e1d61effa",
+      "source_url": "https://pds-geosciences.wustl.edu/msl/msl-m-chemcam-libs-4_5-rdr-v1/mslccm_1xxx/document/ccam_default_wave.lbl"
+    }
+  ],
+  "fits": [
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.fits",
+      "product": "CP2",
+      "source_url": "https://pds-geosciences.wustl.edu/m2020/urn-nasa-pds-mars2020_supercam/data_calibrated_spectra/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.fits",
+      "channels": 256,
+      "extensions": [
+        "WAVELENGTH",
+        "SPECTRA",
+        "IR HK",
+        "DATA QUALITY"
+      ],
+      "display_column": "SPECTRA:Spectrum DN",
+      "xlabel": "波长 (µm)",
+      "anchor_indices": [
+        0,
+        128,
+        255
+      ],
+      "anchor_x": [
+        1.3113674888276303,
+        1.738049077942133,
+        2.589801373960923
+      ]
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp3_scam01700_sharp_top_mountain___01p02.fits",
+      "product": "CP3",
+      "source_url": "https://pds-geosciences.wustl.edu/m2020/urn-nasa-pds-mars2020_supercam/data_calibrated_spectra/sol_00700/scam_0700_0729077105_539_cp3_scam01700_sharp_top_mountain___01p02.fits",
+      "channels": 5925,
+      "extensions": [
+        "WAVELENGTH",
+        "SPECTRA",
+        "STATISTICS"
+      ],
+      "display_column": "STATISTICS:Mean",
+      "xlabel": "波长 (nm)",
+      "anchor_indices": [
+        0,
+        2962,
+        5924
+      ],
+      "anchor_x": [
+        379.1689147949219,
+        600.9179077148438,
+        852.8106689453125
+      ]
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.fits",
+      "product": "CL1",
+      "source_url": "https://pds-geosciences.wustl.edu/m2020/urn-nasa-pds-mars2020_supercam/data_calibrated_spectra/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.fits",
+      "channels": 7933,
+      "extensions": [
+        "WAVELENGTH",
+        "SPECTRA",
+        "STATISTICS",
+        "LASERDATA"
+      ],
+      "display_column": "SPECTRA:Spectrum0",
+      "xlabel": "波长 (nm)",
+      "anchor_indices": [
+        0,
+        3966,
+        7932
+      ],
+      "anchor_x": [
+        243.7894287109375,
+        460.54388427734375,
+        852.7722778320312
+      ]
+    }
+  ]
+}

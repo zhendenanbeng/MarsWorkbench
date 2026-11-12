@@ -1,0 +1,13 @@
+{
+  "version": "0.16.0",
+  "build": "249ecee02985.full",
+  "variant": "full",
+  "python": "3.12.10",
+  "dependencies": {
+    "numpy": "2.4.3",
+    "pillow": "13.0.0",
+    "opencv-python": "5.0.0.93",
+    "astropy": "8.0.2"
+  },
+  "sample_manifest_sha256": "1dc1701a30747f09ab2df7e54f0b265c6a7ca9f71f2df1c65f5d1a19c844f8e3"
+}

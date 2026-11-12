@@ -1,0 +1,4 @@
+# Source only; Windows ZIP needs no pip installation.
+numpy>=2.2,<2.5
+Pillow>=11,<14
+# Optional full install: see docs/BUILDING.md

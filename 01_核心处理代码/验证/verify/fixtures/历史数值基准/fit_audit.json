@@ -1,0 +1,2035 @@
+{
+  "generated_utc": "2026-10-23T11:27:00.175187+00:00",
+  "results": [
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.csv",
+      "passed": true,
+      "expected_sha256": "a3c2534b90cb5e359feb17d0e037148a55e9c4575baa1143baad43a4610ccecb",
+      "actual_sha256": "a3c2534b90cb5e359feb17d0e037148a55e9c4575baa1143baad43a4610ccecb"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.lbl",
+      "passed": true,
+      "expected_sha256": "26cdd39300b6fb6b504b60866ef3fd631bf5c7e0f1c2dc14a9923d40dae9852c",
+      "actual_sha256": "26cdd39300b6fb6b504b60866ef3fd631bf5c7e0f1c2dc14a9923d40dae9852c"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.xml",
+      "passed": true,
+      "expected_sha256": "5de7679f153fbe8e0136e568aaf3a8446c4f5194fcd41910274f2eb7debc1304",
+      "actual_sha256": "5de7679f153fbe8e0136e568aaf3a8446c4f5194fcd41910274f2eb7debc1304"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.csv",
+      "passed": true,
+      "expected_sha256": "3c18f3f8a8610768dc546682f4c9819baf8f7e706ffdda9eb17232f20e915e1b",
+      "actual_sha256": "3c18f3f8a8610768dc546682f4c9819baf8f7e706ffdda9eb17232f20e915e1b"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.lbl",
+      "passed": true,
+      "expected_sha256": "486dac6bc08b5b0c0d3d01ca208628cc1495bd7f95a2477adbac905d86f5afe0",
+      "actual_sha256": "486dac6bc08b5b0c0d3d01ca208628cc1495bd7f95a2477adbac905d86f5afe0"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.xml",
+      "passed": true,
+      "expected_sha256": "af33e753208ceeabad907966eb6552e9f4c4a317fd63220a7d38a64e90e9d9ba",
+      "actual_sha256": "af33e753208ceeabad907966eb6552e9f4c4a317fd63220a7d38a64e90e9d9ba"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/chemcam/sol00010/cl1_398380611psv_f0030000ccam04010p3.lbl",
+      "passed": true,
+      "expected_sha256": "1207d68fb224a68e2f14ce7c2435f68f214d2af511a3006de1ec2eae5f5331cb",
+      "actual_sha256": "1207d68fb224a68e2f14ce7c2435f68f214d2af511a3006de1ec2eae5f5331cb"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.csv",
+      "passed": true,
+      "expected_sha256": "5bce4c8efb9a10467f4d0e7b5987ea782ddc59f83aa145d1b64451c156cfa651",
+      "actual_sha256": "5bce4c8efb9a10467f4d0e7b5987ea782ddc59f83aa145d1b64451c156cfa651"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.lbl",
+      "passed": true,
+      "expected_sha256": "3b9b1822cd7ddcd921b738c3cdc8b7b09b5c529d035149ff2d708905dcd6686d",
+      "actual_sha256": "3b9b1822cd7ddcd921b738c3cdc8b7b09b5c529d035149ff2d708905dcd6686d"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.csv",
+      "passed": true,
+      "expected_sha256": "558fcbcefead3dddc8b0829fab01b6719f932797697df7e6d1fc8b1b44f19913",
+      "actual_sha256": "558fcbcefead3dddc8b0829fab01b6719f932797697df7e6d1fc8b1b44f19913"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.lbl",
+      "passed": true,
+      "expected_sha256": "7cd6027100812168805bf98dc34d9b181017f3b2fa5ab982d0ac8dbdfe2b4502",
+      "actual_sha256": "7cd6027100812168805bf98dc34d9b181017f3b2fa5ab982d0ac8dbdfe2b4502"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/supercam/_moc/supercam_moc.csv",
+      "passed": true,
+      "expected_sha256": "0eda76a395412e13e6e476a5cd9415612f0fdffac0bc32ef8a64827dd3347c54",
+      "actual_sha256": "0eda76a395412e13e6e476a5cd9415612f0fdffac0bc32ef8a64827dd3347c54"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.fits",
+      "passed": true,
+      "expected_sha256": "c9f47ba4662da6c437cb766284534086c3e22f82c8cc288b183b0ed41ca792cf",
+      "actual_sha256": "c9f47ba4662da6c437cb766284534086c3e22f82c8cc288b183b0ed41ca792cf"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.xml",
+      "passed": true,
+      "expected_sha256": "d7547a14cbb9604555707fa0973dff8e1abeba8ec45b263f17c71aad0a42b448",
+      "actual_sha256": "d7547a14cbb9604555707fa0973dff8e1abeba8ec45b263f17c71aad0a42b448"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp3_scam01700_sharp_top_mountain___01p02.fits",
+      "passed": true,
+      "expected_sha256": "563260cf270d0ed9c40b01fcd0a0778b11c804ef417cd60b9489379d0a09b27f",
+      "actual_sha256": "563260cf270d0ed9c40b01fcd0a0778b11c804ef417cd60b9489379d0a09b27f"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.fits",
+      "passed": true,
+      "expected_sha256": "26387d1512796afdd1c9e8cf66b97cb760f4c6462b48e839a4ae75fdf7c646fe",
+      "actual_sha256": "26387d1512796afdd1c9e8cf66b97cb760f4c6462b48e839a4ae75fdf7c646fe"
+    },
+    {
+      "name": "冻结输入 01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.xml",
+      "passed": true,
+      "expected_sha256": "559db4d52195392068fc69c474d6194e919d6b55d05271090d22ff6cfbde5d1a",
+      "actual_sha256": "559db4d52195392068fc69c474d6194e919d6b55d05271090d22ff6cfbde5d1a"
+    },
+    {
+      "name": "冻结输入 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.csv",
+      "passed": true,
+      "expected_sha256": "918970847e7cc1923e22451ce3d0834b69150e41ca56c27fa887e5e9ef017f82",
+      "actual_sha256": "918970847e7cc1923e22451ce3d0834b69150e41ca56c27fa887e5e9ef017f82"
+    },
+    {
+      "name": "冻结输入 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.xml",
+      "passed": true,
+      "expected_sha256": "b53d02f0bebd4affb8a8c86b8c86e59fe08b58a440089289b1425d542c4dcb52",
+      "actual_sha256": "b53d02f0bebd4affb8a8c86b8c86e59fe08b58a440089289b1425d542c4dcb52"
+    },
+    {
+      "name": "冻结输入 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.csv",
+      "passed": true,
+      "expected_sha256": "2341b97bbe7c0f834d9aba3e0dd749d22abe7dbcb92c824e7268bda60b868cae",
+      "actual_sha256": "2341b97bbe7c0f834d9aba3e0dd749d22abe7dbcb92c824e7268bda60b868cae"
+    },
+    {
+      "name": "冻结输入 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.xml",
+      "passed": true,
+      "expected_sha256": "9550103dc73346a8c8a3de1e63a6a1ef4885dddfc1378818d313b08f0beefce7",
+      "actual_sha256": "9550103dc73346a8c8a3de1e63a6a1ef4885dddfc1378818d313b08f0beefce7"
+    },
+    {
+      "name": "CP2 FITS 标准结构",
+      "passed": true,
+      "warnings": []
+    },
+    {
+      "name": "CP2 WAVELENGTH.Wavelength (um)",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 WAVELENGTH.FWHM (cm-1)",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 SPECTRA.Spectrum DN",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 SPECTRA.Radiance",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 SPECTRA.I_F",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 SPECTRA.I_F_atm",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 SPECTRA.F_Sky",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 SPECTRA.AtmTrans",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 IR HK.DetectorTemp_0",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 IR HK.RFPower_0",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 IR HK.Status_0",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 DATA QUALITY.Saturation",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 DATA QUALITY.Glitch",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 DATA QUALITY.Spike",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 DATA QUALITY.StDev",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 展示原始强度（全部通道）",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 横轴单位",
+      "passed": true
+    },
+    {
+      "name": "CP2 展示波长（全部通道）",
+      "passed": true,
+      "actual_shape": [
+        256
+      ],
+      "reference_shape": [
+        256
+      ],
+      "scalars": 256,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP2 冻结通道数",
+      "passed": true
+    },
+    {
+      "name": "CP2 冻结波长锚点",
+      "passed": true,
+      "actual_shape": [
+        3
+      ],
+      "reference_shape": [
+        3
+      ],
+      "scalars": 3,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 FITS 标准结构",
+      "passed": true,
+      "warnings": []
+    },
+    {
+      "name": "CP3 WAVELENGTH.Wavelength",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 WAVELENGTH.IRF",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 STATISTICS.Mean",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 STATISTICS.Median",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 STATISTICS.StDev",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 展示原始强度（全部通道）",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 横轴单位",
+      "passed": true
+    },
+    {
+      "name": "CP3 展示波长（全部通道）",
+      "passed": true,
+      "actual_shape": [
+        5925
+      ],
+      "reference_shape": [
+        5925
+      ],
+      "scalars": 5925,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CP3 冻结通道数",
+      "passed": true
+    },
+    {
+      "name": "CP3 冻结波长锚点",
+      "passed": true,
+      "actual_shape": [
+        3
+      ],
+      "reference_shape": [
+        3
+      ],
+      "scalars": 3,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 FITS 标准结构",
+      "passed": true,
+      "warnings": []
+    },
+    {
+      "name": "CL1 WAVELENGTH.Wavelength",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 WAVELENGTH.IRF",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum0",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum1",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum2",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum3",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum4",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum5",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum6",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum7",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum8",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum9",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum10",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum11",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum12",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum13",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum14",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum15",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum16",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum17",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum18",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum19",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum20",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum21",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum22",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum23",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum24",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum25",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum26",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum27",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum28",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 SPECTRA.Spectrum29",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 STATISTICS.Mean",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 STATISTICS.Median",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 STATISTICS.StDev",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Shot Number",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Stack voltage",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Pumping Current",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Optical Power",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Stack voltage (V)",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Pumping Current (A)",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 LASERDATA.Optical Power (mJ)",
+      "passed": true,
+      "actual_shape": [
+        30
+      ],
+      "reference_shape": [
+        30
+      ],
+      "scalars": 30,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 逐通道均值 dust=False",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 2e-15,
+      "atol": 1e-12,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 原始发号 dust=False",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 发号映射 dust=False",
+      "passed": true
+    },
+    {
+      "name": "CL1 逐通道均值 dust=True",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 2e-15,
+      "atol": 1e-12,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 原始发号 dust=True",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 发号映射 dust=True",
+      "passed": true
+    },
+    {
+      "name": "CL1 展示波长（全部通道）",
+      "passed": true,
+      "actual_shape": [
+        7933
+      ],
+      "reference_shape": [
+        7933
+      ],
+      "scalars": 7933,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "CL1 冻结通道数",
+      "passed": true
+    },
+    {
+      "name": "CL1 冻结波长锚点",
+      "passed": true,
+      "actual_shape": [
+        3
+      ],
+      "reference_shape": [
+        3
+      ],
+      "scalars": 3,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "ChemCam rdr 波长",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "ChemCam rdr 平均谱 dust=False",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 2e-15,
+      "atol": 1e-12,
+      "max_abs_difference": 1.8189894035458565e-12
+    },
+    {
+      "name": "ChemCam rdr 波长",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "ChemCam rdr 平均谱 dust=True",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 2e-15,
+      "atol": 1e-12,
+      "max_abs_difference": 1.8189894035458565e-12
+    },
+    {
+      "name": "ChemCam ccs 波长",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "ChemCam ccs 平均谱 dust=False",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 2e-15,
+      "atol": 1e-12,
+      "max_abs_difference": 3.814697265625e-06
+    },
+    {
+      "name": "ChemCam ccs 波长",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "ChemCam ccs 平均谱 dust=True",
+      "passed": true,
+      "actual_shape": [
+        6144
+      ],
+      "reference_shape": [
+        6144
+      ],
+      "scalars": 6144,
+      "rtol": 2e-15,
+      "atol": 1e-12,
+      "max_abs_difference": 3.814697265625e-06
+    },
+    {
+      "name": "APXS eV→keV及首末通道剔除",
+      "passed": true,
+      "actual_shape": [
+        1022
+      ],
+      "reference_shape": [
+        1022
+      ],
+      "scalars": 1022,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "APXS 全部有效通道计数",
+      "passed": true,
+      "actual_shape": [
+        1022
+      ],
+      "reference_shape": [
+        1022
+      ],
+      "scalars": 1022,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "APXS RWP 全部成分和标准差原文",
+      "passed": true,
+      "components": 16
+    },
+    {
+      "name": "SHERLOC 699813450_405rrs LASER-NORMALIZED SPECTRA REGION 1",
+      "passed": true,
+      "actual_shape": [
+        50,
+        2148
+      ],
+      "reference_shape": [
+        50,
+        2148
+      ],
+      "scalars": 107400,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699813450_405rrs LASER-NORMALIZED SPECTRA REGION 1",
+      "passed": true,
+      "offset": 77313,
+      "records": 50,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699813450_405rrs LASER-NORMALIZED SPECTRA REGION 2",
+      "passed": true,
+      "actual_shape": [
+        50,
+        2148
+      ],
+      "reference_shape": [
+        50,
+        2148
+      ],
+      "scalars": 107400,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699813450_405rrs LASER-NORMALIZED SPECTRA REGION 2",
+      "passed": true,
+      "offset": 957245,
+      "records": 50,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699813450_405rrs LASER-NORMALIZED SPECTRA REGION 3",
+      "passed": true,
+      "actual_shape": [
+        50,
+        2148
+      ],
+      "reference_shape": [
+        50,
+        2148
+      ],
+      "scalars": 107400,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699813450_405rrs LASER-NORMALIZED SPECTRA REGION 3",
+      "passed": true,
+      "offset": 1894833,
+      "records": 50,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699813450_405rrs WAVELENGTH NM",
+      "passed": true,
+      "actual_shape": [
+        1,
+        2148
+      ],
+      "reference_shape": [
+        1,
+        2148
+      ],
+      "scalars": 2148,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699813450_405rrs WAVELENGTH NM",
+      "passed": true,
+      "offset": 26833,
+      "records": 1,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699814099_215rrs LASER-NORMALIZED SPECTRA REGION 1",
+      "passed": true,
+      "actual_shape": [
+        50,
+        2148
+      ],
+      "reference_shape": [
+        50,
+        2148
+      ],
+      "scalars": 107400,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699814099_215rrs LASER-NORMALIZED SPECTRA REGION 1",
+      "passed": true,
+      "offset": 77313,
+      "records": 50,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699814099_215rrs LASER-NORMALIZED SPECTRA REGION 2",
+      "passed": true,
+      "actual_shape": [
+        50,
+        2148
+      ],
+      "reference_shape": [
+        50,
+        2148
+      ],
+      "scalars": 107400,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699814099_215rrs LASER-NORMALIZED SPECTRA REGION 2",
+      "passed": true,
+      "offset": 959230,
+      "records": 50,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699814099_215rrs LASER-NORMALIZED SPECTRA REGION 3",
+      "passed": true,
+      "actual_shape": [
+        50,
+        2148
+      ],
+      "reference_shape": [
+        50,
+        2148
+      ],
+      "scalars": 107400,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699814099_215rrs LASER-NORMALIZED SPECTRA REGION 3",
+      "passed": true,
+      "offset": 1900319,
+      "records": 50,
+      "fields": 2148
+    },
+    {
+      "name": "SHERLOC 699814099_215rrs WAVELENGTH NM",
+      "passed": true,
+      "actual_shape": [
+        1,
+        2148
+      ],
+      "reference_shape": [
+        1,
+        2148
+      ],
+      "scalars": 2148,
+      "rtol": 0.0,
+      "atol": 0.0,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "SHERLOC XML行列契约 699814099_215rrs WAVELENGTH NM",
+      "passed": true,
+      "offset": 26833,
+      "records": 1,
+      "fields": 2148
+    },
+    {
+      "name": "APXS同序列不同SCLK各取自身成分（防串表）",
+      "passed": true,
+      "values": {
+        "406545731": 18.39,
+        "406545732": 31.25
+      }
+    },
+    {
+      "name": "冻结MOC样例 所有行与全部数值字段",
+      "passed": true,
+      "physical_rows": 3,
+      "unique_products": 3,
+      "duplicates": 0
+    },
+    {
+      "name": "冻结MOC样例 重复产品没有矛盾值",
+      "passed": true,
+      "conflicting_keys": []
+    },
+    {
+      "name": "冻结MOC样例 全部产品名→预测值匹配",
+      "passed": true,
+      "product_count": 3,
+      "mismatched_keys": []
+    },
+    {
+      "name": "冻结MOC样例 未收录产品不可借值",
+      "passed": true
+    },
+    {
+      "name": "40组不等间距/边界插值积分对独立SciPy一阶样条",
+      "passed": true,
+      "max_abs_difference": 2.1316282072803006e-14
+    },
+    {
+      "name": "高斯解析积分（离散误差限）",
+      "passed": true,
+      "actual_shape": [
+        1
+      ],
+      "reference_shape": [
+        1
+      ],
+      "scalars": 1,
+      "rtol": 0.0,
+      "atol": 2e-06,
+      "max_abs_difference": 1.3886210892266604e-07
+    },
+    {
+      "name": "30000次独立噪声模拟：积分σ",
+      "passed": true,
+      "relative_sigma_error": 0.0014129361247958716,
+      "empirical_sigma": 0.01572333942125344,
+      "predicted_sigma": 0.015701154692587278
+    },
+    {
+      "name": "30000次独立噪声模拟：重叠窗比值σ",
+      "passed": true,
+      "relative_sigma_error": 2.539131174306153e-05,
+      "empirical_sigma": 0.0012771508323631752,
+      "predicted_sigma": 0.0012771832617215267
+    },
+    {
+      "name": "60组峰形非负约束对独立SciPy BVLS",
+      "passed": true,
+      "max_relative_objective_error": 1.8570760938896413e-13,
+      "cases": 60
+    },
+    {
+      "name": "非负求解的所有峰形系数符合约束",
+      "passed": true
+    },
+    {
+      "name": "自由背景与峰形可由返回系数重建",
+      "passed": true,
+      "max_abs_difference": 1.8189894035458565e-12
+    },
+    {
+      "name": "有符号候选不截断比例以伪装物理解",
+      "passed": true,
+      "reported_rms": 4.197357211781668e-12,
+      "reconstructed_rms": 4.196957396811441e-12,
+      "eta": -0.4999999999995562
+    },
+    {
+      "name": "冻结随机种子合成谱形：类别真值ARI",
+      "passed": true,
+      "ari": 1.0,
+      "truth": "人工生成的三个高斯谱形，非矿物实测标签"
+    },
+    {
+      "name": "PCA子空间对独立sklearn实现（符号无关）",
+      "passed": true,
+      "actual_shape": [
+        161,
+        161
+      ],
+      "reference_shape": [
+        161,
+        161
+      ],
+      "scalars": 25921,
+      "rtol": 0.0,
+      "atol": 2e-12,
+      "max_abs_difference": 0.0
+    },
+    {
+      "name": "合成分型对独立sklearn KMeans",
+      "passed": true
+    },
+    {
+      "name": "真实数据稳健性实验完成（不是分类准确率）",
+      "passed": true,
+      "median_noise_ari": 0.504210004952947,
+      "median_subsample_ari": 1.0
+    },
+    {
+      "name": "离线官方MOC冻结版本",
+      "passed": true,
+      "actual_sha256": "fea407d53b7aaaeba44142e8a12c24a631b91dc733d166b175b922b5e1ddbcc2"
+    },
+    {
+      "name": "离线官方MOC全表 所有行与全部数值字段",
+      "passed": true,
+      "physical_rows": 12130,
+      "unique_products": 12121,
+      "duplicates": 9
+    },
+    {
+      "name": "离线官方MOC全表 重复产品没有矛盾值",
+      "passed": true,
+      "conflicting_keys": []
+    },
+    {
+      "name": "离线官方MOC全表 全部产品名→预测值匹配",
+      "passed": true,
+      "product_count": 12121,
+      "mismatched_keys": []
+    },
+    {
+      "name": "离线官方MOC全表 未收录产品不可借值",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.lbl",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.xml",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.lbl",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.xml",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/chemcam/sol00010/cl1_398380611psv_f0030000ccam04010p3.lbl",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.lbl",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.lbl",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/supercam/_moc/supercam_moc.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.fits",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.xml",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp3_scam01700_sharp_top_mountain___01p02.fits",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.fits",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.xml",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.xml",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.csv",
+      "passed": true
+    },
+    {
+      "name": "源文件未更改 02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.xml",
+      "passed": true
+    }
+  ],
+  "measurements": {
+    "versions": {
+      "python": "3.14.2",
+      "numpy": "2.4.3",
+      "astropy": "8.0.2",
+      "scipy": "1.17.1",
+      "sklearn": "1.8.0"
+    },
+    "uncertainty_scope": "仅独立同方差通道白噪声，比例误差用高SNR一阶近似；不含基线/标定/相关噪声。",
+    "real_cluster_stability": {
+      "scan": "Sol370 srlc11360",
+      "candidate_points": 14,
+      "base_sizes": [
+        1,
+        12,
+        1
+      ],
+      "noise_ari": [
+        0.7056603773584905,
+        0.7056603773584905,
+        1.0,
+        1.0,
+        0.7056603773584905,
+        0.7056603773584905,
+        0.19646799116997793,
+        0.33302794319743473,
+        0.3627450980392157,
+        0.21509433962264152,
+        0.3627450980392157,
+        0.08291342189647274,
+        1.0,
+        1.0,
+        0.3627450980392157,
+        0.504210004952947,
+        0.7056603773584905,
+        1.0,
+        1.0,
+        0.1887072808320951,
+        0.7056603773584905,
+        0.504210004952947,
+        1.0,
+        0.504210004952947,
+        0.1503267973856209,
+        0.21075455333911536,
+        0.504210004952947,
+        0.1562913907284768,
+        0.48688404020593284,
+        0.7056603773584905
+      ],
+      "subsample_80_percent_ari": [
+        1.0,
+        0.30097087378640774,
+        1.0,
+        0.6829971181556196,
+        0.21739130434782608,
+        0.6829971181556196,
+        1.0,
+        0.6829971181556196,
+        0.6829971181556196,
+        0.30097087378640774,
+        1.0,
+        1.0,
+        0.21739130434782608,
+        0.4065934065934066,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.6829971181556196,
+        0.21739130434782608,
+        1.0,
+        0.30097087378640774,
+        0.6829971181556196,
+        1.0,
+        1.0,
+        0.6829971181556196,
+        1.0,
+        1.0
+      ],
+      "k_sensitivity": {
+        "2": {
+          "sizes": [
+            1,
+            13
+          ],
+          "ari_vs_k3": 0.6111111111111112
+        },
+        "3": {
+          "sizes": [
+            1,
+            12,
+            1
+          ],
+          "ari_vs_k3": 1.0
+        },
+        "4": {
+          "sizes": [
+            1,
+            8,
+            4,
+            1
+          ],
+          "ari_vs_k3": 0.3686036426712923
+        }
+      },
+      "interpretation": "稳健性诊断，不设伪造的科学通过线；小组不自动等于新矿物。"
+    }
+  },
+  "inputs": [
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.csv",
+      "sha256": "a3c2534b90cb5e359feb17d0e037148a55e9c4575baa1143baad43a4610ccecb",
+      "actual_sha256": "a3c2534b90cb5e359feb17d0e037148a55e9c4575baa1143baad43a4610ccecb"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.lbl",
+      "sha256": "26cdd39300b6fb6b504b60866ef3fd631bf5c7e0f1c2dc14a9923d40dae9852c",
+      "actual_sha256": "26cdd39300b6fb6b504b60866ef3fd631bf5c7e0f1c2dc14a9923d40dae9852c"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.xml",
+      "sha256": "5de7679f153fbe8e0136e568aaf3a8446c4f5194fcd41910274f2eb7debc1304",
+      "actual_sha256": "5de7679f153fbe8e0136e568aaf3a8446c4f5194fcd41910274f2eb7debc1304"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.csv",
+      "sha256": "3c18f3f8a8610768dc546682f4c9819baf8f7e706ffdda9eb17232f20e915e1b",
+      "actual_sha256": "3c18f3f8a8610768dc546682f4c9819baf8f7e706ffdda9eb17232f20e915e1b"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.lbl",
+      "sha256": "486dac6bc08b5b0c0d3d01ca208628cc1495bd7f95a2477adbac905d86f5afe0",
+      "actual_sha256": "486dac6bc08b5b0c0d3d01ca208628cc1495bd7f95a2477adbac905d86f5afe0"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/apxs/sol00102/apa_406545731rwp01020050178_______p1.xml",
+      "sha256": "af33e753208ceeabad907966eb6552e9f4c4a317fd63220a7d38a64e90e9d9ba",
+      "actual_sha256": "af33e753208ceeabad907966eb6552e9f4c4a317fd63220a7d38a64e90e9d9ba"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00010/cl1_398380611psv_f0030000ccam04010p3.lbl",
+      "sha256": "1207d68fb224a68e2f14ce7c2435f68f214d2af511a3006de1ec2eae5f5331cb",
+      "actual_sha256": "1207d68fb224a68e2f14ce7c2435f68f214d2af511a3006de1ec2eae5f5331cb"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.csv",
+      "sha256": "5bce4c8efb9a10467f4d0e7b5987ea782ddc59f83aa145d1b64451c156cfa651",
+      "actual_sha256": "5bce4c8efb9a10467f4d0e7b5987ea782ddc59f83aa145d1b64451c156cfa651"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626CCS_F0030004CCAM02013P3.lbl",
+      "sha256": "3b9b1822cd7ddcd921b738c3cdc8b7b09b5c529d035149ff2d708905dcd6686d",
+      "actual_sha256": "3b9b1822cd7ddcd921b738c3cdc8b7b09b5c529d035149ff2d708905dcd6686d"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.csv",
+      "sha256": "558fcbcefead3dddc8b0829fab01b6719f932797697df7e6d1fc8b1b44f19913",
+      "actual_sha256": "558fcbcefead3dddc8b0829fab01b6719f932797697df7e6d1fc8b1b44f19913"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/chemcam/sol00013/CL5_398645626RDR_F0030004CCAM02013P3.lbl",
+      "sha256": "7cd6027100812168805bf98dc34d9b181017f3b2fa5ab982d0ac8dbdfe2b4502",
+      "actual_sha256": "7cd6027100812168805bf98dc34d9b181017f3b2fa5ab982d0ac8dbdfe2b4502"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/_moc/supercam_moc.csv",
+      "sha256": "0eda76a395412e13e6e476a5cd9415612f0fdffac0bc32ef8a64827dd3347c54",
+      "actual_sha256": "0eda76a395412e13e6e476a5cd9415612f0fdffac0bc32ef8a64827dd3347c54"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.fits",
+      "sha256": "c9f47ba4662da6c437cb766284534086c3e22f82c8cc288b183b0ed41ca792cf",
+      "actual_sha256": "c9f47ba4662da6c437cb766284534086c3e22f82c8cc288b183b0ed41ca792cf"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp2_scam01700_sharp_top_mountain___01p01.xml",
+      "sha256": "d7547a14cbb9604555707fa0973dff8e1abeba8ec45b263f17c71aad0a42b448",
+      "actual_sha256": "d7547a14cbb9604555707fa0973dff8e1abeba8ec45b263f17c71aad0a42b448"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00700/scam_0700_0729077105_539_cp3_scam01700_sharp_top_mountain___01p02.fits",
+      "sha256": "563260cf270d0ed9c40b01fcd0a0778b11c804ef417cd60b9489379d0a09b27f",
+      "actual_sha256": "563260cf270d0ed9c40b01fcd0a0778b11c804ef417cd60b9489379d0a09b27f"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.fits",
+      "sha256": "26387d1512796afdd1c9e8cf66b97cb760f4c6462b48e839a4ae75fdf7c646fe",
+      "actual_sha256": "26387d1512796afdd1c9e8cf66b97cb760f4c6462b48e839a4ae75fdf7c646fe"
+    },
+    {
+      "path": "01_软件工作台/verify/fixtures/supercam/sol_00998/scam_0998_0755522849_085_cl1_scam02998_aegis_0998a__________06p01.xml",
+      "sha256": "559db4d52195392068fc69c474d6194e919d6b55d05271090d22ff6cfbde5d1a",
+      "actual_sha256": "559db4d52195392068fc69c474d6194e919d6b55d05271090d22ff6cfbde5d1a"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.csv",
+      "sha256": "918970847e7cc1923e22451ce3d0834b69150e41ca56c27fa887e5e9ef017f82",
+      "actual_sha256": "918970847e7cc1923e22451ce3d0834b69150e41ca56c27fa887e5e9ef017f82"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699813450_405rrs__0110108srlc11360w108cgnj02.xml",
+      "sha256": "b53d02f0bebd4affb8a8c86b8c86e59fe08b58a440089289b1425d542c4dcb52",
+      "actual_sha256": "b53d02f0bebd4affb8a8c86b8c86e59fe08b58a440089289b1425d542c4dcb52"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.csv",
+      "sha256": "2341b97bbe7c0f834d9aba3e0dd749d22abe7dbcb92c824e7268bda60b868cae",
+      "actual_sha256": "2341b97bbe7c0f834d9aba3e0dd749d22abe7dbcb92c824e7268bda60b868cae"
+    },
+    {
+      "path": "02_练习数据与验证基准/processed/sol_00370/ss__0370_0699814099_215rrs__0110108srlc11360w208cgnj02.xml",
+      "sha256": "9550103dc73346a8c8a3de1e63a6a1ef4885dddfc1378818d313b08f0beefce7",
+      "actual_sha256": "9550103dc73346a8c8a3de1e63a6a1ef4885dddfc1378818d313b08f0beefce7"
+    }
+  ],
+  "software_files": {
+    "analyse_features.py": "56e2d806d12ab8db9e8e9e71cafbdb7e4e9e08a34ed821e09509d0a00f409b72",
+    "console.py": "21b37d6b0e1825fa02876f9e2a78217074aac9bb286ef7d36fb6d0117a03ac81",
+    "launch.py": "1056e3e2623590fe41c76363a74b46d1fbfb5e3362248c1f41295c2dec7d4f3a",
+    "make_mineral_map.py": "d495fe625a16eeb8104f079a08610740903105a97416cba925bd55fdbd9df33d",
+    "review_peak_fits.py": "88b85f673edbe8a6146fbaf683504dcec082e6c9d702c27fc96d5c4e2b3ac70a",
+    "run_qc.py": "c3199822e79f9b10496e0e29f1a960b5b226f6ea7375d3238f66c88e6c7a4938",
+    "view.py": "7f6652df845fb3a31c4613455d34d25482e4368bdae66d0a3aed870aa8cb228d",
+    "instruments\\apxs.py": "c72ff09a0a07b44ed1caf2a31d2561e2c174f0e5853dff554f6f7bd64884c27b",
+    "instruments\\base.py": "2b2a2b6c6d92fbdc411c2150bae1aaefce4ff84520bacb5130e593196b051be9",
+    "instruments\\chemcam.py": "70da9ed94778013f796ed74851171131ed2c13dcbe3f4f245e5289e8fa81a4a0",
+    "instruments\\fitsio.py": "dd9e4c0b6650197297828f49fcc81fa5aec8ac9d9aaf2e1d21e50846b402f890",
+    "instruments\\lines.py": "d9aa76e42553b5cd9642cabb833c160ac05c7dce873790d7d2ee4780c832a4c7",
+    "instruments\\pds3.py": "ff003fa73ce19acbdbe2ed3cef5debc28dc135334037449a5b464eec71d468ef",
+    "instruments\\pds_listing.py": "4d84b03c920b9f91064b54841f029d1a2176748ceddc8cc26dcf2e8af48ca22c",
+    "instruments\\report.py": "d911544fcda976cac5955cfea0fed0ca91bb6f90934a8547a3dc5673f670bb0f",
+    "instruments\\supercam.py": "61c3afb4647542190fd2e3c2659847d1383981c5b1f9902750f5250178c7227f",
+    "instruments\\__init__.py": "cd44ba5804e599d8e0c03fdf0e66db50b94d5520ca52e5e600072db71184c2de",
+    "sherloc\\aci.py": "67c590889afcc69d6fa32d77aff757f35e046e0a227d54129f2f8bb526279e21",
+    "sherloc\\colorize.py": "733bd445a87f15a9f08516458815f02e9b2dae948a188a49924b0d68aad8daab",
+    "sherloc\\desktop.py": "77f2c0441483928fb9844e039dc1557f20c1612ed791d7eb64730ef2b41b704b",
+    "sherloc\\explore.py": "7d56521f62d6deb3c4f9dcef9a11e024a6d1a5d929619689adf1651746ea8891",
+    "sherloc\\fitting.py": "6230aca740f45bddabaa69ab284422d6fb75dd16a84bd0223790eb8cf152b8c3",
+    "sherloc\\label.py": "aad86be1d545e985a227c7934c03d211038632173b57f7fcb484113f860e36a1",
+    "sherloc\\library.py": "e8878f010bcec6e424f223106fa0972ddee701fb594a68c3c534c80f568f6dda",
+    "sherloc\\minerals.py": "6872779d80a3b2c0014ae880d5b909e2d5019fd75e84df0c005069340933acd4",
+    "sherloc\\organize.py": "0baa7a88bb6433891d1b31ce63f123474bcb8ba4b2deb02fee8427c1657f9b3e",
+    "sherloc\\peaks.py": "364b093390a50a15a4d323abe5b0f687290f7ffc130722948e9f3f9f89efa1e2",
+    "sherloc\\pixl.py": "1197035677c371d6e9bd73af3d11c35570a1d832251cfde11fd5a53ef329fe32",
+    "sherloc\\preprocess.py": "c3d6e5f6d0bae9bb0077bec5b376d6e03e620991a8d4fcdc398759a656ee8e21",
+    "sherloc\\qc.py": "c1d4218f72ef83661f7efc00e9b5330c726a7aa3387affb1f9023286db49cc87",
+    "sherloc\\reader.py": "4edb3f7628d3df7e23c59a81c0b5c20da706e1aef467731d8768d305d99a546c",
+    "sherloc\\render.py": "9f270b5daa7dc54c88c4029b2422bc649971e1c0952ece763fbb3253d1e8441a",
+    "sherloc\\vicar.py": "30432ab1a8158f35e9c1587024310965276532f219a9b0c493d2ae132377c489",
+    "sherloc\\watson.py": "35ccf9376fab88943e5ce56dcc8153c61d436a8181e7ff0ed04a3591365604a8",
+    "sherloc\\workbench.py": "db34956d137568d1b825ed4a29e739abb8ccb0b979d660cbdb5fd579959c2638",
+    "verify\\independent_check.py": "3db28ac4b00087247fe19865da8218994b38c3d69339baff8122b13ebdb39f05",
+    "verify\\independent_manifest.json": "a4fa57df25430e64e1a2642ef58504ba77e2e3d3575c239482d78f9fdcd0140c"
+  },
+  "limits": [
+    "尚无独立盲标的矿物阳性/阴性真值，不能给出真实矿物准确率、假阳性率或假阴性率。",
+    "官方成分表一致性不验证官方模型本身的准确率。",
+    "读取审计覆盖固定样例及记录的产品版本，不代表全任务所有产品。",
+    "分型稳定性不证明类别具有矿物学含义；光谱预处理仍需独立标定验证。"
+  ],
+  "summary": {
+    "checks": 175,
+    "failures": 0,
+    "online_requested": false,
+    "scientific_mineral_accuracy": "not_evaluated_no_independent_labels"
+  }
+}

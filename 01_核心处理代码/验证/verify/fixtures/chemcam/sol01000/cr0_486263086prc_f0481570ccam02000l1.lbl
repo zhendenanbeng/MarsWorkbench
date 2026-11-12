@@ -1,0 +1,344 @@
+PDS_VERSION_ID                    = PDS3
+
+/* FILE DATA ELEMENTS */
+
+RECORD_TYPE                       = UNDEFINED
+
+/* POINTERS TO DATA OBJECTS */
+
+^TIFFID_HEADER               = ("CR0_486263086PRC_F0481570CCAM02000L1.TIF",
+                               1 <BYTES>)
+^IMAGE                       = ("CR0_486263086PRC_F0481570CCAM02000L1.TIF",
+                               9 <BYTES>)
+^TIFFTAG_HEADER              = ("CR0_486263086PRC_F0481570CCAM02000L1.TIF", 
+                               2097161 <BYTES>)
+
+
+/* IDENTIFICATION DATA ELEMENTS */
+
+ MSL:ACTIVE_FLIGHT_STRING_ID      = "B"
+ DATA_SET_ID                      = "MSL-M-CHEMCAM-RMI-5-RDR-V1.0"
+ DATA_SET_NAME                    = "MSL MARS CHEMCAM REMOTE MICRO-IMAGER
+                                       CAMERA 5 RDR V1.0"
+ COMMAND_SEQUENCE_NUMBER          = 3
+ FRAME_ID                         = "MONO"
+ FRAME_TYPE                       = MONO
+ GEOMETRY_PROJECTION_TYPE         = RAW
+ IMAGE_TYPE                       = REGULAR
+ INSTRUMENT_HOST_ID               = "MSL"
+ INSTRUMENT_HOST_NAME             = "MARS SCIENCE LABORATORY"
+ INSTRUMENT_ID                    = "CHEMCAM_RMI"
+ INSTRUMENT_NAME                  = "CHEMISTRY CAMERA REMOTE MICRO-IMAGER"
+ INSTRUMENT_TYPE                  = "IMAGING CAMERA"
+ INSTRUMENT_VERSION_ID            = "FM"
+ MSL:LOCAL_MEAN_SOLAR_TIME        = "Sol-01000M11:24:37.896"
+ LOCAL_TRUE_SOLAR_TIME            = "10:38:24"
+ MISSION_NAME                     = "MARS SCIENCE LABORATORY"
+ MISSION_PHASE_NAME               = "EXTENDED SURFACE MISSION"
+ PLANET_DAY_NUMBER                = 1000
+ PRODUCER_INSTITUTION_NAME        = "INSTITUT DE RECHERCHE EN ASTROPHYSIQUE
+                                       ET PLANETOLOGIE"
+ PRODUCT_CREATION_TIME            =  2018-01-09T09:16:21.000
+ PRODUCT_ID                       =  "CR0_486263086PRC_F0481570CCAM02000L1"
+ PRODUCT_VERSION_ID               = "V1.0 D-38107"
+ RELEASE_ID                       = "0017"
+ MSL:REQUEST_ID                   = "0"
+ ROVER_MOTION_COUNTER             = (48,1570,82,272,0,0,376,162,24,0)
+ ROVER_MOTION_COUNTER_NAME        = ("SITE","DRIVE","POSE","ARM","CHIMRA",
+                                    "DRILL","RSM","HGA","DRT","IC")
+ SEQUENCE_ID                      = "ccam02000"
+ SEQUENCE_VERSION_ID              = "10"
+ SOLAR_LONGITUDE                  = 350.384
+ SOURCE_PRODUCT_ID                = "CR0_486263086EDR_F0481570CCAM02000M1"
+ SPACECRAFT_CLOCK_CNT_PARTITION   = 1
+ SPACECRAFT_CLOCK_START_COUNT     = "486263086.147"
+ SPACECRAFT_CLOCK_STOP_COUNT      = "486263086.167"
+ START_TIME                       = 2015-05-30T13:20:50.177
+ STOP_TIME                        = 2015-05-30T13:20:50.197
+ TARGET_NAME                      = "MARS"
+ TARGET_TYPE                      = PLANET
+
+/* TELEMETRY DATA ELEMENTS */
+
+ APPLICATION_PROCESS_ID           = 128
+ APPLICATION_PROCESS_NAME         = "CcamRmiImageIcer"
+ EARTH_RECEIVED_START_TIME        = 2015-05-30T18:38:50.441
+ EARTH_RECEIVED_STOP_TIME         = 2015-05-30T18:39:06.232
+ EXPECTED_PACKETS                 = 37
+ RECEIVED_PACKETS                 = 37
+ SPICE_FILE_NAME                  = "chronos.msl"
+ TELEMETRY_PROVIDER_ID            = "MPCS_MSL_DP"
+ MSL:TELEMETRY_SOURCE_HOST_NAME   = "mslsmsampcs1"
+ TELEMETRY_SOURCE_NAME            = "CcamRmiImageIcer_0486263086-09687-1.dat"
+ MSL:TELEMETRY_SOURCE_TYPE        = "DATA PRODUCT"
+ MSL:COMMUNICATION_SESSION_ID     = "30002"
+ MSL:EXPECTED_TRANSMISSION_PATH   = "3851"
+ MSL:FLIGHT_SOFTWARE_MODE         = "8"
+ FLIGHT_SOFTWARE_VERSION_ID       = "208889339"
+ MSL:PRODUCT_COMPLETION_STATUS    = COMPLETE_CHECKSUM_PASS
+ MSL:PRODUCT_TAG                  = "0"
+ MSL:SEQUENCE_EXECUTION_COUNT     = 1
+ MSL:TELEMETRY_SOURCE_SIZE        = 264195
+ MSL:TELEMETRY_SOURCE_CHECKSUM    = 43673
+ MSL:TELEMETRY_SOURCE_START_TIME  = 2015-150T13:20:50.179
+ MSL:TELEMETRY_SOURCE_SCLK_START  = "486263086.096"
+ MSL:AUTO_DELETE_FLAG             = "FALSE"
+ MSL:TRANSMISSION_PATH            = "65535"
+ MSL:VIRTUAL_CHANNEL_ID           = "32"
+
+/* HISTORY DATA ELEMENTS */
+
+ GROUP                            = PDS_HISTORY_PARMS
+   SOFTWARE_NAME                  = "RMI_PROCESSING.PRO"
+   SOFTWARE_VERSION_ID            = "V4.9b 02 Apr 2013"
+   PROCESSING_HISTORY_TEXT        = "EDR IMAGE PARTIALLY RADIOMETRICALLY 
+                                    CORRECTED INTO RDR TIFF FILE VIA IRAP 
+                                    RMI_PROCESSING"
+ END_GROUP                        = PDS_HISTORY_PARMS
+
+/* COORDINATE SYSTEM STATE: ROVER */
+
+GROUP                             = ROVER_COORDINATE_SYSTEM
+  COORDINATE_SYSTEM_NAME          = "ROVER_NAV_FRAME"
+  COORDINATE_SYSTEM_INDEX         = (48,1570,82,272,0,0,376,162,24,0)
+  COORDINATE_SYSTEM_INDEX_NAME    = ("SITE","DRIVE","POSE","ARM","CHIMRA",
+                                    "DRILL","RSM","HGA","DRT","IC")
+  ORIGIN_OFFSET_VECTOR            = (-2.58878,-73.3402,-2.44594)
+  ORIGIN_ROTATION_QUATERNION      = (0.332161,-0.0754662,-0.0622262,0.938137)
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+  POSITIVE_ELEVATION_DIRECTION    = UP
+  REFERENCE_COORD_SYSTEM_NAME     = "SITE_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = 48
+END_GROUP                         = ROVER_COORDINATE_SYSTEM
+
+/* COORDINATE SYSTEM STATE: REMOTE SENSING MAST */
+
+GROUP                             = RSM_COORDINATE_SYSTEM
+  COORDINATE_SYSTEM_NAME          = "RSM_HEAD_FRAME"
+  COORDINATE_SYSTEM_INDEX         = (48,1570,82,272,0,0,376,162,24,0)
+  COORDINATE_SYSTEM_INDEX_NAME    = ("SITE","DRIVE","POSE","ARM","CHIMRA",
+                                    "DRILL","RSM","HGA","DRT","IC")
+  ORIGIN_OFFSET_VECTOR            = (0.804563,0.559301,-1.90608)
+  ORIGIN_ROTATION_QUATERNION      = (0.462421,0.396122,-0.2409,0.755792)
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+  POSITIVE_ELEVATION_DIRECTION    = UP
+  REFERENCE_COORD_SYSTEM_NAME     = "ROVER_NAV_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,376,162,24,0)
+END_GROUP                         = RSM_COORDINATE_SYSTEM
+
+/* ARTICULATION DEVICE STATE: REMOTE SENSING MAST */
+
+GROUP                             = RSM_ARTICULATION_STATE
+  ARTICULATION_DEVICE_ID          = "RSM"
+  ARTICULATION_DEVICE_NAME        = "REMOTE SENSING MAST"
+  ARTICULATION_DEVICE_ANGLE       = (5.21034 <rad>,0.622555 <rad>,
+                                    5.21296 <rad>,0.626857 <rad>,
+                                    5.27413 <rad>,0.642949 <rad>,
+                                    5.21298 <rad>,0.62686 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("AZIMUTH-MEASURED","ELEVATION-MEASURED",
+                                    "AZIMUTH-REQUESTED","ELEVATION-REQUESTED",
+                                    "AZIMUTH-INITIAL","ELEVATION-INITIAL",
+                                    "AZIMUTH-FINAL","ELEVATION-FINAL")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = RSM_ARTICULATION_STATE
+
+/* ARTICULATION DEVICE STATE: MOBILITY CHASSIS */
+
+GROUP                             = CHASSIS_ARTICULATION_STATE
+  ARTICULATION_DEVICE_ID          = "CHASSIS"
+  ARTICULATION_DEVICE_NAME        = "MOBILITY CHASSIS"
+  ARTICULATION_DEVICE_ANGLE       = (-4.26106e-05 <rad>,-4.26106e-05 <rad>,
+                                    -0.000127832 <rad>,4.26106e-05 <rad>,
+                                    0.0148489 <rad>,0.186837 <rad>,
+                                    0.0275015 <rad>,-0.029031 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("LEFT FRONT WHEEL","RIGHT FRONT WHEEL",
+                                    "LEFT REAR WHEEL","RIGHT REAR WHEEL",
+                                    "LEFT BOGIE","RIGHT BOGIE","LEFT 
+                                    DIFFERENTIAL","RIGHT DIFFERENTIAL")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = CHASSIS_ARTICULATION_STATE
+
+/* OBSERVATION REQUEST */
+
+GROUP                             = OBSERVATION_REQUEST_PARMS
+  DETECTOR_ERASE_COUNT            = UNK
+  EXPOSURE_TYPE                   = AUTO
+  EXPOSURE_DURATION_COUNT         = 20
+  INSTRUMENT_COORDINATE           = (-1.373,-1.4359,-0.3516)
+  INSTRUMENT_COORDINATE_NAME      = ("X","Y","Z")
+  MSL:INSTRUMENT_COORD_FRAME_ID   = "LL"
+  MSL:INSTRUMENT_COORD_FRAME_INDEX= 0
+  GAIN_NUMBER                     = 78
+  MSL:INSTRUMENT_FOCUS_INIT_FLAG  = "FALSE"
+  MSL:INSTRUMENT_FOCUS_MODE       = BASELINE
+  MSL:INSTRUMENT_FOCUS_DISTANCE   = 2390 <mm>
+  INSTRUMENT_MODE_ID              = "UNK"
+  OFFSET_MODE_ID                  = "204"
+  MSL:START_IMAGE_ID              = 0
+  MSL:VALID_MINIMUM_PIXEL         = 256
+  MSL:VALID_MAXIMUM_PIXEL         = 760
+END_GROUP                         = OBSERVATION_REQUEST_PARMS
+
+/* IMAGE REQUEST */
+
+GROUP                             = IMAGE_REQUEST_PARMS
+  SOURCE_ID                       = "UNK"
+  GROUP_APPLICABILITY_FLAG        = "TRUE"
+  DOWNLOAD_PRIORITY               = "UNK"
+  PIXEL_DOWNSAMPLE_OPTION         = "UNK"
+  PIXEL_AVERAGING_HEIGHT          = "UNK"
+  PIXEL_AVERAGING_WIDTH           = "UNK"
+  SAMPLE_BIT_MODE_ID              = "UNK"
+  INST_CMPRS_MODE                 = 4
+  INST_CMPRS_RATE                 = 6.0
+  INST_CMPRS_QUALITY              = 2
+  INST_CMPRS_FILTER               = "UNK"
+  INST_CMPRS_SEGMENTS             = 32
+  INST_DECOMP_STAGES              = 4
+END_GROUP                         = IMAGE_REQUEST_PARMS
+
+/* SUBFRAME REQUEST */
+
+GROUP                             = SUBFRAME_REQUEST_PARMS
+  SOURCE_ID                       = "UNK"
+  GROUP_APPLICABILITY_FLAG        = "FALSE"
+  SUBFRAME_TYPE                   = "UNK"
+  FIRST_LINE                      = 1
+  FIRST_LINE_SAMPLE               = 1
+  LINES                           = 1024
+  LINE_SAMPLES                    = 1024
+END_GROUP                         = SUBFRAME_REQUEST_PARMS
+
+/* THUMBNAIL REQUEST */
+
+GROUP                             = THUMBNAIL_REQUEST_PARMS
+  SOURCE_ID                       = "UNK"
+  GROUP_APPLICABILITY_FLAG        = "FALSE"
+  DOWNLOAD_PRIORITY               = 34
+  LINES                           = 64
+  LINE_SAMPLES                    = 64
+  SAMPLE_BIT_MODE_ID              = "UNK"
+  INST_CMPRS_MODE                 = "N/A"
+  INST_CMPRS_RATE                 = "N/A"
+  INST_CMPRS_QUALITY              = "N/A"
+  INST_CMPRS_FILTER               = "N/A"
+  INST_CMPRS_SEGMENTS             = "N/A"
+  INST_DECOMP_STAGES              = "N/A"
+END_GROUP                         = THUMBNAIL_REQUEST_PARMS
+
+/* REFERENCE PIXEL REQUEST */
+
+GROUP                             = REFERENCE_PIXEL_REQUEST_PARMS
+  GROUP_APPLICABILITY_FLAG        = "FALSE"
+  DOWNLOAD_PRIORITY               = 77
+END_GROUP                         = REFERENCE_PIXEL_REQUEST_PARMS
+
+/* INSTRUMENT STATE RESULTS */
+
+GROUP                             = INSTRUMENT_STATE_PARMS
+  AZIMUTH_FOV                     = 1.15825 <deg>
+  ELEVATION_FOV                   = 1.15598 <deg>
+  BAD_PIXEL_REPLACEMENT_ID        = "UNK"
+  DETECTOR_FIRST_LINE             = "UNK"
+  DETECTOR_LINES                  = "UNK"
+  DETECTOR_TO_IMAGE_ROTATION      = "UNK"
+  EXPOSURE_COUNT                  = "UNK"
+  EXPOSURE_DURATION               = 20.0 <ms>
+  EXPOSURE_DURATION_COUNT         = 20
+  FLAT_FIELD_CORRECTION_FLAG      = "UNK"
+  FLAT_FIELD_CORRECTION_PARM      = ("UNK","UNK","UNK","UNK","UNK")
+  INSTRUMENT_MODE_ID              = "UNK"
+  INSTRUMENT_TEMPERATURE          = (-29.2298 <degC>,-29.2298 <degC>,
+                                    -16.797 <degC>,-16.797 <degC>,
+                                    -16.797 <degC>,-16.797 <degC>,
+                                    -7.05008 <degC>,-0.885405 <degC>,
+                                    12.7241 <degC>,12.7241 <degC>)
+  INSTRUMENT_TEMPERATURE_NAME     = ("MU_OBOX_TELESCOPE","MU_LASER_IF",
+                                    "MU_EBOX_HEATSINK","MU_EBOX_FPGA",
+                                    "BU_CCD_VNIR_B","BU_SPEC_B","BU_CCD_UV_A",
+                                    "BU_SPEC_A","BU_DEMUX_A","BU_DEMUX_B")
+  MSL:INSTRUMENT_TEMPERATURE_STATUS = (0,-42,0,-42,-42,-42,0,0,0,-42)
+  OFFSET_MODE_ID                  = "204"
+  PIXEL_AVERAGING_HEIGHT          = "UNK"
+  PIXEL_AVERAGING_WIDTH           = "UNK"
+  SAMPLE_BIT_METHOD               = "UNK"
+  SAMPLE_BIT_MODE_ID              = "UNK"
+  SHUTTER_EFFECT_CORRECTION_FLAG  = "UNK"
+END_GROUP                         = INSTRUMENT_STATE_PARMS
+
+/* COMPRESSION RESULTS */
+
+GROUP                             = COMPRESSION_PARMS
+  ERROR_PIXELS                    = 0
+  INST_CMPRS_FILTER               = E
+  INST_CMPRS_MODE                 = 1
+  INST_CMPRS_NAME                 = "ICER"
+  INST_CMPRS_RATE                 = 1.98703
+  INST_CMPRS_RATIO                = 6.03916
+  INST_CMPRS_SEGMENTS             = 32
+  INST_CMPRS_SEGMENT_QUALITY      = (2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,
+                                    2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,
+                                    2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,
+                                    2.0,2.0)
+  INST_CMPRS_SEGMENT_STATUS       = ("0","0","0","0","0","0","0","0","0","0",
+                                    "0","0","0","0","0","0","0","0","0","0",
+                                    "0","0","0","0","0","0","0","0","0","0",
+                                    "0","0")
+  INST_CMPRS_SEG_FIRST_LINE       = (1,1,1,1,1,161,161,161,161,161,321,321,
+                                    321,321,321,481,481,481,481,481,641,641,
+                                    641,641,641,641,833,833,833,833,833,833)
+  INST_CMPRS_SEG_FIRST_LINE_SAMP  = (1,193,401,609,817,1,193,401,609,817,1,
+                                    193,401,609,817,1,193,401,609,817,1,161,
+                                    321,497,673,849,1,161,321,497,673,849)
+  INST_CMPRS_SEG_LINES            = (160,160,160,160,160,160,160,160,160,160,
+                                    160,160,160,160,160,160,160,160,160,160,
+                                    192,192,192,192,192,192,192,192,192,192,
+                                    192,192)
+  INST_CMPRS_SEG_SAMPLES          = (192,208,208,208,208,192,208,208,208,208,
+                                    192,208,208,208,208,192,208,208,208,208,
+                                    160,160,176,176,176,176,160,160,176,176,
+                                    176,176)
+  INST_CMPRS_SEG_MISSING_PIXELS   = "N/A"
+  INST_DECOMP_STAGES              = 4
+END_GROUP                         = COMPRESSION_PARMS
+
+/* DERIVED GEOMETRY DATA ELEMENTS: ROVER FRAME */
+
+GROUP                             = ROVER_DERIVED_GEOMETRY_PARMS
+  INSTRUMENT_AZIMUTH              = 117.349 <deg>
+  INSTRUMENT_ELEVATION            = -55.4283 <deg>
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,376,162,24,0)
+  REFERENCE_COORD_SYSTEM_NAME     = "ROVER_NAV_FRAME"
+END_GROUP                         = ROVER_DERIVED_GEOMETRY_PARMS
+
+/* DESCRIPTIONS OF OBJECTS IN THE DATA FILE */
+
+OBJECT                            = TIFFID_HEADER
+  BYTES                           = 8
+  HEADER_TYPE                     = "N/A"
+  DESCRIPTION                     = "Bytes 1-2: 'II' for LSB
+                                     bytes 3-4: 42,
+                                     bytes 5-8: offset to TIFF tags."
+END_OBJECT                        = TIFFID_HEADER
+
+OBJECT                            = IMAGE
+  INTERCHANGE_FORMAT              = BINARY
+  LINES                           = 1024
+  LINE_SAMPLES                    = 1024
+  SAMPLE_TYPE                     = LSB_UNSIGNED_INTEGER
+  SAMPLE_BITS                     = 16
+  BANDS                           = 1
+  BAND_STORAGE_TYPE               = BAND_SEQUENTIAL
+  FIRST_LINE                      = 1
+  FIRST_LINE_SAMPLE               = 1
+  INVALID_CONSTANT                = 0.0
+  MISSING_CONSTANT                = 0.0
+END_OBJECT                        = IMAGE
+
+OBJECT                            = TIFFTAG_HEADER
+  BYTES                           = 2429
+  HEADER_TYPE                     = "N/A"
+  DESCRIPTION                     = "TIFF tags"
+END_OBJECT                        = TIFFTAG_HEADER
+
+END

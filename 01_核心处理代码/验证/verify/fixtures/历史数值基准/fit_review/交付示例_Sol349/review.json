@@ -1,0 +1,768 @@
+{
+  "generated_utc": "2026-10-23T11:27:01.273341+00:00",
+  "method": "有符号经验候选与非负峰形系数+自由线性背景对照",
+  "limits": "固定组平均谱复核；非独立矿物真值验证，不自动改类别。两条路径共用候选点和基线。",
+  "scans": [
+    {
+      "sol": "349",
+      "seq": "srlc11420",
+      "sclk": "0697952686.570",
+      "groups": [
+        {
+          "group": 1,
+          "points": [
+            80,
+            109,
+            155,
+            346,
+            407,
+            830,
+            886,
+            940,
+            1043,
+            1102,
+            1234,
+            1242
+          ],
+          "default_classes": [
+            "橄榄石"
+          ],
+          "candidate": {
+            "amp": 54.90503604852637,
+            "center": 836.870542352357,
+            "fwhm": 48.0,
+            "eta": -4.156777262574242,
+            "rms": 9.73535504541855,
+            "slope": -0.2512578863981787,
+            "intercept": 306.0382223427482,
+            "at_bound": false,
+            "c1": 283.1330414958599,
+            "c2": -228.22800544733354,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 9.735355045418551
+          },
+          "physical": {
+            "amp": 79.15731115078411,
+            "center": 839.870542352357,
+            "fwhm": 48.0,
+            "eta": 0.0,
+            "rms": 10.827486138194212,
+            "slope": -0.5727098719047046,
+            "intercept": 559.9612656819615,
+            "at_bound": false,
+            "c1": 79.15731115078411,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 10.827486138194205
+          },
+          "review_reasons": [
+            "候选需要负峰形系数"
+          ],
+          "status": "需复核",
+          "csv": "group_001.csv"
+        },
+        {
+          "group": 2,
+          "points": [
+            44,
+            97,
+            306,
+            326,
+            458,
+            709
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 127.40038424999614,
+            "center": 1100.5996719147442,
+            "fwhm": 75.0,
+            "eta": -6.192048550381533,
+            "rms": 22.107599657980078,
+            "slope": -2.31127375298729,
+            "intercept": 2494.1615904414116,
+            "at_bound": false,
+            "c1": 916.269748863235,
+            "c2": -788.8693646132389,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 22.107599657980064
+          },
+          "physical": {
+            "amp": 136.21732632713045,
+            "center": 1085.5996719147442,
+            "fwhm": 59.0,
+            "eta": 0.0,
+            "rms": 26.473234393705408,
+            "slope": -0.5008995944953893,
+            "intercept": 532.7751473150304,
+            "at_bound": false,
+            "c1": 136.21732632713045,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 26.473234393705393
+          },
+          "review_reasons": [
+            "候选需要负峰形系数"
+          ],
+          "status": "需复核",
+          "csv": "group_002.csv"
+        },
+        {
+          "group": 3,
+          "points": [
+            95,
+            231,
+            435,
+            867,
+            1219,
+            1235
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 5.700166232935317,
+            "center": 1450.4384314275776,
+            "fwhm": 75.0,
+            "eta": -191.1034734936995,
+            "rms": 17.219111080012393,
+            "slope": -2.3340199003901034,
+            "intercept": 3419.050618697393,
+            "at_bound": false,
+            "c1": 1095.0217328383706,
+            "c2": -1089.3215666054352,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 17.219111080012397
+          },
+          "physical": {
+            "amp": 106.90123794072161,
+            "center": 1423.4384314275776,
+            "fwhm": 34.0,
+            "eta": 0.0,
+            "rms": 19.476193329524207,
+            "slope": -0.4508636847759739,
+            "intercept": 679.55389747366,
+            "at_bound": false,
+            "c1": 106.90123794072161,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 19.476193329524214
+          },
+          "review_reasons": [
+            "候选需要负峰形系数"
+          ],
+          "status": "需复核",
+          "csv": "group_003.csv"
+        },
+        {
+          "group": 4,
+          "points": [
+            291,
+            806,
+            859,
+            893,
+            894
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 35.04948373662182,
+            "center": 1716.1410045427256,
+            "fwhm": 122.0,
+            "eta": 56.708703945278884,
+            "rms": 18.200241872324863,
+            "slope": -0.22556719200179032,
+            "intercept": 466.2368112755089,
+            "at_bound": false,
+            "c1": -1952.5613129183323,
+            "c2": 1987.6107966549541,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 18.20024187232487
+          },
+          "physical": {
+            "amp": 79.83143432276692,
+            "center": 1716.1410045427256,
+            "fwhm": 30.0,
+            "eta": 0.0,
+            "rms": 23.802949862243658,
+            "slope": -0.2732539814682432,
+            "intercept": 505.14215354888427,
+            "at_bound": true,
+            "c1": 79.83143432276692,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 23.80294986224367
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界",
+            "物理拟合幅度未通过当前噪声门槛"
+          ],
+          "status": "需复核",
+          "csv": "group_004.csv"
+        },
+        {
+          "group": 5,
+          "points": [
+            153,
+            401,
+            407,
+            1021
+          ],
+          "default_classes": [
+            "硫酸盐或辉石（缺次级峰）"
+          ],
+          "candidate": {
+            "amp": 297.0333861336205,
+            "center": 996.0372613373547,
+            "fwhm": 71.0,
+            "eta": 5.01006657663826,
+            "rms": 27.738929544498905,
+            "slope": 0.42356425176626544,
+            "intercept": -535.2969871310362,
+            "at_bound": false,
+            "c1": -1191.1236538801181,
+            "c2": 1488.1570400137387,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 27.73892954449889
+          },
+          "physical": {
+            "amp": 104.87504890852398,
+            "center": 997.0372613373547,
+            "fwhm": 30.0,
+            "eta": 0.0,
+            "rms": 39.96348024218225,
+            "slope": 0.3984639887156316,
+            "intercept": -338.0393395662555,
+            "at_bound": true,
+            "c1": 104.87504890852398,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 39.96348024218224
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_005.csv"
+        },
+        {
+          "group": 6,
+          "points": [
+            373,
+            771,
+            1115,
+            1295
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 114.24373445153424,
+            "center": 1121.855981278939,
+            "fwhm": 81.0,
+            "eta": -12.567804715582128,
+            "rms": 22.203204160877977,
+            "slope": 3.405035796422908,
+            "intercept": -3890.5767727172206,
+            "at_bound": false,
+            "c1": 1550.0366790172386,
+            "c2": -1435.7929445657044,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 22.203204160877853
+          },
+          "physical": {
+            "amp": 175.88555354589946,
+            "center": 1148.855981278939,
+            "fwhm": 36.0,
+            "eta": 0.2800342825454493,
+            "rms": 22.19823767185554,
+            "slope": 0.160435228517818,
+            "intercept": -183.43978561507177,
+            "at_bound": false,
+            "c1": 126.63156874856429,
+            "c2": 49.253984797335164,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 22.198237671855544
+          },
+          "review_reasons": [
+            "候选需要负峰形系数"
+          ],
+          "status": "需复核",
+          "csv": "group_006.csv"
+        },
+        {
+          "group": 7,
+          "points": [
+            531,
+            583,
+            672
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 351.95829067953355,
+            "center": 1454.9021792800195,
+            "fwhm": 56.0,
+            "eta": 3.6456556151382276,
+            "rms": 21.826434581872295,
+            "slope": 1.1026620488512435,
+            "intercept": -1777.3001849845812,
+            "at_bound": false,
+            "c1": -931.1604280307604,
+            "c2": 1283.118718710294,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 21.82643458187235
+          },
+          "physical": {
+            "amp": 144.0901067202263,
+            "center": 1453.9021792800195,
+            "fwhm": 30.0,
+            "eta": 0.0,
+            "rms": 27.94510879218804,
+            "slope": 1.1324364485656666,
+            "intercept": -1636.7839321642136,
+            "at_bound": true,
+            "c1": 144.0901067202263,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 27.945108792188037
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_007.csv"
+        },
+        {
+          "group": 8,
+          "points": [
+            1102,
+            1231
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 2038.8109451813689,
+            "center": 908.6343439553166,
+            "fwhm": 250.0,
+            "eta": -2.7497458208338976,
+            "rms": 25.438535781903905,
+            "slope": -3.237922648021595,
+            "intercept": 1012.1376459323191,
+            "at_bound": true,
+            "c1": 7645.022821164247,
+            "c2": -5606.211875982878,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 25.438535781903784
+          },
+          "physical": {
+            "amp": 584.142856237992,
+            "center": 858.6343439553166,
+            "fwhm": 150.0,
+            "eta": 0.9917730750392797,
+            "rms": 26.92877364371671,
+            "slope": 1.1001852710025857,
+            "intercept": -1293.8498039356584,
+            "at_bound": true,
+            "c1": 4.805699444610853,
+            "c2": 579.3371567933812,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 26.92877364371672
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_008.csv"
+        },
+        {
+          "group": 9,
+          "points": [
+            98,
+            334
+          ],
+          "default_classes": [
+            "高氯酸盐或磷酸盐"
+          ],
+          "candidate": {
+            "amp": 309.0989804075316,
+            "center": 960.7757425107775,
+            "fwhm": 44.0,
+            "eta": 3.4467412555286505,
+            "rms": 32.10254883807146,
+            "slope": 0.1256144523849798,
+            "intercept": -241.43098881156328,
+            "at_bound": false,
+            "c1": -756.2852274049496,
+            "c2": 1065.3842078124812,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 32.10254883807143
+          },
+          "physical": {
+            "amp": 154.3201575384174,
+            "center": 962.7757425107775,
+            "fwhm": 30.0,
+            "eta": 1.0,
+            "rms": 37.009466326178455,
+            "slope": -0.04608715541812279,
+            "intercept": 53.20908941712887,
+            "at_bound": true,
+            "c1": 0.0,
+            "c2": 154.3201575384174,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 37.00946632617845
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_009.csv"
+        },
+        {
+          "group": 10,
+          "points": [
+            97,
+            264
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 297.0311442452055,
+            "center": 1218.293723523253,
+            "fwhm": 30.0,
+            "eta": 5.872388073562446,
+            "rms": 27.578991362715325,
+            "slope": -1.4075318666473322,
+            "intercept": 1558.1979844155906,
+            "at_bound": true,
+            "c1": -1447.2510046969458,
+            "c2": 1744.2821489421513,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 27.5789913627154
+          },
+          "physical": {
+            "amp": 144.52199992924807,
+            "center": 1187.293723523253,
+            "fwhm": 30.0,
+            "eta": 1.0,
+            "rms": 39.392965826787005,
+            "slope": 0.19858535461807686,
+            "intercept": -230.76097189486723,
+            "at_bound": true,
+            "c1": 0.0,
+            "c2": 144.52199992924807,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 39.39296582678701
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_010.csv"
+        },
+        {
+          "group": 11,
+          "points": [
+            198,
+            219
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 339.78906109432387,
+            "center": 1291.0028007097426,
+            "fwhm": 67.0,
+            "eta": 5.914373838327133,
+            "rms": 38.729103788422094,
+            "slope": -0.6850989787890285,
+            "intercept": 722.8368249006787,
+            "at_bound": false,
+            "c1": -1669.8504723916851,
+            "c2": 2009.639533486009,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 38.729103788422044
+          },
+          "physical": {
+            "amp": 113.42156203541391,
+            "center": 1289.0028007097426,
+            "fwhm": 30.0,
+            "eta": 0.0,
+            "rms": 57.32505655892203,
+            "slope": 0.038973898127261666,
+            "intercept": -18.040423161340613,
+            "at_bound": true,
+            "c1": 113.42156203541391,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 57.32505655892202
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界",
+            "物理拟合幅度未通过当前噪声门槛"
+          ],
+          "status": "需复核",
+          "csv": "group_011.csv"
+        },
+        {
+          "group": 12,
+          "points": [
+            517,
+            733
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 240.85341494836075,
+            "center": 1394.4089563033194,
+            "fwhm": 34.0,
+            "eta": 6.418514505541895,
+            "rms": 14.857267886192261,
+            "slope": -0.8381003991094076,
+            "intercept": 1054.9320085276386,
+            "at_bound": false,
+            "c1": -1305.0677226069938,
+            "c2": 1545.9211375553546,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 14.857267886192348
+          },
+          "physical": {
+            "amp": 139.3202814507838,
+            "center": 1359.4089563033194,
+            "fwhm": 30.0,
+            "eta": 1.0,
+            "rms": 26.10809685010783,
+            "slope": 0.14715419787768386,
+            "intercept": -188.83787410297109,
+            "at_bound": true,
+            "c1": 0.0,
+            "c2": 139.3202814507838,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 26.108096850107824
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_012.csv"
+        },
+        {
+          "group": 13,
+          "points": [
+            401,
+            890
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 330.9536353903029,
+            "center": 1483.1881242589807,
+            "fwhm": 30.0,
+            "eta": 6.096616112812927,
+            "rms": 18.957269035910453,
+            "slope": 1.3777393964628573,
+            "intercept": -2214.6444303305652,
+            "at_bound": true,
+            "c1": -1686.7436307242324,
+            "c2": 2017.6972661145353,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 18.957269035910397
+          },
+          "physical": {
+            "amp": 144.59701979535046,
+            "center": 1514.1881242589807,
+            "fwhm": 30.0,
+            "eta": 1.0,
+            "rms": 45.696869280672324,
+            "slope": -0.4042835971630055,
+            "intercept": 623.8614636588078,
+            "at_bound": true,
+            "c1": 0.0,
+            "c2": 144.59701979535046,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 45.696869280672324
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界"
+          ],
+          "status": "需复核",
+          "csv": "group_013.csv"
+        },
+        {
+          "group": 14,
+          "points": [
+            1120,
+            1222
+          ],
+          "default_classes": [
+            "未归类"
+          ],
+          "candidate": {
+            "amp": 101.3086765875737,
+            "center": 1640.5829759239496,
+            "fwhm": 30.0,
+            "eta": 9.865575497097845,
+            "rms": 33.127763704497056,
+            "slope": -0.7246639762006453,
+            "intercept": 1159.7199037735668,
+            "at_bound": true,
+            "c1": -898.1597207982035,
+            "c2": 999.4683973857772,
+            "profile_valid": false,
+            "model": "signed_gaussian_lorentz",
+            "coefficient_constraint": "signed_candidate",
+            "reconstructed_rms": 33.12776370449705
+          },
+          "physical": {
+            "amp": 75.05593007453645,
+            "center": 1609.5829759239496,
+            "fwhm": 30.0,
+            "eta": 0.0,
+            "rms": 41.627200502798374,
+            "slope": -0.2053421183486708,
+            "intercept": 381.955280580978,
+            "at_bound": true,
+            "c1": 75.05593007453645,
+            "c2": 0.0,
+            "profile_valid": true,
+            "model": "pseudo_voigt",
+            "coefficient_constraint": "nonnegative",
+            "reconstructed_rms": 41.627200502798374
+          },
+          "review_reasons": [
+            "候选需要负峰形系数",
+            "物理拟合触及峰心/峰宽边界",
+            "物理拟合幅度未通过当前噪声门槛"
+          ],
+          "status": "需复核",
+          "csv": "group_014.csv"
+        }
+      ],
+      "input_files": [
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697952686_570rli__0092982srlc11420_108___j07.csv",
+          "sha256": "62dc8c8d304196ac2ac16d0705e4ce9f4d3a4c880f497ae4eaca06fb1cbc781a"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697952686_570rli__0092982srlc11420_108___j07.xml",
+          "sha256": "ab9758d9060e69fbce5a2647606226562836b677a79a4851c6101fdf512bd179"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697952686_570rls__0092982srlc11420_108___j07.csv",
+          "sha256": "89cef102e09106b6d4fc5914be58b4d49d8631f5703e08f5f584fb10c6cf332c"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697952686_570rls__0092982srlc11420_108___j07.xml",
+          "sha256": "d654c22c71cf25c7b6f32728749b780cd81b7e4e6803f5c92d98b9fa864ebbac"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697952686_570rrs__0092982srlc11420w108cgnj07.csv",
+          "sha256": "8e9c27008fa1a2ccfe356f2c294e29803d4e03d06633c0ff252b874be98734ad"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697952686_570rrs__0092982srlc11420w108cgnj07.xml",
+          "sha256": "114b9c9dcea05a18c147373bf26ac73f9bd1ac710d062ca9d4514d75f11a3a4c"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697953530_075rli__0092982srlc11420_108_p_j02.csv",
+          "sha256": "ee97309866ad031c791e9121dbd741b83ef7095bd3f64d621799895de493edcc"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697953530_075rli__0092982srlc11420_108_p_j02.xml",
+          "sha256": "0ce6af0534fc7669068aebd7e0c7b965f2b705bcb200b079d8aa67949c8b6677"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697953530_075rls__0092982srlc11420_108_p_j02.csv",
+          "sha256": "3de063def6db87ff58a669101c4ea03885954cda568b9bd37ce49a64e2f0643a"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697953530_075rls__0092982srlc11420_108_p_j02.xml",
+          "sha256": "959862a46519a3f6e04ef21be9f0891d9ef4a468a39367a917c33bdfcde191fa"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697953530_075rrs__0092982srlc11420b108zpzj02.csv",
+          "sha256": "72ea521a129dc29824bae236e4fe267e66dcced9abe598f10b2b1bb6c24ecb19"
+        },
+        {
+          "path": "02_练习数据与验证基准\\processed\\sol_00349\\ss__0349_0697953530_075rrs__0092982srlc11420b108zpzj02.xml",
+          "sha256": "00303584af2dfcf171364420c0bc03b59367d12716d4da1cc08eb1c9b8b9f3ad"
+        }
+      ],
+      "directory": "sol349_srlc11420_0697952686_570_d11f7c66"
+    }
+  ],
+  "code_sha256": {
+    "review_peak_fits.py": "88b85f673edbe8a6146fbaf683504dcec082e6c9d702c27fc96d5c4e2b3ac70a",
+    "minerals.py": "6872779d80a3b2c0014ae880d5b909e2d5019fd75e84df0c005069340933acd4",
+    "qc.py": "c1d4218f72ef83661f7efc00e9b5330c726a7aa3387affb1f9023286db49cc87",
+    "fitting.py": "6230aca740f45bddabaa69ab284422d6fb75dd16a84bd0223790eb8cf152b8c3"
+  }
+}

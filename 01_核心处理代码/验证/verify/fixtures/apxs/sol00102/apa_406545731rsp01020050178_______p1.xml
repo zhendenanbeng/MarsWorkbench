@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/msl/v1/PDS4_MSL_1H00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1I00_1220.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1H00_1210.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1I00_1960.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:msl="http://pds.nasa.gov/pds4/mission/msl/v1"
+  xmlns:msn_surface="http://pds.nasa.gov/pds4/msn_surface/v1"
+  xmlns:proc="http://pds.nasa.gov/pds4/proc/v1"
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1                 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd
+  http://pds.nasa.gov/pds4/mission/msl/v1                             https://pds.nasa.gov/pds4/mission/msl/v1/PDS4_MSL_1H00_1000.xsd
+  http://pds.nasa.gov/pds4/msn_surface/v1                             https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1I00_1220.xsd
+  http://pds.nasa.gov/pds4/proc/v1                                    https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1H00_1210.xsd
+  http://pds.nasa.gov/pds4/geom/v1                                    https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1I00_1960.xsd">
+
+
+    <Identification_Area>
+      <logical_identifier>urn:nasa:pds:msl_apxs_calibrated:data:apa_406545731rsp01020050178_______p1</logical_identifier>
+       <version_id>1.0</version_id>
+       <title>MSL APXS X-ray Spectra product: apa_406545731rsp01020050178_______p1</title>
+       <information_model_version>1.18.0.0</information_model_version>
+       <product_class>Product_Observational</product_class>
+       <Modification_History>
+         <Modification_Detail>
+           <modification_date>2023-01-26</modification_date>
+           <version_id>1.0</version_id>
+           <description>Initial version migrated from PDS3.</description>
+         </Modification_Detail>
+       </Modification_History>
+     </Identification_Area>
+     <Observation_Area>
+       <Time_Coordinates>
+         <start_date_time>2012-11-18T21:12:54.785Z</start_date_time>
+         <stop_date_time>2012-11-19T01:13:46.414Z</stop_date_time>
+         <local_mean_solar_time>Sol-99999M00:00:00.000</local_mean_solar_time>
+         <local_true_solar_time>12:34:42</local_true_solar_time>
+         <solar_longitude unit="deg">209.457</solar_longitude>
+       </Time_Coordinates>
+       <Investigation_Area>
+         <name>Mars Science Laboratory</name>
+         <type>Mission</type>
+         <Internal_Reference>
+           <lid_reference>urn:nasa:pds:context:investigation:mission.mars_science_laboratory</lid_reference>
+           <reference_type>data_to_investigation</reference_type>
+         </Internal_Reference>
+       </Investigation_Area>
+       <Observing_System>
+         <Observing_System_Component>
+           <name>Mars Science Laboratory</name>
+           <type>Host</type>
+           <Internal_Reference>
+             <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.msl</lid_reference>
+             <reference_type>is_instrument_host</reference_type>
+           </Internal_Reference>
+         </Observing_System_Component>
+         <Observing_System_Component>
+           <name>Alpha Particle X-ray Spectrometer</name>
+           <type>Instrument</type>
+           <Internal_Reference>
+             <lid_reference>urn:nasa:pds:context:instrument:apxs.msl</lid_reference>
+             <reference_type>is_instrument</reference_type>
+           </Internal_Reference>
+         </Observing_System_Component>
+       </Observing_System>
+       <Target_Identification>
+         <name>Mars</name>
+         <type>Planet</type>
+         <Internal_Reference>
+           <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+           <reference_type>data_to_target</reference_type>
+         </Internal_Reference>
+       </Target_Identification>
+
+       <Mission_Area>
+        <msl:MSL_Parameters>
+          <msl:Observation_Information>
+            <msl:release_number>0002</msl:release_number>
+            <msl:product_type>APXS_RSP</msl:product_type>
+            <msl:mission_phase_name>PRIMARY SURFACE MISSION</msl:mission_phase_name>
+            <msl:spacecraft_clock_start>0406544960.005</msl:spacecraft_clock_start>
+            <msl:spacecraft_clock_stop>0406545731.042</msl:spacecraft_clock_stop>
+            <msl:spacecraft_clock_partition>1</msl:spacecraft_clock_partition>
+            <msl:sol_number>102</msl:sol_number>
+            <msl:active_flight_computer>A</msl:active_flight_computer>
+            <msl:producer_institution_name>Multimission Image Processing Subsystem, Jet Propulsion Lab</msl:producer_institution_name>
+          </msl:Observation_Information>
+        </msl:MSL_Parameters>
+       </Mission_Area>
+
+       <Discipline_Area>
+         <geom:Geometry>
+           <geom:SPICE_Kernel_Files>
+             <geom:SPICE_Kernel_Identification>
+               <geom:spice_kernel_file_name>chronos.msl</geom:spice_kernel_file_name>
+             </geom:SPICE_Kernel_Identification>
+           </geom:SPICE_Kernel_Files>
+          <geom:Geometry_Lander>
+            <geom:Motion_Counter>
+              <geom:name>Rover Motion Counter</geom:name>
+              <local_identifier>Rover_Motion_Counter</local_identifier>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Site</geom:index_name>
+                <geom:index_value_number>5</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Drive</geom:index_name>
+                <geom:index_value_number>178</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Pose</geom:index_name>
+                <geom:index_value_number>12</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Arm</geom:index_name>
+                <geom:index_value_number>44</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>CHIMRA</geom:index_name>
+                <geom:index_value_number>6</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Drill</geom:index_name>
+                <geom:index_value_number>0</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>RSM</geom:index_name>
+                <geom:index_value_number>152</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>HGA</geom:index_name>
+                <geom:index_value_number>288</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>DRT</geom:index_name>
+                <geom:index_value_number>0</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>IC</geom:index_name>
+                <geom:index_value_number>0</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+            </geom:Motion_Counter>
+          </geom:Geometry_Lander>
+        </geom:Geometry>
+        
+        <msn_surface:Surface_Mission_Information>
+          <msn_surface:Command_Execution>
+            <msn_surface:sequence_id>apxs01010</msn_surface:sequence_id>
+            <msn_surface:sequence_version_id>0</msn_surface:sequence_version_id>
+            <msn_surface:sequence_execution_count>1</msn_surface:sequence_execution_count>
+            <msn_surface:command_sequence_number>5</msn_surface:command_sequence_number>
+            <msn_surface:observation_id>UNK</msn_surface:observation_id>
+            <msn_surface:request_id>0</msn_surface:request_id>
+          </msn_surface:Command_Execution>
+          <msn_surface:Telemetry>
+            <msn_surface:application_id>97</msn_surface:application_id>
+            <msn_surface:application_subtype_id>0</msn_surface:application_subtype_id>
+            <msn_surface:application_name>APXS</msn_surface:application_name>
+            <msn_surface:provider_id>MPCS_MSL_DP</msn_surface:provider_id>
+            <msn_surface:flight_software_version_id>141801503</msn_surface:flight_software_version_id>
+            <msn_surface:telemetry_source_name>ApxsScienceAndEng_0406545731-42952-1.dat</msn_surface:telemetry_source_name>
+            <msn_surface:transport_protocol>Data Product</msn_surface:transport_protocol>
+            <msn_surface:communication_session_id>31022</msn_surface:communication_session_id>
+            <msn_surface:product_completion_status>Complete_Checksum_Pass</msn_surface:product_completion_status>
+            <msn_surface:earth_received_start_date_time>2012-11-19T01:13:46.414Z</msn_surface:earth_received_start_date_time>
+            <msn_surface:download_priority>28</msn_surface:download_priority>
+            <msn_surface:expected_packets>4</msn_surface:expected_packets>
+            <msn_surface:received_packets>4</msn_surface:received_packets>
+            <msn_surface:telemetry_source_host_name>mslsmsampcs1</msn_surface:telemetry_source_host_name>
+            <msn_surface:expected_transmission_path>3851</msn_surface:expected_transmission_path>
+            <msn_surface:transmission_path>65535</msn_surface:transmission_path>
+            <msn_surface:flight_software_mode>8</msn_surface:flight_software_mode>
+            <msn_surface:telemetry_source_size>29818</msn_surface:telemetry_source_size>
+            <msn_surface:telemetry_source_checksum>5522</msn_surface:telemetry_source_checksum>
+            <msn_surface:auto_delete_flag>false</msn_surface:auto_delete_flag>
+            <msn_surface:virtual_channel_id>0</msn_surface:virtual_channel_id>
+          </msn_surface:Telemetry>
+        </msn_surface:Surface_Mission_Information>
+      </Discipline_Area>
+    </Observation_Area>
+
+  <File_Area_Observational>
+    <File>
+      <file_name>apa_406545731rsp01020050178_______p1.csv</file_name>
+      <local_identifier>APXS_Xray_Spectra</local_identifier>
+      <creation_date_time>2013-03-12T21:00:00.000</creation_date_time>
+    </File>
+	<Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">127</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+      <description>The header contains information about the target and placement.</description>
+    </Header>
+    <Table_Delimited>
+      <offset unit="byte">127</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>
+        APXS X-ray spectra in counts as a function of channel number. Channel 1 contains the
+		lifetime for the spectrum in units of seconds. The last channel, contains the number
+		of x-rays with energies greater than full scale. Spectrum corresponds to a sum of several
+		shorter-duration measurements collected.
+      </description>
+      <records>1024</records>
+	  <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+	  <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <maximum_record_length unit="byte">132</maximum_record_length>
+        <Field_Delimited>
+          <name>X-ray_energy</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>X-ray energy (eV)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>X-ray_counts</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Number of x-rays detected per channel.</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>apa_406545731rsp01020050178_______p1.lbl</file_name>
+    </File>
+    <Stream_Text>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <description>Original PDS3 label</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>

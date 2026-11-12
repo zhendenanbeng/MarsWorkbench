@@ -1,0 +1,59 @@
+PDS_VERSION_ID                    = PDS3
+
+/* FILE DATA ELEMENTS */
+
+RECORD_TYPE                       = FIXED_LENGTH
+RECORD_BYTES                      = 14
+FILE_RECORDS                      = 6444
+
+/* POINTERS TO DATA OBJECTS */
+
+^TABLE = "CCAM_DEFAULT_WAVE.TAB"
+
+/* IDENTIFICATION DATA ELEMENTS */
+
+DATA_SET_ID                       = "MSL-M-CHEMCAM-LIBS-4/5-RDR-V1.0"
+PRODUCT_TYPE                      = "CHEMCAM-WAVELENGTH"
+INSTRUMENT_HOST_ID                = "MSL"
+INSTRUMENT_HOST_NAME              = "MARS SCIENCE LABORATORY"
+INSTRUMENT_ID                     = "CHEMCAM_LIBS"
+INSTRUMENT_NAME                   = "CHEMISTRY CAMERA LASER INDUCED 
+                                     BREAKDOWN SPECTROMETER"
+MISSION_NAME                      = "MARS SCIENCE LABORATORY"
+MISSION_PHASE_NAME                = "EXTENDED SURFACE MISSION"
+PRODUCER_INSTITUTION_NAME         = "LOS ALAMOS NATIONAL LABORATORY"
+PRODUCT_CREATION_TIME             =  2015-09-25T13:41:40.000
+PRODUCT_ID                        = "CCAM_DEFAULT_WAVE"
+PRODUCT_VERSION_ID                = "1"
+RELEASE_ID                        = "0010"
+SPACECRAFT_CLOCK_START_COUNT      = "N/A"
+SPACECRAFT_CLOCK_STOP_COUNT       = "N/A"
+START_TIME                        = "N/A"
+STOP_TIME                         = "N/A"
+TARGET_NAME                       = MARS
+TARGET_TYPE                       = PLANET
+
+/* DATA DESCRIPTION */
+
+OBJECT                            = TABLE
+  ROWS                            = 6444
+  COLUMNS                         = 1
+  ROW_BYTES                       = 14
+  INTERCHANGE_FORMAT              = ASCII
+  DESCRIPTION                     = "This wavelength file is
+      intended to be used with ChemCam Passive Spectra (PSV) 
+      files."
+
+  OBJECT                          = COLUMN
+    NAME                          = "WAVELENGTH"
+    DATA_TYPE                     = ASCII_REAL
+    START_BYTE                    = 1
+    BYTES                         = 12
+    UNIT                          = NANOMETER
+    NOT_APPLICABLE_CONSTANT       = -999.9999999
+    DESCRIPTION                   = "Calibrated wavelength"
+  END_OBJECT                      = COLUMN
+
+END_OBJECT                        = TABLE
+
+END

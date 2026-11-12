@@ -1,0 +1,54 @@
+{
+	"default": null,
+	"files": [
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "bhM7Zk3hvOgb52tKlue0lnjl2zkm1Y9RVyy7LiKf1OY=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1076
+		},
+		{
+			"type": "file",
+			"name": "MOB_DG-fitting.py",
+			"hash": "v+Irrm9cvOqrrcW6amAeKk8QLgQYs6WZbjv1E5HFH1M=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 29158
+		},
+		{
+			"type": "file",
+			"name": "MOB_F-mapping.py",
+			"hash": "pzF/tuhxTUt25+uVLrwxJy+0pi/c2mYyTCJlU7UiSnQ=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 98889
+		},
+		{
+			"type": "file",
+			"name": "MOB_R-mapping.py",
+			"hash": "sG6RjF0Xx65Q9vO5OonskNtPLIMv3HonvvkqdCZNboA=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 125780
+		},
+		{
+			"type": "file",
+			"name": "MOB_ROI-comparison.py",
+			"hash": "2w1xAu+Rzi9aUmaZzKe1VinThcybNAeAnPJiHJJg0BM=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 58389
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "RFP62cTjlOePu4vZhCj6HqL/iKgBN/Vq2V5d1lIAM90=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1313
+		},
+		{
+			"type": "file",
+			"name": "SRLC_RF-mapping.py",
+			"hash": "Xdea0jlwlmdDHUcHxAptvy44snIsKzz55bvy0Ysbsss=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 217641
+		}
+	]
+}

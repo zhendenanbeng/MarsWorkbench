@@ -1,0 +1,4 @@
+400 BAD_REQUEST
+ Request uri=/api/search/1/products/urn:nasa:pds:mars2020_imgops:data_watson_imgops/members failed with message:
+Query parameter not enumerated in SecurityValidationFilter.ALLOWED_QUERY_PARAMETERS: keyword(ref:6669e8ba-753b-4cab-922e-2a5601f74304)
+For assistance, forward this error message to pds-operator@jpl.nasa.gov

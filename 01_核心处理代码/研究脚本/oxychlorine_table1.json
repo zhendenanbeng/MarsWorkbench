@@ -1,0 +1,552 @@
+{
+ "Na perchlorate": {
+  "vendor": "Honeywell; 7601-890; ≥98.0% purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 441.7,
+    "intensity": 0.08958
+   },
+   {
+    "mode": "ClO4 δas",
+    "pos": 479.2,
+    "intensity": 0.08299
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 621.4,
+    "intensity": 0.1754
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 651.1,
+    "intensity": 0.06117
+   },
+   {
+    "mode": "Overtone",
+    "pos": 886.7,
+    "intensity": 0.00901
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 950.7,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1091.2,
+    "intensity": 0.18972
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1145.8,
+    "intensity": 0.09771
+   },
+   {
+    "mode": "VW",
+    "pos": 1563.6,
+    "intensity": 0.00045
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1621.4,
+    "intensity": 0.00154
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3526.6,
+    "intensity": 0.01832
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3549.9,
+    "intensity": 0.00409
+   }
+  ]
+ },
+ "Na chlorate": {
+  "vendor": "Sigma Aldrich; 7775-09-9; ≥99% purity",
+  "bands": [
+   {
+    "mode": "ClO3 δas",
+    "pos": 480.3,
+    "intensity": 0.129
+   },
+   {
+    "mode": "ClO3 δs",
+    "pos": 617.8,
+    "intensity": 0.0354
+   },
+   {
+    "mode": "ClO3 νs",
+    "pos": 929.9,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO3 νas",
+    "pos": 980.5,
+    "intensity": 0.06588
+   },
+   {
+    "mode": "ClO3 νas",
+    "pos": 1022.7,
+    "intensity": 0.07874
+   },
+   {
+    "mode": "VW",
+    "pos": 1242.4,
+    "intensity": 0.00103
+   },
+   {
+    "mode": "VW",
+    "pos": 1415.4,
+    "intensity": 0.0009
+   },
+   {
+    "mode": "VW",
+    "pos": 1552.7,
+    "intensity": 0.00132
+   },
+   {
+    "mode": "VW",
+    "pos": 1861.0,
+    "intensity": 0.00227
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3469.8,
+    "intensity": 5e-05
+   }
+  ]
+ },
+ "K perchlorate": {
+  "vendor": "Acros; 7778-74-7; ≥99.0% purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 461.0,
+    "intensity": 0.21169
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 629.2,
+    "intensity": 0.23596
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 935.8,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1081.6,
+    "intensity": 0.10474
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1119.4,
+    "intensity": 0.13641
+   },
+   {
+    "mode": "VW",
+    "pos": 1255.8,
+    "intensity": 0.00156
+   },
+   {
+    "mode": "VW",
+    "pos": 1401.2,
+    "intensity": 0.0008
+   },
+   {
+    "mode": "VW",
+    "pos": 1561.6,
+    "intensity": 0.00044
+   },
+   {
+    "mode": "VW",
+    "pos": 1711.7,
+    "intensity": 0.0005
+   },
+   {
+    "mode": "VW",
+    "pos": 1762.6,
+    "intensity": 0.00035
+   },
+   {
+    "mode": "VW",
+    "pos": 2214.7,
+    "intensity": 0.00028
+   }
+  ]
+ },
+ "K chlorate": {
+  "vendor": "Sigma Aldrich; 3811-04-9; ≥99.0% purity",
+  "bands": [
+   {
+    "mode": "ClO3 δas",
+    "pos": 482.3,
+    "intensity": 0.15086
+   },
+   {
+    "mode": "ClO3 δs",
+    "pos": 612.0,
+    "intensity": 0.05773
+   },
+   {
+    "mode": "ClO3 νs",
+    "pos": 930.6,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO3 νas",
+    "pos": 970.3,
+    "intensity": 0.35357
+   },
+   {
+    "mode": "VW",
+    "pos": 1230.8,
+    "intensity": 0.00155
+   },
+   {
+    "mode": "VW",
+    "pos": 1422.8,
+    "intensity": 0.0007
+   },
+   {
+    "mode": "VW",
+    "pos": 1548.0,
+    "intensity": 0.00162
+   },
+   {
+    "mode": "VW",
+    "pos": 1860.9,
+    "intensity": 0.00204
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3205.9,
+    "intensity": 0.00019
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3426.9,
+    "intensity": 0.00045
+   }
+  ]
+ },
+ "Ca perchlorate": {
+  "vendor": "Acros; 15327-86-8; Reagent grade purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 450.1,
+    "intensity": 0.14047
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 624.7,
+    "intensity": 0.13234
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 942.9,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1082.5,
+    "intensity": 0.12299
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1117.4,
+    "intensity": 0.05632
+   },
+   {
+    "mode": "VW",
+    "pos": 1402.0,
+    "intensity": 0.00046
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1624.8,
+    "intensity": 0.00715
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3463.2,
+    "intensity": 0.17099
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3229.4,
+    "intensity": 0.0037
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3531.0,
+    "intensity": 0.10148
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3600.2,
+    "intensity": 0.04195
+   }
+  ]
+ },
+ "Mg perchlorate": {
+  "vendor": "Sigma Aldrich; 10034-81-8; Reagent grade purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 463.3,
+    "intensity": 0.16081
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 632.6,
+    "intensity": 0.18044
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 934.6,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1109.0,
+    "intensity": 0.14684
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1633.2,
+    "intensity": 0.03306
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3528.2,
+    "intensity": 0.39235
+   }
+  ]
+ },
+ "Al perchlorate": {
+  "vendor": "Thermo Scientific; 81029-06-3; Reagent grade purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 456.3,
+    "intensity": 0.12189
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 621.1,
+    "intensity": 0.09838
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 928.2,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1051.9,
+    "intensity": 0.03793
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1107.3,
+    "intensity": 0.07918
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1620.0,
+    "intensity": 0.00939
+   },
+   {
+    "mode": "VW",
+    "pos": 2493.0,
+    "intensity": 0.00347
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3251.0,
+    "intensity": 0.11039
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3450.0,
+    "intensity": 0.15841
+   }
+  ]
+ },
+ "Ba chlorate": {
+  "vendor": "Sigma Aldrich; 10294-38-9; 98% purity",
+  "bands": [
+   {
+    "mode": "ClO3 δas",
+    "pos": 491.7,
+    "intensity": 0.13643
+   },
+   {
+    "mode": "ClO3 δs",
+    "pos": 613.6,
+    "intensity": 0.04143
+   },
+   {
+    "mode": "ClO3 νs",
+    "pos": 923.7,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO3 νas",
+    "pos": 964.5,
+    "intensity": 0.20179
+   },
+   {
+    "mode": "VW",
+    "pos": 1228.9,
+    "intensity": 0.00177
+   },
+   {
+    "mode": "VW",
+    "pos": 1414.8,
+    "intensity": 0.00096
+   },
+   {
+    "mode": "VW",
+    "pos": 1539.9,
+    "intensity": 0.0013
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1599.8,
+    "intensity": 0.00249
+   },
+   {
+    "mode": "VW",
+    "pos": 1811.3,
+    "intensity": 0.00041
+   },
+   {
+    "mode": "VW",
+    "pos": 1854.5,
+    "intensity": 0.00167
+   },
+   {
+    "mode": "VW",
+    "pos": 2063.4,
+    "intensity": 0.0011
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3172.3,
+    "intensity": 0.00074
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3506.9,
+    "intensity": 0.11486
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3576.4,
+    "intensity": 0.0437
+   }
+  ]
+ },
+ "Fe II perchlorate": {
+  "vendor": "Sigma Aldrich; 335159-18-7; Reagent grade purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 424.8,
+    "intensity": 0.13003
+   },
+   {
+    "mode": "ClO4 δas",
+    "pos": 457.6,
+    "intensity": 0.1115
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 621.6,
+    "intensity": 0.13937
+   },
+   {
+    "mode": "Overtone",
+    "pos": 797.4,
+    "intensity": 0.02975
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 925.8,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1079.5,
+    "intensity": 0.06637
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1121.3,
+    "intensity": 0.03347
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1613.0,
+    "intensity": 0.02038
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3501.9,
+    "intensity": 0.30464
+   }
+  ]
+ },
+ "Mn perchlorate": {
+  "vendor": "Thermo Scientific; 15364-94-0; Reagent grade purity",
+  "bands": [
+   {
+    "mode": "ClO4 δas",
+    "pos": 455.5,
+    "intensity": 0.12395
+   },
+   {
+    "mode": "ClO4 δs",
+    "pos": 624.6,
+    "intensity": 0.15118
+   },
+   {
+    "mode": "ClO4 νs",
+    "pos": 925.9,
+    "intensity": 1.0
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1076.8,
+    "intensity": 0.05073
+   },
+   {
+    "mode": "ClO4 νas",
+    "pos": 1114.8,
+    "intensity": 0.08267
+   },
+   {
+    "mode": "H2O β",
+    "pos": 1613.4,
+    "intensity": 0.02818
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3219.6,
+    "intensity": 0.0031
+   },
+   {
+    "mode": "H2O ν",
+    "pos": 3505.1,
+    "intensity": 0.34311
+   }
+  ]
+ }
+}

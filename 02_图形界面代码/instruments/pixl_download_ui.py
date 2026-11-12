@@ -1,0 +1,33 @@
+"""PIXL download card using the same controls and sequence as the other workbenches."""
+HTML=r'''<section class="card" id="dlCard" hidden>
+<div class="bar"><span class="lbl">数据来源：NASA PDS · PIXL</span><button id="dlRefresh">刷新列表</button><button class="ghost" id="dlClose" style="margin-left:auto">关闭</button></div>
+<div class="bar" style="margin-top:8px;align-items:start"><div><label class="lbl" for="dlSol">火星日（成分处理Sol，Ctrl/Shift多选）</label><select id="dlSol" aria-label="火星日" multiple size="6" style="min-width:170px"></select></div><div class="grow"><label class="lbl" for="dlScans">扫描（Ctrl/Shift多选）</label><select id="dlScans" aria-label="下载扫描" multiple size="6" style="width:100%"></select></div></div>
+<p class="hint" id="dlInfo"></p><div class="bar"><span class="lbl">快捷选择</span><button id="dlPresetView">看图够用的</button><button id="dlPresetAll">全选</button><button id="dlPresetNone">全不选</button><label class="chk"><input type="checkbox" id="dlImages" checked>包含MCC图像</label><span class="hint" id="dlSel"></span></div>
+<div class="bar" style="margin-top:10px"><div class="grow"><label class="lbl" for="dlDest">下载到（按Sol及扫描分目录）</label><input type="text" id="dlDest" aria-label="下载保存目录" style="width:100%"></div><button id="dlBrowse">选择目录…</button><button id="dlStart" class="primary" disabled>开始下载</button><button id="dlCancel" hidden>取消下载</button></div>
+<div class="prog" id="dlProg" hidden><i id="dlBar"></i></div><p class="msg" id="dlMsg" role="status">正在准备清单…</p><div class="bar"><button id="dlOpenFolder" hidden>打开下载目录</button><button id="dlOpenData" hidden>打开已下载数据</button></div><pre class="dllog" id="dlLog" hidden></pre>
+<details><summary>下载说明与格式范围</summary><p class="hint">下载RQC、XML、配套RXL和可选MCC。仅列已验证RQC格式，不代表PIXL全部观测；RCC及原始XRF暂不支持。文件原字节保存，同名文件核验后复用，不覆盖未能核验的本地文件。取消保留已完成文件，等待当前网络读取返回后清理临时体。</p></details></section>'''
+
+JS=r'''
+const Download=(()=>{let catalog=null,timer=null,running=false,downloadFolder='',busyQuery=false;
+const status=t=>$('dlMsg').textContent=t;
+function selected(){return Array.from($('dlScans').selectedOptions).map(o=>o.value);}
+function selection(){const n=selected().length;$('dlSel').textContent='已选 '+n+' 个扫描（最多50）';$('dlStart').disabled=running||busyQuery||n<1||n>50;}
+function scans(){if(!catalog)return;const old=new Set(selected()),oldSols=new Set(catalog.scans.filter(s=>old.has(s.id)).map(s=>s.sol));const sols=new Set(Array.from($('dlSol').selectedOptions).map(o=>Number(o.value))),first=new Set();
+options('dlScans',catalog.scans.filter(s=>sols.has(s.sol)),s=>s.id,s=>'成分Sol '+s.sol+' · 坐标Sol '+(s.coordinate_sols.join('/')||'缺')+' · 定位 '+s.placement+' · RTT '+s.rtt+' · '+s.file);
+for(const option of $('dlScans').options){const row=catalog.scans.find(s=>s.id===option.value);option.selected=old.has(row.id)||(!oldSols.has(row.sol)&&!first.has(row.sol));first.add(row.sol);}selection();}
+async function query(refresh=false){busyQuery=true;$('dlRefresh').disabled=true;selection();status('正在读取PDS清单…首次需要联网；已有本地数据仍可浏览。');try{const prior=Array.from($('dlSol').selectedOptions).map(o=>o.value);catalog=await api('download/catalog?refresh='+(refresh?'1':'0'));const sols=[...new Set(catalog.scans.map(s=>s.sol))].sort((a,b)=>a-b);options('dlSol',sols,s=>s,s=>'Sol '+s);const ob=allObservations.find(s=>s.id===scanSel.value),preferred=ob&&sols.includes(ob.sol)?String(ob.sol):String(sols[sols.length-1]||'');for(const o of $('dlSol').options)o.selected=prior.length?prior.includes(o.value):o.value===preferred;
+if(!$('dlDest').value)$('dlDest').value=preferences.download_dest||catalog.destination;scans();$('dlInfo').textContent=catalog.note+' '+catalog.inventories.map(i=>i.source+' · UTC '+i.cache_time_utc+(i.warning?'；'+i.warning:'')).join('；');status('共 '+catalog.scans.length+' 个扫描；请选择火星日、扫描及保存目录。');}catch(e){status('清单未就绪：'+e.message);}finally{busyQuery=false;$('dlRefresh').disabled=false;selection();}}
+function show(){ $('dlCard').hidden=false;if(!catalog&&!busyQuery)query(false);}
+async function poll(){try{const d=await api('download/status');running=!!d.running;downloadFolder=d.folder||'';$('dlCancel').hidden=!running;$('dlCancel').disabled=!!d.cancel;$('dlProg').hidden=d.status==='idle';$('dlBar').style.width=(100*(d.bytes_total?Math.min(1,d.bytes_done/d.bytes_total):0))+'%';$('dlLog').textContent=(d.log||[]).join('\n');$('dlLog').hidden=!(d.log||[]).length;
+$('dlOpenFolder').hidden=running||!downloadFolder;$('dlOpenData').hidden=running||!d.ready;
+if(running){status('扫描 '+(d.scan_index||0)+'/'+d.scan_total+' · 已完成 '+d.files_done+' 文件（复用 '+d.reused+'） · '+(d.current||'解析文件引用')+(d.bytes_total?' · '+(d.bytes_done/1048576).toFixed(2)+'/'+(d.bytes_total/1048576).toFixed(2)+' MiB':'')+(d.cancel?'；正在取消，等待当前读取返回…':''));timer=setTimeout(poll,1000);}
+else{const names={completed:'下载完成',completed_with_errors:'下载结束，部分文件失败；可重试',cancelled:'已取消，保留已完成文件',failed:'任务失败',idle:'尚未开始'};status((names[d.status]||d.status)+' · '+(d.files_done||0)+' 个文件'+(d.error?'；'+d.error:'')+(downloadFolder?' → '+downloadFolder:''));}selection();}catch(e){status('进度读取失败：'+e.message);timer=setTimeout(poll,2500);}}
+$('dlOpenBtn').onclick=show;$('dlClose').onclick=()=>$('dlCard').hidden=true;$('dlRefresh').onclick=()=>query(true);$('dlSol').onchange=scans;$('dlScans').onchange=selection;
+$('dlPresetView').onclick=()=>{let seen=new Set();for(const o of $('dlScans').options){let sol=catalog.scans.find(s=>s.id===o.value).sol;o.selected=!seen.has(sol);seen.add(sol);}$('dlImages').checked=true;selection();};$('dlPresetAll').onclick=()=>{for(const o of $('dlScans').options)o.selected=true;$('dlImages').checked=true;selection();};$('dlPresetNone').onclick=()=>{for(const o of $('dlScans').options)o.selected=false;selection();};
+$('dlBrowse').onclick=()=>openBrowser($('dlDest').value,'download');
+$('dlStart').onclick=async()=>{if(!catalog)return;$('dlStart').disabled=true;try{await api('download/start',{catalog_id:catalog.catalog_id,scan_ids:selected(),destination:$('dlDest').value,images:$('dlImages').checked});preferences.download_dest=$('dlDest').value;clearTimeout(timer);poll();}catch(e){status('未开始：'+e.message);selection();}};
+$('dlCancel').onclick=async()=>{try{await api('download/cancel',{});status('已请求取消；已完成文件保留。');}catch(e){status(e.message);}};
+$('dlOpenFolder').onclick=()=>api('openfolder',{kind:'download'}).catch(e=>status(e.message));$('dlOpenData').onclick=async()=>{if(downloadFolder){await loadFolder(downloadFolder);if(dataFolder===downloadFolder)$('dlCard').hidden=true;}};
+api('download/status').then(d=>{if(!$('dlDest').value)$('dlDest').value=preferences.download_dest||d.destination||'';if(d.running||d.status!=='idle'){$('dlCard').hidden=false;poll();}}).catch(()=>{});
+window.addEventListener('beforeunload',()=>clearTimeout(timer));return {show};})();
+'''

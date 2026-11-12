@@ -1,0 +1,22 @@
+# 行尾统一：仓库里一律存 LF，检出时按平台转换。
+# 但 .bat 必须是 CRLF —— cmd.exe 对 LF 结尾的批处理会出怪问题，
+# 而 启动.bat 是这个项目在 Windows 上的入口。
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 这些是二进制，别做行尾转换
+*.png binary
+*.jpg binary
+*.ico binary
+*.pdf binary
+*.docx binary
+*.npy binary
+
+# PDS 验证原件按字节冻结：TAB 记录偏移和 SHA-256 均依赖原始字节，禁止文本归一化。
+01_核心处理代码/验证/verify/fixtures/** binary
+# 随包 PDS 示例与缓存种子同样按字节保留（manifest.json 里记录了 sha256）。
+03_下载数据/** binary
+05_安装与发布/资源模板/** binary
+# 源码快照按原始字节做哈希，保留检出行尾以保证可复现构建。
+*.py -text whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof

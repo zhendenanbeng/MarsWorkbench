@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mars-workbench"
+dynamic = ["version"]
+description = "Windows 火星多仪器光谱辅助判读工作台"
+requires-python = ">=3.10,<3.14"
+readme = "04_使用说明/操作手册.md"
+license = "MIT"
+license-files = ["05_安装与发布/资源模板/licenses/LICENSE", "05_安装与发布/资源模板/licenses/THIRD_PARTY_NOTICES.md"]
+authors = [{name = "MarsWorkbench contributors"}]
+dependencies = ["numpy>=2.2,<2.5", "Pillow>=11,<14"]
+
+[project.optional-dependencies]
+full = ["opencv-python>=4.10,<6", "astropy>=6.1,<9"]
+build = ["pyinstaller>=6.15,<7", "build>=1.2", "wheel"]
+
+[project.scripts]
+mars-workbench = "mars_workbench.launch:main"
+
+[tool.setuptools]
+packages = ["mars_workbench", "mars_workbench.instruments", "mars_workbench.sherloc"]
+include-package-data = true
+
+[tool.setuptools.package-dir]
+mars_workbench = "02_图形界面代码"
+
+[tool.setuptools.package-data]
+mars_workbench = ["resources/**/*"]

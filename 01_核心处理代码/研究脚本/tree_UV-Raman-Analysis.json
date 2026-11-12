@@ -1,0 +1,26 @@
+{
+	"default": null,
+	"files": [
+		{
+			"type": "file",
+			"name": ".gitignore",
+			"hash": "ebb4BU+O9ennjBgXS/V8rymxFBAWa5Jo1pI+h1IOuI8=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1799
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "cJ+XxCj0AICc4mnfN8aTUeSVGga1dFV/loE7UMkTeZ8=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1076
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "vV8IRpClOXkM4M6wbmNbqF8U/7BpYS56iow6j0gYJ08=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 57
+		}
+	]
+}

@@ -1,0 +1,681 @@
+PDS_VERSION_ID                    = PDS3
+
+/* FILE DATA ELEMENTS */
+
+RECORD_TYPE                       = FIXED_LENGTH
+RECORD_BYTES                     =  660
+FILE_RECORDS                     =  6161
+
+/* POINTERS TO DATA OBJECTS */
+
+^HEADER            = ("CL5_486263840CCS_F0481570CCAM02000P3.CSV",1)
+^SPREADSHEET       = ("CL5_486263840CCS_F0481570CCAM02000P3.CSV",1856 <BYTES>)
+
+/* IDENTIFICATION DATA ELEMENTS */
+
+MSL:ACTIVE_FLIGHT_STRING_ID       = B
+DATA_SET_ID                      = "MSL-M-CHEMCAM-LIBS-4/5-RDR-V1.0"
+PRODUCT_TYPE                     = "CHEMCAM-CCS"
+COMMAND_SEQUENCE_NUMBER           = 35
+FRAME_ID                          = "N/A"
+FRAME_TYPE                        = "N/A"
+GEOMETRY_PROJECTION_TYPE          = RAW
+INSTRUMENT_HOST_ID                = "MSL"
+INSTRUMENT_HOST_NAME              = "MARS SCIENCE LABORATORY"
+INSTRUMENT_ID                     = "CHEMCAM_LIBS"
+INSTRUMENT_NAME                   = "CHEMISTRY CAMERA LASER INDUCED 
+                                     BREAKDOWN SPECTROMETER"
+INSTRUMENT_SERIAL_NUMBER          = "UNK"
+INSTRUMENT_TYPE                   = "SPECTROMETER"
+INSTRUMENT_VERSION_ID             = "FM"
+MSL:LOCAL_MEAN_SOLAR_TIME         = "Sol-01000M11:36:51.722"
+LOCAL_TRUE_SOLAR_TIME             = "10:50:38"
+MISSION_NAME                      = "MARS SCIENCE LABORATORY"
+MISSION_PHASE_NAME                = "EXTENDED SURFACE MISSION"
+OBSERVATION_ID                    = "UNK"
+PLANET_DAY_NUMBER                 = 1000
+MSL:LOCAL_TRUE_SOLAR_TIME_SOL     = 1000
+PRODUCER_INSTITUTION_NAME         = "LOS ALAMOS NATIONAL LABORATORY"
+PRODUCT_CREATION_TIME             =  2015-09-24T10:55:14.000
+PRODUCT_ID                        = "CL5_486263840CCS_F0481570CCAM02000P3"
+PRODUCT_VERSION_ID                = "3"
+RELEASE_ID                        = "0010"
+MSL:REQUEST_ID                    = "0"
+SOURCE_PRODUCT_ID                 = "CL5_486263840EDR_F0481570CCAM02000M1"
+ROVER_MOTION_COUNTER              = (48,1570,82,272,0,0,424,162,24,0)
+ROVER_MOTION_COUNTER_NAME         = (SITE,DRIVE,POSE,ARM,CHIMRA,DRILL,RSM,
+                                     HGA,DRT,IC)
+SEQUENCE_ID                       = "ccam02000"
+SEQUENCE_VERSION_ID               = "10"
+SOLAR_LONGITUDE                   = 350.388
+SPACECRAFT_CLOCK_CNT_PARTITION    = 1
+SPACECRAFT_CLOCK_START_COUNT      = "486263840.092"
+SPACECRAFT_CLOCK_STOP_COUNT       = "UNK"
+START_TIME                        = 2015-05-30T13:33:24.177
+STOP_TIME                         = UNK
+TARGET_NAME                       = MARS
+TARGET_TYPE                       = PLANET
+
+/* TELEMETRY DATA ELEMENTS */
+
+APPLICATION_PROCESS_ID            = 140
+APPLICATION_PROCESS_NAME          = "CcamSpectra"
+MSL:AUTO_DELETE_FLAG              = "FALSE"
+DOWNLOAD_PRIORITY                 = 56
+EARTH_RECEIVED_START_TIME         = 2015-05-30T18:41:41.682
+EARTH_RECEIVED_STOP_TIME          = 2015-05-30T18:34:30.792
+SPICE_FILE_NAME                   = "chronos.msl"
+TELEMETRY_PROVIDER_ID             = "MPCS_MSL_DP"
+MSL:TELEMETRY_SOURCE_HOST_NAME    = "mslsmsampcs1"
+TELEMETRY_SOURCE_NAME             = "CcamSpectra_0486263840-09208-2.dat"
+MSL:TELEMETRY_SOURCE_TYPE         = "DATA PRODUCT"
+MSL:COMMUNICATION_SESSION_ID      = "30002"
+MSL:EXPECTED_TRANSMISSION_PATH    = "3851"
+MSL:FLIGHT_SOFTWARE_MODE          = "8"
+FLIGHT_SOFTWARE_VERSION_ID        = "208889339"
+MSL:PRODUCT_COMPLETION_STATUS     = "COMPLETE_CHECKSUM_PASS"
+MSL:PRODUCT_TAG                   = "0"
+MSL:SEQUENCE_EXECUTION_COUNT      = 1
+MSL:TELEMETRY_SOURCE_START_TIME   = 2015-05-30T13:33:24.179
+MSL:TELEMETRY_SOURCE_SCLK_START   = "486263840.092"
+MSL:TELEMETRY_SOURCE_CHECKSUM     = 29869
+MSL:TELEMETRY_SOURCE_SIZE         = 390847
+MSL:TRANSMISSION_PATH             = "65535"
+MSL:VIRTUAL_CHANNEL_ID            = "32"
+
+/* HISTORY DATA ELEMENTS */
+
+GROUP                             = MSLEDRGEN_HISTORY_PARMS
+  SOFTWARE_NAME                   = MSLEDRGEN
+  SOFTWARE_VERSION_ID             = "V1.0 04-01-2011"
+  PROCESSING_HISTORY_TEXT         = "CODMAC LEVEL 1 TO LEVEL 2 CONVERSION 
+                                     VIA JPL/MIPL MSLEDRGEN"
+END_GROUP                         = MSLEDRGEN_HISTORY_PARMS
+
+/* CAMERA MODEL DATA ELEMENTS */
+
+GROUP                             = GEOMETRIC_CAMERA_MODEL_PARMS
+  CALIBRATION_SOURCE_ID           = "3"
+  ^MODEL_DESC                     = "GEOMETRIC_CM.TXT"
+  MODEL_TYPE                      = "CAHV"
+  MODEL_COMPONENT_ID              = ("C","A","H","V")
+  MODEL_COMPONENT_NAME            = ("CENTER","AXIS","HORIZONTAL","VERTICAL")
+  MODEL_COMPONENT_1               = (0.804537,0.804334,-1.96728)
+  MODEL_COMPONENT_2               = (-0.466463,0.58764,0.661117)
+  MODEL_COMPONENT_3               = (-43653.6,-21926.3,251.031)
+  MODEL_COMPONENT_4               = (17985.4,-35456.5,28223.4)
+  REFERENCE_COORD_SYSTEM_NAME     = "ROVER_NAV_FRAME"
+  ROVER_MOTION_COUNTER            = (48,1570,82,272,0,0,424,162,24,0)
+  MSL:MODEL_TRANSFORM_VECTOR      = (0.804563,0.559301,-1.90608)
+  MSL:MODEL_TRANSFORM_QUATERNION  = (0.463482,0.394472,-0.240326,0.756187)
+END_GROUP                         = GEOMETRIC_CAMERA_MODEL_PARMS
+
+/* COORDINATE SYSTEM STATE: ROVER */
+
+GROUP                             = ROVER_COORD_SYSTEM_PARMS
+  COORDINATE_SYSTEM_NAME          = "ROVER_NAV_FRAME"
+  ROVER_MOTION_COUNTER            = (48,1570,82,272,0,0,424,162,24,0)
+  COORDINATE_SYSTEM_INDEX_NAME    = (SITE,DRIVE,POSE,ARM,CHIMRA,DRILL,RSM,
+                                     HGA,DRT,IC)
+  ORIGIN_OFFSET_VECTOR            = (-2.58878,-73.3402,-2.44594)
+  ORIGIN_ROTATION_QUATERNION      = (0.332161,-0.0754662,-0.0622262,0.938137)
+  QUATERNION_MEASUREMENT_METHOD   = FINE
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+  POSITIVE_ELEVATION_DIRECTION    = UP
+  REFERENCE_COORD_SYSTEM_NAME     = SITE_FRAME
+  REFERENCE_COORD_SYSTEM_INDEX    = 48
+END_GROUP                         = ROVER_COORD_SYSTEM_PARMS
+
+/* COORDINATE SYSTEM STATE: SITE */
+
+GROUP                             = SITE_COORD_SYSTEM_PARMS
+  MSL:SOLUTION_ID                 = "telemetry"
+  COORDINATE_SYSTEM_NAME          = "SITE_FRAME"
+  COORDINATE_SYSTEM_INDEX         = 48
+  COORDINATE_SYSTEM_INDEX_NAME    = "SITE"
+  ORIGIN_OFFSET_VECTOR            = (-86.5961,-4.30173,-7.26792)
+  ORIGIN_ROTATION_QUATERNION      = (1,0,0,0)
+  POSITIVE_AZIMUTH_DIRECTION      = "CLOCKWISE"
+  POSITIVE_ELEVATION_DIRECTION    = "UP"
+  REFERENCE_COORD_SYSTEM_NAME     = "SITE_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = 47
+END_GROUP                         = SITE_COORD_SYSTEM_PARMS
+
+/* COORDINATE SYSTEM STATE: REMOTE SENSING MAST */
+
+GROUP                             = RSM_COORD_SYSTEM_PARMS
+  COORDINATE_SYSTEM_NAME          = "MAST_FRAME"
+  COORDINATE_SYSTEM_INDEX         = (48,1570,82,272,0,0,424,162,24,0)
+  COORDINATE_SYSTEM_INDEX_NAME    = (SITE,DRIVE,POSE,ARM,CHIMRA,DRILL,RSM,
+                                     HGA,DRT,IC)
+  ORIGIN_OFFSET_VECTOR            = (0.804563,0.559301,-1.90608)
+  ORIGIN_ROTATION_QUATERNION      = (0.463482,0.394472,-0.240326,0.756187)
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+  POSITIVE_ELEVATION_DIRECTION    = UP
+  REFERENCE_COORD_SYSTEM_NAME     = ROVER_NAV_FRAME
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,424,162)
+END_GROUP                         = RSM_COORD_SYSTEM_PARMS
+
+/* COORDINATE SYSTEM STATE: ROBOTIC ARM */
+
+GROUP                             = ARM_COORD_SYSTEM_PARMS
+  COORDINATE_SYSTEM_NAME          = "ARM_FRAME"
+  ORIGIN_OFFSET_VECTOR            = (1.85631,-0.398692,1.02502)
+  ORIGIN_ROTATION_QUATERNION      = (0.767046,-0.114139,0.622213,-0.107071)
+  REFERENCE_COORD_SYSTEM_NAME     = ROVER_NAV_FRAME
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,424,162)
+END_GROUP                         = ARM_COORD_SYSTEM_PARMS
+
+/* ARTICULATION DEVICE STATE: REMOTE SENSING MAST */
+
+GROUP                             = RSM_ARTICULATION_STATE_PARMS
+  ARTICULATION_DEVICE_ID          = RSM
+  ARTICULATION_DEVICE_NAME        = "REMOTE SENSING MAST"
+  ARTICULATION_DEVICE_ANGLE       = (5.20876 <rad>,0.62641 <rad>,
+                                     5.21138 <rad>,0.630764 <rad>,
+                                     5.21299 <rad>,0.626888 <rad>,
+                                     5.2114 <rad>,0.630729 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("AZIMUTH-MEASURED",
+                                     "ELEVATION-MEASURED",
+                                     "AZIMUTH-REQUESTED",
+                                     "ELEVATION-REQUESTED","AZIMUTH-INITIAL"
+                                     ,"ELEVATION-INITIAL","AZIMUTH-FINAL",
+                                     "ELEVATION-FINAL")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = RSM_ARTICULATION_STATE_PARMS
+
+/* ARTICULATION DEVICE STATE: ROBOTIC ARM */
+
+GROUP                             = ARM_ARTICULATION_STATE_PARMS
+  ARTICULATION_DEVICE_ID          = ARM
+  ARTICULATION_DEVICE_ANGLE       = (-2.82049 <rad>,-2.63368 <rad>,
+                                     -2.29042 <rad>,3.56704 <rad>,
+                                     5.42246 <rad>,-2.82542 <rad>,
+                                     -2.63923 <rad>,-2.29569 <rad>,
+                                     3.56256 <rad>,5.41736 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("JOINT 1 SHOULDER AZIMUTH",
+                                     "JOINT 2 SHOULDER ELEVATION",
+                                     "JOINT 3 ELBOW-ENCODER",
+                                     "JOINT 4 WRIST-ENCODER",
+                                     "JOINT 5 TURRET-ENCODER",
+                                     "JOINT 1 SHOULDER AZIMUTH-RESOLVER",
+                                     "JOINT 2 SHOULDER ELEVATION-RESOLVER",
+                                     "JOINT 3 ELBOW-RESOLVER",
+                                     "JOINT 4 WRIST-RESOLVER",
+                                     "JOINT 5 TURRET-RESOLVER")
+  ARTICULATION_DEVICE_TEMP        = (-40.7497 <degC>,-38.5651 <degC>,
+                                     -33.0123 <degC>,-36.2448 <degC>,
+                                     -29.6714 <degC>)
+  ARTICULATION_DEVICE_TEMP_NAME   = ("AZIMUTH JOINT","ELEVATION JOINT",
+                                     "ELBOW JOINT","WRIST JOINT",
+                                     "TURRET JOINT")
+  ARTICULATION_DEV_VECTOR         = (-0.100257,-0.166887,0.980865)
+  CONTACT_SENSOR_STATE            = "CONTACT"
+  ARTICULATION_DEV_INSTRUMENT_ID  = "APXS"
+  ARTICULATION_DEVICE_MODE        = "FREE SPACE"
+END_GROUP                         = ARM_ARTICULATION_STATE_PARMS
+
+/* ARTICULATION DEVICE STATE: MOBILITY CHASSIS */
+
+GROUP                             = CHASSIS_ARTICULATION_ST_PARMS
+  ARTICULATION_DEVICE_ID          = CHASSIS
+  ARTICULATION_DEVICE_NAME        = "MOBILITY CHASSIS"
+  ARTICULATION_DEVICE_ANGLE       = (-4.26106e-05 <rad>,-4.26106e-05 <rad>,
+                                     -0.000127832 <rad>,4.26106e-05 <rad>,
+                                     5.20876 <rad>,0.62641 <rad>,
+                                     0.0148489 <rad>,0.186837 <rad>,
+                                     0.0275015 <rad>,-0.029031 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("LEFT FRONT WHEEL","RIGHT FRONT WHEEL"
+                                     ,"LEFT REAR WHEEL","RIGHT REAR WHEEL",
+                                     "RSM AZIMUTH","RSM ELEVATION",
+                                     "LEFT BOGIE","RIGHT BOGIE",
+                                     "LEFT DIFFERENTIAL",
+                                     "RIGHT DIFFERENTIAL")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = CHASSIS_ARTICULATION_ST_PARMS
+
+/* ARTICULATION DEVICE STATE: HIGH GAIN ANTENNA */
+
+GROUP                             = HGA_ARTICULATION_STATE_PARMS
+  ARTICULATION_DEVICE_ID          = HGA
+  ARTICULATION_DEVICE_NAME        = "HIGH GAIN ANTENNA"
+  ARTICULATION_DEVICE_ANGLE       = (3.33928e-05 <rad>,-0.784964 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("AZIMUTH","ELEVATION")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = HGA_ARTICULATION_STATE_PARMS
+
+/* OBSERVATION REQUEST */
+
+GROUP                             = OBSERVATION_REQUEST_PARMS
+  SOURCE_ID                       = "GROUND COMMANDED"
+  MSL:INSTRUMENT_COORD_FRAME_INDEX= 0
+  MSL:INSTRUMENT_COORD_FRAME_ID   = "NAV"
+  INSTRUMENT_COORDINATE_NAME      = ("AZIMUTH","ELEVATION")
+  INSTRUMENT_COORDINATE           = (0 <rad>,0.004 <rad>)
+  MSL:DARK_SPECTRA_MODE           = "NONE"
+  GAIN_NUMBER                     = 0
+  GROUP_APPLICABILITY_FLAG        = "TRUE"
+  MSL:INSTRUMENT_FOCUS_MODE       = "BASELINE"
+  MSL:INSTRUMENT_FOCUS_DISTANCE   = 2390
+  INSTRUMENT_MODE_ID              = "SPECTRAL_DATA"
+  MSL:LASER_MODE                  = "YES"
+  OFFSET_MODE_ID                  = "0"
+ MSL:N_SHOTS_2_IGNORE            =  0
+ MSL:N_SHOTS_2_AVG               =  0
+ MSL:N_SHOTS                     =  30
+ MSL:SPECTROMETER_CONTROL_BYTE   =  2
+ MSL:SPEC_IMAGE_TYPE             =  4
+ MSL:SPECTROMETER_SERIAL_CLOCK   =  1
+ MSL:SPECTROMETER_SELECT         =  "UNK"
+ MSL:ICT_DIVIDER                 =  300
+ MSL:IPBC_DIVIDER                =  330
+ MSL:START_ROW_UV                =  100
+ MSL:STOP_ROW_UV                 =  300
+ MSL:START_ROW_VIS               =  75
+ MSL:STOP_ROW_VIS                =  275
+ MSL:START_ROW_VNIR              =  100
+ MSL:STOP_ROW_VNIR               =  300
+ MSL:OBS_FROM_LIMIT_SWITCH       =  0
+ MSL:STACK_1_LEVEL               =  100
+ MSL:STACK_2_LEVEL               =  95
+ MSL:STACK_3_LEVEL               =  95
+ MSL:STACK_DURATION              =  145
+ MSL:CCAM_TIME_BETWEEN_SHOTS          =  244
+ MSL:SPEC_AD_CONVERTVNIR         =  5
+ MSL:SPEC_AD_CONVERTVIS          =  5
+ MSL:SPEC_AD_CONVERTUV           =  5
+ MSL:SPEC_VERT_CLK               =  2
+END_GROUP                        = OBSERVATION_REQUEST_PARMS
+
+/* INSTRUMENT STATE RESULTS */
+
+GROUP                             = INSTRUMENT_STATE_PARMS
+  MSL:SPECIAL_LINE                = 497
+  MSL:SPECIAL_SAMPLE              = 532
+  MSL:SPECIAL_NAME                = "Location of the LIBS laser spot in the
+                                      RMI image described by the camera 
+                                     model"
+  INSTRUMENT_TEMPERATURE          = (-28.2778 <degC>,-28.2778 <degC>,
+                                     -11.6959 <degC>,-11.6959 <degC>,
+                                     -11.6959 <degC>,-11.6959 <degC>,
+                                     -6.72701 <degC>,-0.885405 <degC>,
+                                     13.0459 <degC>,13.0459 <degC>)
+  INSTRUMENT_TEMPERATURE_NAME     = ("MU_OBOX_TELESCOPE","MU_LASER_IF",
+                                     "MU_EBOX_HEATSINK","MU_EBOX_FPGA",
+                                     "BU_CCD_VNIR_B","BU_SPEC_B",
+                                     "BU_CCD_UV_A","BU_SPEC_A","BU_DEMUX_A",
+                                     "BU_DEMUX_B")
+  MSL:INSTRUMENT_TEMPERATURE_STATUS= (0,-42,0,-42,-42,-42,0,0,0,-42)
+END_GROUP                         = INSTRUMENT_STATE_PARMS
+
+/* DERIVED GEOMETRY DATA ELEMENTS: ROVER FRAME */
+
+GROUP                             = ROVER_DERIVED_GEOMETRY_PARMS
+  INSTRUMENT_AZIMUTH              = 117.299
+  INSTRUMENT_ELEVATION            = -55.1911
+  REFERENCE_COORD_SYSTEM_NAME     = "ROVER_NAV_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,424,162)
+  SUN_VIEW_DIRECTION              = (0.278817,-0.0743017,-0.957466)
+  SOLAR_AZIMUTH                   = 345.078 <deg>
+  SOLAR_ELEVATION                 = 73.229 <deg>
+END_GROUP                         = ROVER_DERIVED_GEOMETRY_PARMS
+
+/* DERIVED GEOMETRY DATA ELEMENTS: SITE FRAME */
+
+GROUP                             = SITE_DERIVED_GEOMETRY_PARMS
+  INSTRUMENT_AZIMUTH              = 246.932
+  INSTRUMENT_ELEVATION            = -48.3261
+  REFERENCE_COORD_SYSTEM_NAME     = "SITE_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,424,162)
+  SOLAR_AZIMUTH                   = 88.7967 <deg>
+  SOLAR_ELEVATION                 = 72.7014 <deg>
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+END_GROUP                         = SITE_DERIVED_GEOMETRY_PARMS
+
+/* HEADER DESCRIPTION */
+
+OBJECT                           = HEADER
+  BYTES                          = 1855
+  RECORDS                        = 17
+  HEADER_TYPE                    = "TEXT"
+END_OBJECT                       = HEADER
+
+/* DATA DESCRIPTION */
+
+OBJECT                           = SPREADSHEET
+  FIELD_DELIMITER                = "COMMA"
+  FIELDS                         = 33
+  ROW_BYTES                      = 660
+  ROWS                           = 6144
+  DESCRIPTION                    = "Clean calibrated spectra from LIBS in
+      radiance as a function of wavelength.  The number of spectra in the
+      file depends on the number of shots plus the median and average."
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 1
+    NAME                      = "WAVELENGTH"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = NANOMETER
+    DESCRIPTION               = "Calibrated wavelength"
+  END_OBJECT                  = FIELD
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 2
+    NAME                      = "SPECTRA_001"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 1"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 3
+    NAME                      = "SPECTRA_002"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 2"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 4
+    NAME                      = "SPECTRA_003"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 3"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 5
+    NAME                      = "SPECTRA_004"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 4"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 6
+    NAME                      = "SPECTRA_005"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 5"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 7
+    NAME                      = "SPECTRA_006"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 6"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 8
+    NAME                      = "SPECTRA_007"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 7"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 9
+    NAME                      = "SPECTRA_008"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 8"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 10
+    NAME                      = "SPECTRA_009"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 9"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 11
+    NAME                      = "SPECTRA_010"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 10"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 12
+    NAME                      = "SPECTRA_011"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 11"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 13
+    NAME                      = "SPECTRA_012"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 12"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 14
+    NAME                      = "SPECTRA_013"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 13"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 15
+    NAME                      = "SPECTRA_014"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 14"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 16
+    NAME                      = "SPECTRA_015"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 15"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 17
+    NAME                      = "SPECTRA_016"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 16"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 18
+    NAME                      = "SPECTRA_017"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 17"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 19
+    NAME                      = "SPECTRA_018"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 18"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 20
+    NAME                      = "SPECTRA_019"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 19"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 21
+    NAME                      = "SPECTRA_020"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 20"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 22
+    NAME                      = "SPECTRA_021"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 21"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 23
+    NAME                      = "SPECTRA_022"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 22"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 24
+    NAME                      = "SPECTRA_023"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 23"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 25
+    NAME                      = "SPECTRA_024"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 24"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 26
+    NAME                      = "SPECTRA_025"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 25"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 27
+    NAME                      = "SPECTRA_026"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 26"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 28
+    NAME                      = "SPECTRA_027"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 27"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 29
+    NAME                      = "SPECTRA_028"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 28"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 30
+    NAME                      = "SPECTRA_029"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 29"
+  END_OBJECT                  = FIELD
+
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 31
+    NAME                      = "SPECTRA_030"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "SHOT 30"
+  END_OBJECT                  = FIELD
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 32
+    NAME                      = "MEDIAN"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "Median of 30 shots"
+  END_OBJECT                  = FIELD
+
+  OBJECT                      = FIELD
+    FIELD_NUMBER              = 33
+    NAME                      = "AVERAGE"
+    BYTES                     = 20
+    DATA_TYPE                 = ASCII_REAL
+    UNIT                      = RADIANCE
+    DESCRIPTION               = "Average of 30 shots"
+  END_OBJECT                  = FIELD
+END_OBJECT                    = SPREADSHEET
+
+END

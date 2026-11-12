@@ -1,0 +1,344 @@
+PDS_VERSION_ID                    = PDS3
+
+/* FILE DATA ELEMENTS */
+
+RECORD_TYPE                       = FIXED_LENGTH
+RECORD_BYTES                      = 44
+FILE_RECORDS                      = 6473
+
+/* POINTERS TO DATA OBJECTS */
+
+^HEADER = ("CL9_486263266PSV_F0481570CCAM02000P3.TAB",1)
+^TABLE = ("CL9_486263266PSV_F0481570CCAM02000P3.TAB",30)
+
+/* IDENTIFICATION DATA ELEMENTS */
+
+MSL:ACTIVE_FLIGHT_STRING_ID       = B
+DATA_SET_ID                      = "MSL-M-CHEMCAM-LIBS-4/5-RDR-V1.0"
+PRODUCT_TYPE                     = "CHEMCAM-PSV"
+COMMAND_SEQUENCE_NUMBER           = 7
+FRAME_ID                          = "N/A"
+FRAME_TYPE                        = "N/A"
+GEOMETRY_PROJECTION_TYPE          = RAW
+INSTRUMENT_HOST_ID                = "MSL"
+INSTRUMENT_HOST_NAME              = "MARS SCIENCE LABORATORY"
+INSTRUMENT_ID                     = "CHEMCAM_LIBS"
+INSTRUMENT_NAME                   = "CHEMISTRY CAMERA LASER INDUCED 
+                                     BREAKDOWN SPECTROMETER"
+INSTRUMENT_SERIAL_NUMBER          = "UNK"
+INSTRUMENT_TYPE                   = "SPECTROMETER"
+INSTRUMENT_VERSION_ID             = "FM"
+MSL:LOCAL_MEAN_SOLAR_TIME         = "Sol-01000M11:27:33.843"
+LOCAL_TRUE_SOLAR_TIME             = "10:41:20"
+MISSION_NAME                      = "MARS SCIENCE LABORATORY"
+MISSION_PHASE_NAME                = "EXTENDED SURFACE MISSION"
+OBSERVATION_ID                    = "UNK"
+PLANET_DAY_NUMBER                 = 1000
+MSL:LOCAL_TRUE_SOLAR_TIME_SOL     = 1000
+PRODUCER_INSTITUTION_NAME         = "LOS ALAMOS NATIONAL LABORATORY"
+PRODUCT_CREATION_TIME             =  2015-11-04T09:54:02.000
+PRODUCT_ID                        = "CL9_486263266PSV_F0481570CCAM02000P3"
+PRODUCT_VERSION_ID                = "3"
+RELEASE_ID                        = "0010"
+MSL:REQUEST_ID                    = "0"
+SOURCE_PRODUCT_ID                 = "CL9_486263266EDR_F0481570CCAM02000M1"
+ROVER_MOTION_COUNTER              = (48,1570,82,272,0,0,376,162,24,0)
+ROVER_MOTION_COUNTER_NAME         = (SITE,DRIVE,POSE,ARM,CHIMRA,DRILL,RSM,
+                                     HGA,DRT,IC)
+SEQUENCE_ID                       = "ccam02000"
+SEQUENCE_VERSION_ID               = "10"
+SOLAR_LONGITUDE                   = 350.385
+SPACECRAFT_CLOCK_CNT_PARTITION    = 1
+SPACECRAFT_CLOCK_START_COUNT      = "486263266.609"
+SPACECRAFT_CLOCK_STOP_COUNT       = "UNK"
+START_TIME                        = 2015-05-30T13:23:50.961
+STOP_TIME                         = UNK
+TARGET_NAME                       = MARS
+TARGET_TYPE                       = PLANET
+
+/* TELEMETRY DATA ELEMENTS */
+
+APPLICATION_PROCESS_ID            = 610
+APPLICATION_PROCESS_NAME          = "CcamSpectraStats"
+MSL:AUTO_DELETE_FLAG              = "FALSE"
+DOWNLOAD_PRIORITY                 = 56
+EARTH_RECEIVED_START_TIME         = 2015-05-30T18:39:28.449
+EARTH_RECEIVED_STOP_TIME          = 2015-05-30T18:34:32.428
+SPICE_FILE_NAME                   = "chronos.msl"
+TELEMETRY_PROVIDER_ID             = "MPCS_MSL_DP"
+MSL:TELEMETRY_SOURCE_HOST_NAME    = "mslsmsampcs1"
+TELEMETRY_SOURCE_NAME             = "CcamSpectraStats_0486263266-60926-2.dat"
+MSL:TELEMETRY_SOURCE_TYPE         = "DATA PRODUCT"
+MSL:COMMUNICATION_SESSION_ID      = "30002"
+MSL:EXPECTED_TRANSMISSION_PATH    = "3851"
+MSL:FLIGHT_SOFTWARE_MODE          = "8"
+FLIGHT_SOFTWARE_VERSION_ID        = "208889339"
+MSL:PRODUCT_COMPLETION_STATUS     = "COMPLETE_CHECKSUM_PASS"
+MSL:PRODUCT_TAG                   = "0"
+MSL:SEQUENCE_EXECUTION_COUNT      = 1
+MSL:TELEMETRY_SOURCE_START_TIME   = 2015-05-30T13:23:50.962
+MSL:TELEMETRY_SOURCE_SCLK_START   = "486263266.609"
+MSL:TELEMETRY_SOURCE_CHECKSUM     = 57693
+MSL:TELEMETRY_SOURCE_SIZE         = 91325
+MSL:TRANSMISSION_PATH             = "65535"
+MSL:VIRTUAL_CHANNEL_ID            = "32"
+
+/* HISTORY DATA ELEMENTS */
+
+GROUP                             = MSLEDRGEN_HISTORY_PARMS
+  SOFTWARE_NAME                   = MSLEDRGEN
+  SOFTWARE_VERSION_ID             = "V1.0 04-01-2011"
+  PROCESSING_HISTORY_TEXT         = "CODMAC LEVEL 1 TO LEVEL 2 CONVERSION 
+                                     VIA JPL/MIPL MSLEDRGEN"
+END_GROUP                         = MSLEDRGEN_HISTORY_PARMS
+
+/* CAMERA MODEL DATA ELEMENTS */
+
+GROUP                             = GEOMETRIC_CAMERA_MODEL_PARMS
+  CALIBRATION_SOURCE_ID           = "3"
+  ^MODEL_DESC                     = "GEOMETRIC_CM.TXT"
+  MODEL_TYPE                      = "CAHV"
+  MODEL_COMPONENT_ID              = ("C","A","H","V")
+  MODEL_COMPONENT_NAME            = ("CENTER","AXIS","HORIZONTAL","VERTICAL")
+  MODEL_COMPONENT_1               = (0.804043,0.804542,-1.96644)
+  MODEL_COMPONENT_2               = (-0.46622,0.584634,0.663948)
+  MODEL_COMPONENT_3               = (-43618.5,-21996.1,252.741)
+  MODEL_COMPONENT_4               = (18091,-35524.4,28070)
+  REFERENCE_COORD_SYSTEM_NAME     = "ROVER_NAV_FRAME"
+  ROVER_MOTION_COUNTER            = (48,1570,82,272,0,0,376,162,24,0)
+  MSL:MODEL_TRANSFORM_VECTOR      = (0.804563,0.559301,-1.90608)
+  MSL:MODEL_TRANSFORM_QUATERNION  = (0.462421,0.396122,-0.2409,0.755792)
+END_GROUP                         = GEOMETRIC_CAMERA_MODEL_PARMS
+
+/* COORDINATE SYSTEM STATE: ROVER */
+
+GROUP                             = ROVER_COORD_SYSTEM_PARMS
+  COORDINATE_SYSTEM_NAME          = "ROVER_NAV_FRAME"
+  ROVER_MOTION_COUNTER            = (48,1570,82,272,0,0,376,162,24,0)
+  COORDINATE_SYSTEM_INDEX_NAME    = (SITE,DRIVE,POSE,ARM,CHIMRA,DRILL,RSM,
+                                     HGA,DRT,IC)
+  ORIGIN_OFFSET_VECTOR            = (-2.58878,-73.3402,-2.44594)
+  ORIGIN_ROTATION_QUATERNION      = (0.332161,-0.0754662,-0.0622262,0.938137)
+  QUATERNION_MEASUREMENT_METHOD   = FINE
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+  POSITIVE_ELEVATION_DIRECTION    = UP
+  REFERENCE_COORD_SYSTEM_NAME     = SITE_FRAME
+  REFERENCE_COORD_SYSTEM_INDEX    = 48
+END_GROUP                         = ROVER_COORD_SYSTEM_PARMS
+
+/* COORDINATE SYSTEM STATE: SITE */
+
+GROUP                             = SITE_COORD_SYSTEM_PARMS
+  MSL:SOLUTION_ID                 = "telemetry"
+  COORDINATE_SYSTEM_NAME          = "SITE_FRAME"
+  COORDINATE_SYSTEM_INDEX         = 48
+  COORDINATE_SYSTEM_INDEX_NAME    = "SITE"
+  ORIGIN_OFFSET_VECTOR            = (-86.5961,-4.30173,-7.26792)
+  ORIGIN_ROTATION_QUATERNION      = (1,0,0,0)
+  POSITIVE_AZIMUTH_DIRECTION      = "CLOCKWISE"
+  POSITIVE_ELEVATION_DIRECTION    = "UP"
+  REFERENCE_COORD_SYSTEM_NAME     = "SITE_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = 47
+END_GROUP                         = SITE_COORD_SYSTEM_PARMS
+
+/* COORDINATE SYSTEM STATE: REMOTE SENSING MAST */
+
+GROUP                             = RSM_COORD_SYSTEM_PARMS
+  COORDINATE_SYSTEM_NAME          = "MAST_FRAME"
+  COORDINATE_SYSTEM_INDEX         = (48,1570,82,272,0,0,376,162,24,0)
+  COORDINATE_SYSTEM_INDEX_NAME    = (SITE,DRIVE,POSE,ARM,CHIMRA,DRILL,RSM,
+                                     HGA,DRT,IC)
+  ORIGIN_OFFSET_VECTOR            = (0.804563,0.559301,-1.90608)
+  ORIGIN_ROTATION_QUATERNION      = (0.462421,0.396122,-0.2409,0.755792)
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+  POSITIVE_ELEVATION_DIRECTION    = UP
+  REFERENCE_COORD_SYSTEM_NAME     = ROVER_NAV_FRAME
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,376,162)
+END_GROUP                         = RSM_COORD_SYSTEM_PARMS
+
+/* COORDINATE SYSTEM STATE: ROBOTIC ARM */
+
+GROUP                             = ARM_COORD_SYSTEM_PARMS
+  COORDINATE_SYSTEM_NAME          = "ARM_FRAME"
+  ORIGIN_OFFSET_VECTOR            = (1.85631,-0.398692,1.02502)
+  ORIGIN_ROTATION_QUATERNION      = (0.76704,-0.114156,0.622219,-0.107061)
+  REFERENCE_COORD_SYSTEM_NAME     = ROVER_NAV_FRAME
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,376,162)
+END_GROUP                         = ARM_COORD_SYSTEM_PARMS
+
+/* ARTICULATION DEVICE STATE: REMOTE SENSING MAST */
+
+GROUP                             = RSM_ARTICULATION_STATE_PARMS
+  ARTICULATION_DEVICE_ID          = RSM
+  ARTICULATION_DEVICE_NAME        = "REMOTE SENSING MAST"
+  ARTICULATION_DEVICE_ANGLE       = (5.21034 <rad>,0.622555 <rad>,
+                                     5.21296 <rad>,0.626857 <rad>,
+                                     5.27413 <rad>,0.642949 <rad>,
+                                     5.21298 <rad>,0.62686 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("AZIMUTH-MEASURED",
+                                     "ELEVATION-MEASURED",
+                                     "AZIMUTH-REQUESTED",
+                                     "ELEVATION-REQUESTED","AZIMUTH-INITIAL"
+                                     ,"ELEVATION-INITIAL","AZIMUTH-FINAL",
+                                     "ELEVATION-FINAL")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = RSM_ARTICULATION_STATE_PARMS
+
+/* ARTICULATION DEVICE STATE: ROBOTIC ARM */
+
+GROUP                             = ARM_ARTICULATION_STATE_PARMS
+  ARTICULATION_DEVICE_ID          = ARM
+  ARTICULATION_DEVICE_ANGLE       = (-2.82049 <rad>,-2.63368 <rad>,
+                                     -2.29042 <rad>,3.56704 <rad>,
+                                     5.42246 <rad>,-2.82542 <rad>,
+                                     -2.63923 <rad>,-2.29569 <rad>,
+                                     3.56256 <rad>,5.41736 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("JOINT 1 SHOULDER AZIMUTH",
+                                     "JOINT 2 SHOULDER ELEVATION",
+                                     "JOINT 3 ELBOW-ENCODER",
+                                     "JOINT 4 WRIST-ENCODER",
+                                     "JOINT 5 TURRET-ENCODER",
+                                     "JOINT 1 SHOULDER AZIMUTH-RESOLVER",
+                                     "JOINT 2 SHOULDER ELEVATION-RESOLVER",
+                                     "JOINT 3 ELBOW-RESOLVER",
+                                     "JOINT 4 WRIST-RESOLVER",
+                                     "JOINT 5 TURRET-RESOLVER")
+  ARTICULATION_DEVICE_TEMP        = (-42.0091 <degC>,-40.4468 <degC>,
+                                     -34.5881 <degC>,-37.8389 <degC>,
+                                     -30.9471 <degC>)
+  ARTICULATION_DEVICE_TEMP_NAME   = ("AZIMUTH JOINT","ELEVATION JOINT",
+                                     "ELBOW JOINT","WRIST JOINT",
+                                     "TURRET JOINT")
+  ARTICULATION_DEV_VECTOR         = (-0.100257,-0.166887,0.980865)
+  CONTACT_SENSOR_STATE            = "CONTACT"
+  ARTICULATION_DEV_INSTRUMENT_ID  = "APXS"
+  ARTICULATION_DEVICE_MODE        = "FREE SPACE"
+END_GROUP                         = ARM_ARTICULATION_STATE_PARMS
+
+/* ARTICULATION DEVICE STATE: MOBILITY CHASSIS */
+
+GROUP                             = CHASSIS_ARTICULATION_ST_PARMS
+  ARTICULATION_DEVICE_ID          = CHASSIS
+  ARTICULATION_DEVICE_NAME        = "MOBILITY CHASSIS"
+  ARTICULATION_DEVICE_ANGLE       = (-4.26106e-05 <rad>,-4.26106e-05 <rad>,
+                                     -0.000127832 <rad>,4.26106e-05 <rad>,
+                                     5.21034 <rad>,0.622555 <rad>,
+                                     0.0148489 <rad>,0.186837 <rad>,
+                                     0.0275015 <rad>,-0.029031 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("LEFT FRONT WHEEL","RIGHT FRONT WHEEL"
+                                     ,"LEFT REAR WHEEL","RIGHT REAR WHEEL",
+                                     "RSM AZIMUTH","RSM ELEVATION",
+                                     "LEFT BOGIE","RIGHT BOGIE",
+                                     "LEFT DIFFERENTIAL",
+                                     "RIGHT DIFFERENTIAL")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = CHASSIS_ARTICULATION_ST_PARMS
+
+/* ARTICULATION DEVICE STATE: HIGH GAIN ANTENNA */
+
+GROUP                             = HGA_ARTICULATION_STATE_PARMS
+  ARTICULATION_DEVICE_ID          = HGA
+  ARTICULATION_DEVICE_NAME        = "HIGH GAIN ANTENNA"
+  ARTICULATION_DEVICE_ANGLE       = (3.33928e-05 <rad>,-0.784964 <rad>)
+  ARTICULATION_DEVICE_ANGLE_NAME  = ("AZIMUTH","ELEVATION")
+  ARTICULATION_DEVICE_MODE        = DEPLOYED
+END_GROUP                         = HGA_ARTICULATION_STATE_PARMS
+
+/* OBSERVATION REQUEST */
+
+GROUP                             = OBSERVATION_REQUEST_PARMS
+  SOURCE_ID                       = "GROUND COMMANDED"
+  MSL:INSTRUMENT_COORD_FRAME_INDEX= 0
+  MSL:INSTRUMENT_COORD_FRAME_ID   = "NAV"
+  INSTRUMENT_COORDINATE_NAME      = "UNK"
+  INSTRUMENT_COORDINATE           = "UNK"
+  MSL:DARK_SPECTRA_MODE           = "NONE"
+  GAIN_NUMBER                     = 0
+  GROUP_APPLICABILITY_FLAG        = "TRUE"
+  MSL:INSTRUMENT_FOCUS_MODE       = "NO_FOCUS"
+  MSL:INSTRUMENT_FOCUS_DISTANCE   = 2390
+  INSTRUMENT_MODE_ID              = "SPECTRAL_DATA"
+  MSL:LASER_MODE                  = "NO"
+  OFFSET_MODE_ID                  = "0"
+END_GROUP                         = OBSERVATION_REQUEST_PARMS
+
+/* INSTRUMENT STATE RESULTS */
+
+GROUP                             = INSTRUMENT_STATE_PARMS
+  MSL:SPECIAL_LINE                = 497
+  MSL:SPECIAL_SAMPLE              = 532
+  MSL:SPECIAL_NAME                = "Location of the LIBS laser spot in the
+                                      RMI image described by the camera 
+                                     model"
+  INSTRUMENT_TEMPERATURE          = (-28.9125 <degC>,-28.9125 <degC>,
+                                     -15.2042 <degC>,-15.2042 <degC>,
+                                     -15.2042 <degC>,-15.2042 <degC>,
+                                     -7.37311 <degC>,-0.885405 <degC>,
+                                     12.7241 <degC>,12.7241 <degC>)
+  INSTRUMENT_TEMPERATURE_NAME     = ("MU_OBOX_TELESCOPE","MU_LASER_IF",
+                                     "MU_EBOX_HEATSINK","MU_EBOX_FPGA",
+                                     "BU_CCD_VNIR_B","BU_SPEC_B",
+                                     "BU_CCD_UV_A","BU_SPEC_A","BU_DEMUX_A",
+                                     "BU_DEMUX_B")
+  MSL:INSTRUMENT_TEMPERATURE_STATUS= (0,-42,0,-42,-42,-42,0,0,0,-42)
+END_GROUP                         = INSTRUMENT_STATE_PARMS
+
+/* DERIVED GEOMETRY DATA ELEMENTS: ROVER FRAME */
+
+GROUP                             = ROVER_DERIVED_GEOMETRY_PARMS
+  INSTRUMENT_AZIMUTH              = 117.39
+  INSTRUMENT_ELEVATION            = -55.4119
+  REFERENCE_COORD_SYSTEM_NAME     = "ROVER_NAV_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,376,162)
+  SUN_VIEW_DIRECTION              = (0.302625,-0.10538,-0.947266)
+  SOLAR_AZIMUTH                   = 340.801 <deg>
+  SOLAR_ELEVATION                 = 71.31 <deg>
+END_GROUP                         = ROVER_DERIVED_GEOMETRY_PARMS
+
+/* DERIVED GEOMETRY DATA ELEMENTS: SITE FRAME */
+
+GROUP                             = SITE_DERIVED_GEOMETRY_PARMS
+  INSTRUMENT_AZIMUTH              = 246.924
+  INSTRUMENT_ELEVATION            = -48.5529
+  REFERENCE_COORD_SYSTEM_NAME     = "SITE_FRAME"
+  REFERENCE_COORD_SYSTEM_INDEX    = (48,1570,82,272,0,0,376,162)
+  SOLAR_AZIMUTH                   = 89.1159 <deg>
+  SOLAR_ELEVATION                 = 70.3846 <deg>
+  POSITIVE_AZIMUTH_DIRECTION      = CLOCKWISE
+END_GROUP                         = SITE_DERIVED_GEOMETRY_PARMS
+
+/* HEADER DESCRIPTION */
+
+OBJECT                            = HEADER
+  BYTES                           = 1276
+  RECORDS                         = 29
+  HEADER_TYPE                     = "TEXT"
+  DESCRIPTION                     = "The PSV table header includes
+      collection setup values as well as distance to the target.  
+      The header rows are padded with spaces followed by an ASCII 
+      carriage-return, and an ASCII line-feed."
+END_OBJECT                       = HEADER
+
+/* DATA DESCRIPTION */
+
+OBJECT                            = TABLE
+  ROWS                            = 6444
+  COLUMNS                         = 1
+  ROW_BYTES                       = 44
+  INTERCHANGE_FORMAT              = ASCII
+  DESCRIPTION                     = "The PSV table includes 
+      Wavelength-calibrated passive spectra (no laser used) 
+      in DN units. Companion wavelength file is CCAM_DEFAULT_WAVE.TAB."
+
+  OBJECT                         = COLUMN
+    NAME                         = "CHANNEL_INTENSITY"
+    DATA_TYPE                    = ASCII_REAL
+    START_BYTE                   = 1
+    BYTES                        = 42
+    UNIT                         = "DIGITAL_NUMBER"
+    DESCRIPTION                  = "Average of all shots"
+  END_OBJECT                     = COLUMN
+
+END_OBJECT                        = TABLE
+
+END

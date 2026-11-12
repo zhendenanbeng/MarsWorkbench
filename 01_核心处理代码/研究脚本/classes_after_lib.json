@@ -1,0 +1,155 @@
+{
+ "1201|srlc11372|0773599682": [],
+ "1201|srlc11470|0773594899": [
+  "unassigned 2@1188"
+ ],
+ "1201|srlc11470|0773597322": [
+  "unassigned 2@879",
+  "unassigned 2@977",
+  "unassigned 2@1108"
+ ],
+ "1201|srlc11470|0773601073": [
+  "olivine 4@839",
+  "unassigned 2@1590"
+ ],
+ "141|srlc10203|0679457537": [],
+ "141|srlc10203|0679457882": [],
+ "141|srlc10203|0679458226": [],
+ "162|srlc10500|0681350015": [
+  "perchlorate_or_phosphate 32@956",
+  "sulfate 27@1020",
+  "carbonate 26@1095",
+  "unassigned 12@1156",
+  "olivine 6@841",
+  "unassigned 3@884",
+  "unassigned 2@914",
+  "unassigned 2@1214"
+ ],
+ "162|srlc10500|0681350741": [
+  "perchlorate_or_phosphate 30@952",
+  "sulfate_or_pyroxene 28@1023",
+  "carbonate 24@1097",
+  "unassigned 22@1154",
+  "olivine 7@834",
+  "unassigned 3@900",
+  "unassigned 2@1194"
+ ],
+ "162|srlc11420|0681352941": [],
+ "162|srlc16000|0681353193": [],
+ "181|srlc10000|0683032922": [],
+ "181|srlc15050|0683033294": [
+  "unassigned 2@1166"
+ ],
+ "186|srlc10500|0683476721": [
+  "sulfate_or_pyroxene 9@986",
+  "perchlorate_or_phosphate 5@951",
+  "silicate 4@1038",
+  "olivine 2@834",
+  "carbonate 2@1079"
+ ],
+ "186|srlc10500|0683477446": [
+  "perchlorate_or_phosphate 20@967",
+  "silicate 8@1060",
+  "carbonate 4@1075"
+ ],
+ "186|srlc11420|0683478599": [
+  "perchlorate_or_phosphate 18@967",
+  "unassigned 11@1159",
+  "unassigned 8@1537",
+  "carbonate 7@1074",
+  "unassigned 7@1464",
+  "olivine 6@849",
+  "unassigned 6@898",
+  "sulfate 6@1016",
+  "unassigned 4@1609",
+  "unassigned 4@1695",
+  "unassigned 3@1275",
+  "unassigned 2@1654"
+ ],
+ "186|srlc16000|0683479873": [],
+ "207|srlc10501|0685346165": [
+  "olivine 65@833",
+  "carbonate 48@1088",
+  "carbonate 46@1082",
+  "unassigned 24@979",
+  "sulfate_or_pyroxene 14@1025",
+  "unassigned 9@1165",
+  "unassigned 8@913",
+  "unassigned 8@1132",
+  "unassigned 6@1402",
+  "unassigned 4@1318",
+  "unassigned 4@1441",
+  "unassigned 3@1208"
+ ],
+ "207|srlc11421|0685349792": [],
+ "207|srlc16000|0685350278": [],
+ "257|srlc11360|0689783904": [
+  "olivine 36@839",
+  "silicate 21@1045",
+  "sulfate_or_pyroxene 16@987",
+  "carbonate 13@1088",
+  "unassigned 3@1160",
+  "unassigned 2@1241"
+ ],
+ "257|srlc11421|0689786201": [],
+ "257|srlc16000|0689787325": [],
+ "293|srlc11360|0692979640": [
+  "carbonate 48@1083",
+  "sulfate 22@1009",
+  "unassigned 7@1127",
+  "unassigned 6@1160",
+  "unassigned 6@1208",
+  "perchlorate_chlorate 5@939",
+  "olivine 3@820",
+  "unassigned 2@899"
+ ],
+ "349|srlc11360|0697951251": [
+  "perchlorate_or_phosphate 22@958",
+  "silicate 21@1054",
+  "carbonate 12@1087",
+  "perchlorate_chlorate 2@925",
+  "unassigned 2@1132",
+  "unassigned 2@1199"
+ ],
+ "349|srlc11420|0697952686": [
+  "olivine 12@839",
+  "unassigned 6@1101",
+  "unassigned 6@1431",
+  "unassigned 5@1715",
+  "sulfate_or_pyroxene 4@996",
+  "unassigned 4@1122",
+  "unassigned 3@1455",
+  "unassigned 2@889",
+  "perchlorate_or_phosphate 2@961",
+  "unassigned 2@1189",
+  "unassigned 2@1291",
+  "unassigned 2@1394",
+  "unassigned 2@1511",
+  "unassigned 2@1614"
+ ],
+ "349|srlc16000|0697954375": [],
+ "370|srlc11360|0699813450": [
+  "silicate 30@1045",
+  "unassigned 22@977",
+  "unassigned 20@1103",
+  "unassigned 4@1160"
+ ],
+ "370|srlc11420|0699814879": [
+  "olivine 6@837",
+  "unassigned 5@1103",
+  "unassigned 4@1146",
+  "unassigned 4@1460",
+  "sulfate_or_pyroxene 3@1029",
+  "unassigned 3@1256",
+  "unassigned 3@1641",
+  "unassigned 3@1681",
+  "unassigned 3@1706",
+  "unassigned 2@884",
+  "perchlorate_or_phosphate 2@973",
+  "silicate 2@1064",
+  "unassigned 2@1346",
+  "unassigned 2@1531",
+  "unassigned 2@1715"
+ ],
+ "370|srlc16000|0699816583": []
+}

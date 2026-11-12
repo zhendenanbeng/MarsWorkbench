@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:mars2020="http://pds.nasa.gov/pds4/mission/mars2020/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="   http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd  http://pds.nasa.gov/pds4/mission/mars2020/v1 https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars2020_pixl:data_oxides_pmc:ps__0187_0683484569_000rqc__00700000699274310000___j01</logical_identifier>
+    <version_id>1.1</version_id>
+    <title>Mars2020 PIXL Individual Point Oxide Composition Product: Bellegarde (Sol 0187), Detectors Combined</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-02-14</modification_date>
+        <version_id>1.0</version_id>
+          <description>
+             First release.
+           </description>
+      </Modification_Detail>
+        <Modification_Detail>
+          <modification_date>2024-02-13</modification_date>
+          <version_id>1.1</version_id>
+          <description>Title Consistency Corrected</description>
+       </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time xsi:nil="true" nilReason="inapplicable"></start_date_time>
+      <stop_date_time xsi:nil="true" nilReason="inapplicable"></stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Mars 2020</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+        <Observing_System>
+      <Observing_System_Component>
+        <name>Mars 2020</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>PIXL Spectrometer</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:mars2020.pixl</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <mars2020:Mars2020_Parameters>
+        <mars2020:Observation_Information>
+          <mars2020:sol_number>0187</mars2020:sol_number>
+        </mars2020:Observation_Information>
+      </mars2020:Mars2020_Parameters>
+    </Mission_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>ps__0187_0683484569_000rqc__00700000699274310000___j01.csv</file_name>
+      <creation_date_time>2024-02-14T00:00:00</creation_date_time>
+    </File>
+    <Header>
+      <name>Column Headings</name>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">341</object_length>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>Comma-separated names of columns in the data table.</description>
+    </Header>
+    <Table_Delimited>
+      <name>PIXL Individual Point Oxide Compositions: Bellegarde (Sol 0187), Detectors Combined</name>
+      <offset unit="byte">341</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>2809</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>33</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>PMC</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>PIXL Motion Counter (Point Identifier)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Na2O</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Na2O Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MgO</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>MgO Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Al2O3</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Al2O3 Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SiO2</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>SiO2 Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>P2O5</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>P2O5 Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SO3</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>SO3 Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Cl</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Cl Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>K2O</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>K2O Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CaO</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>CaO Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TiO2</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>TiO2 Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Cr2O3</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Cr2O3 Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MnO</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>MnO Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>FeO-T</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>FeO-T Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>NiO</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>NiO Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ZnO</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>ZnO Concentration (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Br</name>
+          <field_number>17</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Br Concentration (weight percent)</description>
+        </Field_Delimited>
+
+        <Field_Delimited>
+          <name>Na2O_err</name>
+          <field_number>18</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Na2O 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MgO_err</name>
+          <field_number>19</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>MgO 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Al2O3_err</name>
+          <field_number>20</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Al2O3 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SiO2_err</name>
+          <field_number>21</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>SiO2 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>P2O5_err</name>
+          <field_number>22</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>P2O5 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SO3_err</name>
+          <field_number>23</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>SO3 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Cl_err</name>
+          <field_number>24</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Cl 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>K2O_err</name>
+          <field_number>25</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>K2O 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CaO_err</name>
+          <field_number>26</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>CaO 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TiO2_err</name>
+          <field_number>27</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>TiO2 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Cr2O3_err</name>
+          <field_number>28</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Cr2O3 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MnO_err</name>
+          <field_number>29</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>MnO 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>FeO-T_err</name>
+          <field_number>30</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>FeO-T 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>NiO_err</name>
+          <field_number>31</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>NiO 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ZnO_err</name>
+          <field_number>32</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>ZnO 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Br_err</name>
+          <field_number>33</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Br 1-Sigma Absolute Error (weight percent)</description>
+        </Field_Delimited>
+
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>

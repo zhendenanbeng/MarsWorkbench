@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "file": "pe__0186_0683483744_000rxl__00700000699274310005___j07.csv",
+      "bytes": 367287,
+      "sha256": "53c8622ac8e84c8c8deedc850509616f63576123f708e3f14738fcaa6b8b15ca",
+      "lid": "urn:nasa:pds:mars2020_pixl:data_processed:pe__0186_0683483744_000rxl__00700000699274310005___j07",
+      "source": "https://pds.nasa.gov/api/search/1/products?q=lid%20eq%20%22urn%3Anasa%3Apds%3Amars2020_pixl%3Adata_processed%3Ape__0186_0683483744_000rxl__00700000699274310005___j07%22",
+      "note": "不按文件名中的sol猜测归档目录；通过标签LID查询实际文件引用。"
+    },
+    {
+      "file": "pe__0186_0683483744_000rxl__00700000699274310005___j07.xml",
+      "bytes": 109759,
+      "sha256": "c6e58d07363ac5201a8213aee0dba0cc325cdb6b3696f54ab746447e26e7ac33",
+      "lid": "urn:nasa:pds:mars2020_pixl:data_processed:pe__0186_0683483744_000rxl__00700000699274310005___j07",
+      "source": "https://pds.nasa.gov/api/search/1/products?q=lid%20eq%20%22urn%3Anasa%3Apds%3Amars2020_pixl%3Adata_processed%3Ape__0186_0683483744_000rxl__00700000699274310005___j07%22",
+      "note": "不按文件名中的sol猜测归档目录；通过标签LID查询实际文件引用。"
+    },
+    {
+      "file": "ps__0187_0683484569_000rqc__00700000699274310000___j01.csv",
+      "bytes": 602201,
+      "sha256": "da3ecb109ee5771984ee141dd2d273b9f108053f4d7d820f260a600f4d7db9da",
+      "lid": "urn:nasa:pds:mars2020_pixl:data_oxides_pmc:ps__0187_0683484569_000rqc__00700000699274310000___j01",
+      "source": "https://pds.nasa.gov/api/search/1/products?q=lid%20eq%20%22urn%3Anasa%3Apds%3Amars2020_pixl%3Adata_oxides_pmc%3Aps__0187_0683484569_000rqc__00700000699274310000___j01%22",
+      "note": "不按文件名中的sol猜测归档目录；通过标签LID查询实际文件引用。"
+    },
+    {
+      "file": "ps__0187_0683484569_000rqc__00700000699274310000___j01.xml",
+      "bytes": 13047,
+      "sha256": "6b51b08db5d1a5b0715b5c46888b462d9b69e698c737f221f7353c447202643e",
+      "lid": "urn:nasa:pds:mars2020_pixl:data_oxides_pmc:ps__0187_0683484569_000rqc__00700000699274310000___j01",
+      "source": "https://pds.nasa.gov/api/search/1/products?q=lid%20eq%20%22urn%3Anasa%3Apds%3Amars2020_pixl%3Adata_oxides_pmc%3Aps__0187_0683484569_000rqc__00700000699274310000___j01%22",
+      "note": "不按文件名中的sol猜测归档目录；通过标签LID查询实际文件引用。"
+    },
+    {
+      "file": "pcw_0186_0683484439_000rcm_n00700000699274310005075j03.IMG",
+      "bytes": 872576,
+      "sha256": "a012f46cc57ba365e530ed9b6c3cb5002c7e0c6ccaa3ca90e28c2900fce21e64",
+      "source": "PIXL RXL XML引用的MCC；现有缓存IMG别名，按原字节保留；归档查询 https://pds.nasa.gov/ds-view/pds/viewBundle.jsp?identifier=urn:nasa:pds:mars2020_imgops"
+    },
+    {
+      "file": "pcw_0186_0683484554_000rcm_n00700000699274310006075j03.IMG",
+      "bytes": 872576,
+      "sha256": "d454df6cf2a2d30d928f4b879a15cad67556cfa5415f5f54a1fd473065db4afd",
+      "source": "PIXL RXL XML引用的MCC；现有缓存IMG别名，按原字节保留；归档查询 https://pds.nasa.gov/ds-view/pds/viewBundle.jsp?identifier=urn:nasa:pds:mars2020_imgops"
+    }
+  ],
+  "note": "CSV/XML为PDS原件，MCC为既有缓存的未修改图像体；别名不代表格式转换。"
+}

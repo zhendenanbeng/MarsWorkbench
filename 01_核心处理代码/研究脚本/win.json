@@ -1,0 +1,4 @@
+400 BAD_REQUEST
+ Request uri=/api/search/1/products/urn:nasa:pds:mars2020_imgops:data_watson_imgops/members failed with message:
+UnparsableQParamException: Unable to parse the q parameter:Invalid q string value syntax null(ref:066ec71a-d660-455c-b24a-e5b6937aa6ba)
+For assistance, forward this error message to pds-operator@jpl.nasa.gov
