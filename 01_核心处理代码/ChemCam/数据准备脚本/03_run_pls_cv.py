@@ -77,6 +77,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="ChemCam 自研 PLS 留一靶 CV")
     ap.add_argument("--make-template", action="store_true")
     ap.add_argument("--components", type=int, default=3)
+    ap.add_argument("--fit-model", action="store_true",
+                    help="CV 后用全部靶训练最终模型并保存（工作台预测用）")
     args = ap.parse_args(argv)
 
     data_root = Path(project_layout.data_root())
@@ -165,6 +167,27 @@ def main(argv=None):
             print("  对照 %s: RMSE %.3f vs Wiens2012 %.2f（区间 %s）-> %s"
                   % (ox, r["rmse"], verdict[ox]["reference_rmse"], verdict[ox]["band"],
                      "在内" if verdict[ox]["in_band"] else "超出"))
+
+    if args.fit_model and cv_rows:
+        final = {}
+        X = np.vstack([np.mean(np.asarray(spectra_by_target[n], dtype=float), axis=0)
+                       for n in sorted(spectra_by_target)])
+        for ox in libs_quant.OXIDES:
+            if ox not in cv_rows:
+                continue
+            y = np.array([float(composition[n]["composition"][ox])
+                          for n in sorted(spectra_by_target)])
+            final[ox] = libs_quant.PLS1Model(components=args.components).fit(X, y)
+        meta = {
+            "components": args.components,
+            "trained_targets": sorted(spectra_by_target),
+            "composition_sha256": sha256_of(comp_path),
+            "cv_rmse": {ox: r["rmse"] for ox, r in cv_rows.items()},
+            "trained_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+        mpath = data_root / "ChemCam" / "缓存" / "pls_model.json"
+        libs_quant.save_model(final, mpath, meta)
+        print("最终模型保存（全靶训练）:", mpath)
 
     out = data_root / "ChemCam" / "缓存" / "chemcam_pls_cv.json"
     doc = {

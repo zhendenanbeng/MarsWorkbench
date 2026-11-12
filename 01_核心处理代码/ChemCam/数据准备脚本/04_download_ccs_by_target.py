@@ -88,6 +88,8 @@ def main(argv=None):
     moc_files = sorted(set(re.findall(r'href="(/msl[^"]+moc[^"]*\.csv)"', h, re.I)))
     for rel in moc_files:
         data = http_get("https://pds-geosciences.wustl.edu" + rel).decode("utf-8", "replace")
+        if "COMBINED" not in data and "PLS" not in data.upper():
+            raise ValueError("MOC 内容异常（限流页/空页）：%s" % rel)
         for line in data.splitlines():
             parts = [p.strip() for p in line.split(",")]
             if len(parts) < 30 or not parts[1]:
@@ -136,17 +138,23 @@ def main(argv=None):
         picked = rows[::step][:args.per_target]
         entries = []
         for fname, official in picked:
-            rel = name_to_path.get(fname.upper())
+            lbl = fname.upper().replace(".CSV", ".LBL")
+            rel = lbl_to_path.get(lbl)
             if not rel:
                 print("  索引缺失：%s" % fname)
                 continue
             local = dest / fname
+            local_lbl = dest / lbl
             if not (local.is_file() and local.stat().st_size > 0):
                 try:
-                    data = http_get(BASE + rel)
+                    data = http_get(BASE + rel[:-4] + ".CSV")
                     tmp = str(local) + ".part"
                     open(tmp, "wb").write(data)
                     os.replace(tmp, str(local))
+                    if not (local_lbl.is_file() and local_lbl.stat().st_size > 0):
+                        open(str(local_lbl) + ".part", "wb").write(
+                            http_get(BASE + rel))
+                        os.replace(str(local_lbl) + ".part", str(local_lbl))
                 except Exception as exc:                 # noqa: BLE001
                     print("  下载失败 %s：%s" % (fname, str(exc)[:60]))
                     failed += 1

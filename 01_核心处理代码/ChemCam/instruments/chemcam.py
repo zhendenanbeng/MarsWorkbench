@@ -182,6 +182,61 @@ class ChemCamBackend(base.Backend):
                 "shot_numbers": shot_numbers,
                 "meta": dict(point.meta, sclk=point.sclk)}
 
+    # -- 自研 PLS 定量（Phase 1 产品化；独立标定，不是官方成分替代） --------
+
+    def quant_payload(self, obs):
+        """观测级自研 PLS 成分 payload（供工作台 quant 面板）。
+
+        模型（pls_model.json，由数据准备脚本 03 --fit-model 生成）在位且
+        观测含主动 CCS 点时，读全部点 → 与 load_point 同构的预处理链 →
+        平均谱 → 逐氧化物预测（精度用留一靶 CV RMSE 标注）。模型缺失、
+        通道不齐或文件读取失败时返回 {"available": False, ...}——显式
+        降级，绝不产出虚构成分。这是独立复现参考，不是官方成分替代。
+        """
+        from . import base as _b
+        try:
+            import project_layout
+            model_path = (project_layout.data_root() / "ChemCam" / "缓存"
+                          / "pls_model.json")
+        except Exception:                                # noqa: BLE001
+            return {"available": False, "reason": "数据根不可用"}
+        if not model_path.is_file():
+            return {"available": False,
+                    "reason": "模型未训练：先运行 ChemCam 数据准备脚本 03 --fit-model"}
+        from . import libs_quant
+        doc = libs_quant.load_model(model_path)
+        if doc is None:
+            return {"available": False, "reason": "模型文件损坏，请重新训练"}
+        spectra = []
+        used = 0
+        for pt in obs.points:
+            path = pt.files.get("ccs")
+            if not path:
+                continue
+            try:
+                data = pds3.read_table(path)
+            except Exception:                            # noqa: BLE001
+                continue
+            if data.ndim != 2 or data.shape[1] < 3:
+                continue
+            wl = data[:, 0]
+            shots = data[:, 1:-2]
+            shots = _b.drop_dust(shots, 5)
+            shots = _b.despike_shots(shots)
+            cols = [_b.poly_baseline(wl, shots[:, j]) for j in range(shots.shape[1])]
+            spectra.append(np.column_stack(cols).mean(axis=1))
+            used += 1
+        if not used:
+            return {"available": False, "reason": "本观测没有可读的主动 CCS 点"}
+        mean = np.mean(spectra, axis=0)
+        try:
+            values = libs_quant.predict_mean(mean, doc)
+        except ValueError as exc:
+            return {"available": False, "reason": str(exc)}
+        return {"available": True, "values": values, "n_points_used": used,
+                "scope": doc["scope"],
+                "trained_targets": doc["meta"].get("trained_targets", [])}
+
     # -- 下载面板分组 --------------------------------------------------------
 
     def parse_listing(self, entries):

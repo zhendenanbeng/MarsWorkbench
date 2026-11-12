@@ -105,6 +105,34 @@ def main():
     ext = model2.predict(X * 1.2)
     check(bool(np.isfinite(ext).all()), "外推预测有限值（无 NaN/Inf）")
 
+    # --- 6. 模型持久化契约（产品化：工作台预测依赖） ---
+    import json as _json
+    import os as _os
+    import tempfile as _tempfile
+    models = {ox: libs_quant.PLS1Model(components=3).fit(X, np.array([comps[n][ox] for n in names]))
+              for ox in ("SiO2", "MgO")}
+    with _tempfile.TemporaryDirectory(prefix="sherlock-quant-") as folder:
+        mpath = _os.path.join(folder, "pls_model.json")
+        libs_quant.save_model(models, mpath, {"cv_rmse": {"SiO2": 1.0, "MgO": 2.0},
+                                              "trained_targets": names})
+        doc = libs_quant.load_model(mpath)
+        check(doc is not None and set(doc["models"]) == {"SiO2", "MgO"}, "模型保存/加载往返：氧化物齐全")
+        probe = X[0]
+        roundtrip = [float(doc["models"][ox].predict(probe[None, :])[0]) for ox in ("SiO2", "MgO")]
+        direct = [float(models[ox].predict(probe[None, :])[0]) for ox in ("SiO2", "MgO")]
+        check(roundtrip == direct, "往返加载后预测逐位一致")
+        got = libs_quant.predict_mean(probe, doc)
+        check(abs(got["SiO2"]["rmse"] - 1.0) < 1e-12, "CV RMSE 随模型携带（精度标注）")
+        open(_os.path.join(folder, "bad.json"), "w").write("{broken")
+        check(libs_quant.load_model(_os.path.join(folder, "bad.json")) is None, "损坏模型文件返回 None（显式降级）")
+    try:
+        libs_quant.predict_mean(probe, doc)["SiO2"]
+        bad_x = probe[:-3]
+        libs_quant.predict_mean(bad_x, doc)
+        check(False, "通道不一致必须拒绝")
+    except ValueError:
+        check(True, "通道不一致必须拒绝")
+
     print("共 %d 项断言，%d 项失败" % (TOTAL, FAIL))
     return int(FAIL > 0)
 

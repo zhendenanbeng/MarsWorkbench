@@ -54,6 +54,7 @@ from instruments import absorption_ui as absorption_ui
 from instruments import rmi_ui as rmi_ui
 from instruments import filtering_ui as filtering_ui
 from instruments import supercam_images_ui as supercam_images_ui
+from instruments import quant_ui as quant_ui
 
 SETTINGS = appenv.settings('console')
 PING_TIMEOUT = 180.0
@@ -176,6 +177,7 @@ def plot_for(state, backend, scan_i, point_i, shot, steps_on):
         "absorption":d.get('absorption'),
         "annotate": {"marks": marks, "elements": elements,"element_evidence":ievidence.element_statistics(marks,elements)},
         "n_points": obs.n_points,
+        "quant": (backend.quant_payload(obs) if backend.id == "chemcam" and getattr(backend, "quant_payload", None) else None),
     }
     if backend.id == "apxs":
         ox = backend.oxides(obs, point)
@@ -835,6 +837,7 @@ function draw(d){
     eb.innerHTML=h; eb.hidden=false;
   } else { eb.hidden=true; }
   renderAbsorption(d);
+  renderQuant(d);
 
   var ox=$('oxides');
   if(d.oxides&&d.oxides.rows){
@@ -1312,7 +1315,7 @@ def _accent_dark(hex_color):
 
 
 def build_page(backend):
-    return (PAGE.replace('<span class="lbl">观测（共',filtering_ui.HTML+'<span class="lbl">观测（共').replace('<details open style="margin-top:12px">',paper_notes.HTML+'<details open style="margin-top:12px">').replace('<div class="elebox" id="elements" hidden></div>','<div class="elebox" id="elements" hidden></div>'+absorption_ui.HTML+(rmi_ui.HTML if backend.id=='chemcam' else supercam_images_ui.HTML if backend.id=='supercam' else '')).replace('</script>',paper_notes.JS+spectrum_export.JS+absorption_ui.JS+rmi_ui.JS+supercam_images_ui.JS+filtering_ui.JS+history.JS.replace('__POINT_BASE__','1')+download_queue.JS+'</script>').replace('id="exportBtn">导出 PNG</button>','id="exportBtn">导出 PNG</button>'+spectrum_export.HTML)
+    return (PAGE.replace('<span class="lbl">观测（共',filtering_ui.HTML+'<span class="lbl">观测（共').replace('<details open style="margin-top:12px">',paper_notes.HTML+'<details open style="margin-top:12px">').replace('<div class="elebox" id="elements" hidden></div>','<div class="elebox" id="elements" hidden></div>'+absorption_ui.HTML+quant_ui.HTML+(rmi_ui.HTML if backend.id=='chemcam' else supercam_images_ui.HTML if backend.id=='supercam' else '')).replace('</script>',paper_notes.JS+spectrum_export.JS+absorption_ui.JS+quant_ui.JS+rmi_ui.JS+supercam_images_ui.JS+filtering_ui.JS+history.JS.replace('__POINT_BASE__','1')+download_queue.JS+'</script>').replace('id="exportBtn">导出 PNG</button>','id="exportBtn">导出 PNG</button>'+spectrum_export.HTML)
             .replace("__TITLE__", backend.rover_label + " · " + backend.name)
             .replace("__ROVER__", backend.rover_label + "（" + backend.rover.upper() + "）")
             .replace("__SUBTITLE__", backend.subtitle)

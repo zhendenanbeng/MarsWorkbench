@@ -97,7 +97,7 @@ CHECKS = [
     ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧", 18),
     ("published_targets_check.py", "已发表靶点台账：结构、来源DOI、定位与只增不缩", 12),
     ("gold_intervals_check.py", "区间数值基准与标定台账：四仪器自主定量对账契约", 15),
-    ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、防泄漏与拒绝非法输入", 14),
+    ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、模型往返持久化与安全降级", 19),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
 ]

@@ -122,3 +122,80 @@ def summarise_cv(cv_rows):
     """多靶 CV 结果聚合：{氧化物: {rmse, bias, n_targets}}。"""
     return {ox: {"rmse": r["rmse"], "bias": r["bias"], "n_targets": r["n_targets"]}
             for ox, r in cv_rows.items()}
+
+
+# ---------- 产品化：模型持久化与平均谱预测（Phase 1 工作台入口） ----------
+
+import json as _json
+import os as _os
+import hashlib as _hashlib
+from pathlib import Path as _Path
+
+
+def save_model(models, path, meta):
+    """保存训练好的模型族 {氧化物: PLS1Model} 为 JSON。
+
+    meta 必须携带：成分表 sha256、训练靶清单、各氧化物留一靶 RMSE（作为
+    预测精度标注）、components——随模型一起冻结，保证「数字-模型」可追溯。
+    """
+    doc = {
+        "scope": "自研 PLS 成分模型（独立标定，在轨靶最小训练集）。精度以 meta 里的"
+                 "留一靶 RMSE 标注，预期弱于官方（Clegg 2017 含 408 地面标样）；"
+                 "预测值是候选参考，不是官方成分替代。",
+        "meta": meta,
+        "models": {ox: {"components": mdl.components,
+                        "x_mean": mdl.x_mean.tolist(), "x_std": mdl.x_std.tolist(),
+                        "y_mean": mdl.y_mean,
+                        "W": mdl.W.tolist(), "P": mdl.P.tolist(), "q": mdl.q.tolist()}
+                   for ox, mdl in models.items()},
+    }
+    path = _Path(path)
+    tmp = str(path) + ".part"
+    open(tmp, "w", encoding="utf-8").write(_json.dumps(doc, ensure_ascii=False))
+    _os.replace(tmp, str(path))
+    return path
+
+
+def load_model(path):
+    """加载模型族；文件缺失/损坏/结构非法返回 None（调用方显式降级）。"""
+    try:
+        doc = _json.loads(_Path(path).read_text(encoding="utf-8"))
+        models = {}
+        for ox, d in doc["models"].items():
+            mdl = PLS1Model(components=d["components"])
+            mdl.x_mean = np.asarray(d["x_mean"], dtype=float)
+            mdl.x_std = np.asarray(d["x_std"], dtype=float)
+            mdl.y_mean = float(d["y_mean"])
+            mdl.W = np.asarray(d["W"], dtype=float)
+            mdl.P = np.asarray(d["P"], dtype=float)
+            mdl.q = np.asarray(d["q"], dtype=float)
+            models[ox] = mdl
+        return {"models": models, "meta": doc.get("meta", {}), "scope": doc.get("scope", "")}
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def predict_mean(mean_spectrum, model_doc):
+    """对一条平均谱（预处理后、通道对齐模型）预测全部氧化物。
+
+    返回 {氧化物: {value: wt%, rmse: 该氧化物留一靶 CV RMSE}}。
+    模型通道与谱长度不一致时抛 ValueError（由调用方做裁剪对齐）。
+    """
+    out = {}
+    rmse = model_doc["meta"].get("cv_rmse", {})
+    x = np.asarray(mean_spectrum, dtype=float).ravel()
+    for ox, mdl in model_doc["models"].items():
+        if mdl.x_mean.shape != x.shape:
+            raise ValueError("模型通道数 %d 与谱通道数 %d 不一致"
+                             % (mdl.x_mean.shape[0], x.shape[0]))
+        out[ox] = {"value": float(mdl.predict(x[None, :])[0]),
+                   "rmse": float(rmse.get(ox)) if rmse.get(ox) is not None else None}
+    return out
+
+
+def file_sha(path):
+    h = _hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
