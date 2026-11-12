@@ -1,0 +1,272 @@
+{
+ "scope": "基线方法的冻结测量，不是方法学裁决，不构成换基线的决定；换基线属于分类输入变更，须经金标准台账评估后单独立项。数字只对本文件记录的代码/数据指纹负责。",
+ "reference": "Carey et al., LPSC 2015 #2464; Zhang et al. 2010 Analyst 135:1138; Eilers & Boelens 2005",
+ "generated_utc": "2026-11-12T11:38:56Z",
+ "methods": {
+  "poly5_symmetric": "现行：degree5 + sigma-clip（minerals.baseline / 管线同口径）",
+  "als": "ALS 二阶差分, p=0.01, ≤10 轮；λ=1e+05（种子11轻调参）",
+  "airpls": "airPLS 原版口径：二阶差分, λ=1e6, 15 轮（见迭代敏感性）"
+ },
+ "lambda_tuning": {
+  "als": {
+   "lam": 100000.0,
+   "grid": [
+    10000.0,
+    100000.0,
+    1000000.0
+   ],
+   "probe_rms_by_lam": {
+    "100000.0": 4.882100283986747,
+    "1000000.0": 5.019571462184188,
+    "10000.0": 5.152024952538364
+   }
+  }
+ },
+ "airpls_iteration_sensitivity": {
+  "note": "原版默认 15 轮在本轴欠拟合；轮数增大先改善后过冲（z 掉到数据下方）。这是冻结的稳健性测量，不是调参建议。",
+  "probe": {
+   "15": {
+    "baseline_fidelity_rms": 48.23932298929732,
+    "noise_offset": 16.3572301177677
+   },
+   "20": {
+    "baseline_fidelity_rms": 53.757948165331406,
+    "noise_offset": 29.320053114978162
+   },
+   "26": {
+    "baseline_fidelity_rms": 87.32745620853734,
+    "noise_offset": 106.84336838089177
+   }
+  }
+ },
+ "synthetic": {
+  "seeds": [
+   11,
+   23,
+   37,
+   41,
+   53
+  ],
+  "peaks_true": [
+   [
+    831,
+    60,
+    24
+   ],
+   [
+    1029,
+    45,
+    30
+   ],
+   [
+    1084,
+    55,
+    28
+   ],
+   [
+    1600,
+    40,
+    40
+   ],
+   [
+    2497,
+    50,
+    60
+   ]
+  ],
+  "summary": {
+   "poly5_symmetric": {
+    "baseline_fidelity_rms": {
+     "mean": 3.382730303431726,
+     "std": 0.08302170742334164
+    },
+    "noise_offset": {
+     "mean": 1.5069187518475686,
+     "std": 0.20963381973397774
+    },
+    "noise_std": {
+     "mean": 9.713418808542011,
+     "std": 0.12544763745374374
+    },
+    "false_bands_noise_window": {
+     "mean": 0.0,
+     "std": 0.0
+    },
+    "peak_pos_abs_err_max": {
+     "mean": 2.28089887640449,
+     "std": 1.9724014241163579
+    }
+   },
+   "als": {
+    "baseline_fidelity_rms": {
+     "mean": 4.918401369631946,
+     "std": 0.15355244225624223
+    },
+    "noise_offset": {
+     "mean": 5.203998819382008,
+     "std": 0.1496536384001868
+    },
+    "noise_std": {
+     "mean": 8.920185293434788,
+     "std": 0.1380701206221659
+    },
+    "false_bands_noise_window": {
+     "mean": 0.0,
+     "std": 0.0
+    },
+    "peak_pos_abs_err_max": {
+     "mean": 2.28089887640449,
+     "std": 1.9724014241163579
+    }
+   },
+   "airpls": {
+    "baseline_fidelity_rms": {
+     "mean": 48.70336725173586,
+     "std": 1.2096520145881884
+    },
+    "noise_offset": {
+     "mean": 16.476114469371662,
+     "std": 1.0731424919132304
+    },
+    "noise_std": {
+     "mean": 12.093044797443643,
+     "std": 0.13101772335400905
+    },
+    "false_bands_noise_window": {
+     "mean": 3.2,
+     "std": 1.469693845669907
+    },
+    "peak_pos_abs_err_max": {
+     "mean": 2.2539325842696507,
+     "std": 1.9642120618998886
+    }
+   }
+  }
+ },
+ "real": {
+  "sample_dir": "C:\\Users\\unnat\\Desktop\\MarsWorkbench\\03_下载数据\\SHERLOC\\随包示例",
+  "sample_sha256": {
+   "ss__0293_0692979640_115rrs__0090000srlc11360w108cgzj03.csv": "1ac6c2689cf47b32903d86cc89a8b310ae5a4d516f82eeb711fd970a0b8db61e",
+   "ss__0293_0692980289_265rrs__0090000srlc11360w208cgnj03.csv": "36a29bfe84e0d4a0fe6d0576d341a2a8471d9ef2e7af1cc9727921ff95780522"
+  },
+  "per_scan": [
+   {
+    "scan": "293|srlc11360|0692979640.115",
+    "points": 100,
+    "methods": {
+     "poly5_symmetric": {
+      "bands_fingerprint": [
+       1083.4
+      ],
+      "n_bands": 1,
+      "noise_offset": -2.4276824935671755,
+      "noise_std": 12.419655105289158
+     },
+     "als": {
+      "bands_fingerprint": [
+       819.7,
+       1083.4,
+       1303.7,
+       1520.5,
+       1539.2,
+       1576.4,
+       1715.1
+      ],
+      "n_bands": 7,
+      "noise_offset": 17.37720449123435,
+      "noise_std": 12.239460173094656
+     },
+     "airpls": {
+      "bands_fingerprint": [],
+      "n_bands": 0,
+      "noise_offset": 122.60348954490333,
+      "noise_std": 12.306854859428427
+     }
+    }
+   }
+  ]
+ },
+ "code_sha256": {
+  ".project-layout.json": "fe6389a1b864969303aeee82fa54fa6c6a674c3f8a1ca93c6851c2be5f37c8d6",
+  "01_核心处理代码/APXS/instruments/apxs.py": "bd80ef1ee0f51a78ff602ba7c005d98d6e80848ac6f2195445e2981e818ac4c1",
+  "01_核心处理代码/ChemCam/instruments/chemcam.py": "c73e63cb7feb71417cd9be53370930f1bdce02d42010559d6fa18c69756cd728",
+  "01_核心处理代码/ChemCam/instruments/chemcam_passive.py": "3b5d4dba3ff40da7d156803453dba1f539668697388c5a215777a4a01e2f25af",
+  "01_核心处理代码/ChemCam/instruments/rmi.py": "3af70b841312a2dfbf8e875ace5dafb0e7ece04396a4337d08d55742277b07a1",
+  "01_核心处理代码/ChemCam/instruments/rmi_overlay.py": "b0bd157c3fe29572bd2a0da0557dbae66d04748ad7e286bbf8c6d956c1c0eb15",
+  "01_核心处理代码/PIXL/instruments/pixl_browser.py": "719f8d60ff60b6f0b1d823ab1760d0cf36d537a8ad5430abd15196fa7ac83cb3",
+  "01_核心处理代码/PIXL/instruments/pixl_download.py": "3eee9ece4f5f59f8c975379a37fee76cd8e01805f73fa6a433d728def10b0ec1",
+  "01_核心处理代码/PIXL/sherloc/pixl.py": "1197035677c371d6e9bd73af3d11c35570a1d832251cfde11fd5a53ef329fe32",
+  "01_核心处理代码/SHERLOC/sherloc/aci.py": "67c590889afcc69d6fa32d77aff757f35e046e0a227d54129f2f8bb526279e21",
+  "01_核心处理代码/SHERLOC/sherloc/background.py": "95bc4739c77ac3b7fa326082c813e3139047de2dc2bbfdae79a76707e2d9ac2b",
+  "01_核心处理代码/SHERLOC/sherloc/colorize.py": "733bd445a87f15a9f08516458815f02e9b2dae948a188a49924b0d68aad8daab",
+  "01_核心处理代码/SHERLOC/sherloc/explore.py": "7d56521f62d6deb3c4f9dcef9a11e024a6d1a5d929619689adf1651746ea8891",
+  "01_核心处理代码/SHERLOC/sherloc/fitting.py": "6230aca740f45bddabaa69ab284422d6fb75dd16a84bd0223790eb8cf152b8c3",
+  "01_核心处理代码/SHERLOC/sherloc/label.py": "aad86be1d545e985a227c7934c03d211038632173b57f7fcb484113f860e36a1",
+  "01_核心处理代码/SHERLOC/sherloc/library.py": "e8878f010bcec6e424f223106fa0972ddee701fb594a68c3c534c80f568f6dda",
+  "01_核心处理代码/SHERLOC/sherloc/minerals.py": "5ae8139b101f918c7b8dd21cf00c176cb9d2d6a210380fc9eb50675b0e4a42f8",
+  "01_核心处理代码/SHERLOC/sherloc/organize.py": "0baa7a88bb6433891d1b31ce63f123474bcb8ba4b2deb02fee8427c1657f9b3e",
+  "01_核心处理代码/SHERLOC/sherloc/peaks.py": "364b093390a50a15a4d323abe5b0f687290f7ffc130722948e9f3f9f89efa1e2",
+  "01_核心处理代码/SHERLOC/sherloc/preprocess.py": "2dd98bbdc9ee9a5c24bf5029f4c7ab0f9a6e6ec71cae0a6adf2c55bee900de11",
+  "01_核心处理代码/SHERLOC/sherloc/qc.py": "b2acf84e89620044bcbc8ff7f9b4fde5f811245fef2879f8e4a4ea07e827ffee",
+  "01_核心处理代码/SHERLOC/sherloc/reader.py": "4edb3f7628d3df7e23c59a81c0b5c20da706e1aef467731d8768d305d99a546c",
+  "01_核心处理代码/SHERLOC/sherloc/reference.py": "ffa1ed16b719be877dd8aea27138ff318d42740260a0de998c8e5f0cad4b7eae",
+  "01_核心处理代码/SHERLOC/sherloc/repeatability.py": "affd0c07042584083925aa8f135ee40f947d08f90f0b008ce4d02bab72bd26c3",
+  "01_核心处理代码/SHERLOC/sherloc/vicar.py": "30432ab1a8158f35e9c1587024310965276532f219a9b0c493d2ae132377c489",
+  "01_核心处理代码/SHERLOC/sherloc/watson.py": "35ccf9376fab88943e5ce56dcc8153c61d436a8181e7ff0ed04a3591365604a8",
+  "01_核心处理代码/SuperCam/instruments/absorption.py": "efefd904d56b7fb1aff8bdbd82038fd7ffbe15bf1ae595cee844cb54f9a6c782",
+  "01_核心处理代码/SuperCam/instruments/fitsio.py": "dd9e4c0b6650197297828f49fcc81fa5aec8ac9d9aaf2e1d21e50846b402f890",
+  "01_核心处理代码/SuperCam/instruments/supercam.py": "76df0315a3444c0c8dd72b8aa21475e260431885a80ecf7ea9b91bc87942343e",
+  "01_核心处理代码/SuperCam/instruments/supercam_images.py": "c88c1b75129f597a1a7841e65ba1dbcafedf387e002d74c9053685ff2f685b7a",
+  "01_核心处理代码/共享/app_network.py": "700f0cc00ba156baa585718b1af00771852f9cab5ee237bafb6dab7389f21c55",
+  "01_核心处理代码/共享/appenv.py": "1494519983185466cdb56f0a5f24da2d18c9e9f8b78ae218f8bf9a83bdd26e57",
+  "01_核心处理代码/共享/instruments/__init__.py": "792ac5b35d482685bf6b43304e87c80b64863bf0520492fd0c0e1a0b0b0a8288",
+  "01_核心处理代码/共享/instruments/base.py": "93e816f2a313b7b87dca23d17faf3e6eedf7451aee95544f2abd8cb4db683389",
+  "01_核心处理代码/共享/instruments/cross.py": "644fd67abfae5304b2098b2fde8f6c3ed49b7d9ef622ffc99b13482bffd99ab2",
+  "01_核心处理代码/共享/instruments/evidence.py": "bb7aa00eabde1b412669e36e52e9b76b6bd5e915737c627e210539fc23a4a6e9",
+  "01_核心处理代码/共享/instruments/filtering.py": "61be5bf98c0d04c4e7d2c7c642748ace87ee10dae06f339199d7d234ef4f9806",
+  "01_核心处理代码/共享/instruments/io_integrity.py": "79f3c606fe4b8e72fd6894b89701332ab25139c0f920fdf7c9251be87ef4862b",
+  "01_核心处理代码/共享/instruments/lines.py": "9060987763dd1dc64bd6117ee8fac4f7ae0eb030e6904bd1b999b0fe9ed46208",
+  "01_核心处理代码/共享/instruments/observation_summary.py": "d76a487201dd26e61e5531a1b8e0e1dcd39a34438830cf3e31d60e78d535302b",
+  "01_核心处理代码/共享/instruments/pds3.py": "f4d203f5d6b05bb1e83bb70ee7e66f53a91a58217cf9668d79a7a677f17eb85c",
+  "01_核心处理代码/共享/instruments/pds_listing.py": "4d84b03c920b9f91064b54841f029d1a2176748ceddc8cc26dcf2e8af48ca22c",
+  "01_核心处理代码/共享/project_layout.py": "d4d89f5d3116ea82cff6c50616d18eb509018ac798c13e500ca10f492d33e790",
+  "02_图形界面代码/__init__.py": "a80badeca0df748a5399d94c1f8ddafb8bc0ae647badd849d243e1bc9f7581a1",
+  "02_图形界面代码/analyse_features.py": "a1d5fe4a6831f996ff1b15a0f0a0274df5d730f35902621e4100ab26399c94da",
+  "02_图形界面代码/console.py": "d678d0c97f473c161d6c203cf135b6e17026135c954ffddf5a2230ae1438520b",
+  "02_图形界面代码/health.py": "b712744c2c93f4050f4da514d1aea4ae83a6f6ca01b7b3dfc16830a58426d4ed",
+  "02_图形界面代码/instruments/absorption_ui.py": "8b304871e2016c7ab9e72c1a162913a988d8cfc9ba3a7fe2ecaf9e922b53f82b",
+  "02_图形界面代码/instruments/download_queue.py": "788306f499555381c2c3612d41d6c2817cede383284101b524812494e4954fe6",
+  "02_图形界面代码/instruments/filtering_ui.py": "6a62187462afc746b03691f6d76a50e38d853f017b2a2393f39f4af268485ddc",
+  "02_图形界面代码/instruments/history.py": "078017ac7bc4dccb9423ac39ed339f77bbc1dfc77d99a378d9086f58c8649df9",
+  "02_图形界面代码/instruments/notes.py": "52bbb58f02d386252d8324d00bc5b022a4c485a1662dddc0316559aaab1ac678",
+  "02_图形界面代码/instruments/observation_summary_ui.py": "459ad151a1c86ad8b28c7d3e060b8cd18db0567789623038ab2cf2e734c3533f",
+  "02_图形界面代码/instruments/pixl_download_ui.py": "e5e6e783459ddef14561d42313c9e13344dd306c1a21428c031d3962918c5109",
+  "02_图形界面代码/instruments/pixl_output.py": "f18beb03ea528c1ff35ca892010e1fa9a6949ea75f74bf539fa652c566b402b6",
+  "02_图形界面代码/instruments/pixl_workflow.py": "6c6b3873646363256d06914d3323fb624f87f1c124309487a2387e6595244562",
+  "02_图形界面代码/instruments/pixl_workflow_ui.py": "1408c03dfdc87d02f18bbc59103507477d648132019bc77da299230ff83d1ed6",
+  "02_图形界面代码/instruments/report.py": "5584658bfe430f11d6a3677f1c9649f7a24dbf0dd47d76a9b8a135f8f02e2249",
+  "02_图形界面代码/instruments/rmi_ui.py": "8511416e561ad486361734a9821513238f4062ffda0acb65ddafc60c2c8b18df",
+  "02_图形界面代码/instruments/spectrum_export.py": "87fcf55d1548283c5877a26e8e869782a2cd3185dcc3c6ebd9f4cbba276e93ed",
+  "02_图形界面代码/instruments/supercam_images_ui.py": "697b800f54e7258fe3f6dcb9e4cbf6e9d8dfc9c632b069f2a61cc28954d3c73d",
+  "02_图形界面代码/launch.py": "2d2e695a14fa50475732315bc4f43a22fe4099d9088314cdb94bd900eb1f7f8b",
+  "02_图形界面代码/make_mineral_map.py": "bb323e29a18e197eed22e4eadf8a2313988bc1ff2dffe9a46635153bad96f3c7",
+  "02_图形界面代码/manuals.py": "0d4cbcf037c88814274bd97557e3672c4ef40313c06b8b9ec1468490086d09b8",
+  "02_图形界面代码/pixl_view.py": "78ebf77f2502fa96d8c83f00d72f1bd12298b3fa79dbda157cf2f2fdf5b6df7a",
+  "02_图形界面代码/product_api.py": "742cdfb5eb7a9e8af7455fd3b996a30e34739c59ab9a0c15fbdb4d2aaea06fe3",
+  "02_图形界面代码/product_theme.py": "028557dd3c0729ff66f99623f5b222824e7f7b6a4d74c81659049149368f5cc3",
+  "02_图形界面代码/product_ui.py": "2a4b0f9c4d61ea9b3054b8a3fcc5471626283384c204b47775b36f39956d0947",
+  "02_图形界面代码/review_noise_support.py": "1e896efb9b3479628de393393c5e03905a65c521a661a2e949ca64dacadc1d91",
+  "02_图形界面代码/review_peak_fits.py": "5d5bb3c7ca4d86054fb1c36595e47104743119985cad6fdad36eb01876805fb8",
+  "02_图形界面代码/run_qc.py": "5f31f672e2f0ad3b0fbaf97a06e73875ee01b04cf83551c5da4819d2ebd89fb9",
+  "02_图形界面代码/runtime_http.py": "fe6d1ea768cfaa2f564045222ed56803826d6481cb640cabe7e684fada022dd6",
+  "02_图形界面代码/samples.py": "56b2f83401a7aa13b5ad3025d7a24b18c7ca49db9e406972161f062c6c2bcb7a",
+  "02_图形界面代码/sherloc/desktop.py": "48602553cb3767fd304018230ab96d76b1129b157d81ec09fc525a1741be82b5",
+  "02_图形界面代码/sherloc/render.py": "9f270b5daa7dc54c88c4029b2422bc649971e1c0952ece763fbb3253d1e8441a",
+  "02_图形界面代码/sherloc/workbench.py": "65adbb6bdbe257f71ff0ecf308b073999be5b756ce900aeb4107d204872f2d65",
+  "02_图形界面代码/source_paths.py": "2e9feebb8465bdfcceeccc222a8043de6d7799c007e7eff22b91b630be4a145a",
+  "02_图形界面代码/ui_font.py": "e70c20705be811c136d4ae629e35e7963a6a247ec404728d005081e437654543",
+  "02_图形界面代码/view.py": "2a835524d35eac4c5488df605357993410996a1ea7abd6700350276ce424ef28",
+  "pyproject.toml": "e1f843f931ccea1e7bb4dac343eac095c1efaf4f7dbedb59ebd4057482359567",
+  "setup.py": "bebebe884322171ad915468df72607aa626eae8d460d2abcbeea2c839007ed0c"
+ }
+}
