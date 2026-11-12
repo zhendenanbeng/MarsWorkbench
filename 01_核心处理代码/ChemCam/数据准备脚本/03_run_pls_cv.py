@@ -76,7 +76,7 @@ def preprocess_spectra(wl, shots):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="ChemCam 自研 PLS 留一靶 CV")
     ap.add_argument("--make-template", action="store_true")
-    ap.add_argument("--components", type=int, default=5)
+    ap.add_argument("--components", type=int, default=3)
     args = ap.parse_args(argv)
 
     data_root = Path(project_layout.data_root())
@@ -110,13 +110,19 @@ def main(argv=None):
     # --- 读谱、预处理、按靶聚合 ---
     spectra_by_target = {}
     missing_comp = []
+    skipped_official = []
+    include_excluded = "--include-excluded" in sys.argv
     for target, bucket in manifest["targets"].items():
-        comp = composition.get(target, {}).get("composition")
+        comp_entry = composition.get(target, {})
+        comp = comp_entry.get("composition")
         if not comp or any(comp.get(ox) is None for ox in libs_quant.OXIDES):
             missing_comp.append(target)
             continue
+        if comp_entry.get("excluded_by_official") and not include_excluded:
+            skipped_official.append(target)
+            continue
         rows = []
-        for row in bucket["downloaded"]:
+        for row in bucket.get("downloaded") or bucket.get("selected", []):
             try:
                 wl, shots = load_point_spectra(Path(data_root / "ChemCam" / "下载" / "ccs_training") / row["file"])
                 clean = preprocess_spectra(wl, shots)
@@ -127,6 +133,9 @@ def main(argv=None):
             spectra_by_target[target] = np.vstack(rows)
     if missing_comp:
         print("成分未转录的靶（已跳过）：%s" % ", ".join(missing_comp))
+    if skipped_official:
+        print("官方校准排除的靶（--include-excluded 可纳入）：%s"
+              % ", ".join(skipped_official))
     if len(spectra_by_target) < 3:
         print("可用靶不足 3 个，无法留一靶 CV；先补全成分表。")
         return 1
@@ -135,7 +144,7 @@ def main(argv=None):
     cv_rows = {}
     for ox in libs_quant.OXIDES:
         try:
-            cv_rows[ox] = libs_quant.loo_target_cv(spectra_by_target, composition, ox,
+            cv_rows[ox] = libs_quant.loo_target_cv(spectra_by_target, {n: v["composition"] for n, v in composition.items()}, ox,
                                                    components=args.components)
             print("  %-6s RMSE %.3f  bias %+.3f  (n=%d)"
                   % (ox, cv_rows[ox]["rmse"], cv_rows[ox]["bias"], cv_rows[ox]["n_targets"]))

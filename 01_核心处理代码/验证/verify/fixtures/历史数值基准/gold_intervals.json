@@ -17,6 +17,11 @@
    "key": "supercam_moc_frozen",
    "doi": null,
    "access": "fixtures/supercam/_moc/supercam_moc.csv 官方 MOC 摘录（manifest 已钉 SHA）"
+  },
+  {
+   "key": "ytsma2023",
+   "doi": "10.22541/essoar.167751631.16086403",
+   "access": "用户人工下载预印本 PDF，sha256 见 published_calibrations.json"
   }
  ],
  "anchors": {
@@ -63,6 +68,51 @@
       "reference": 0.32,
       "lower": 0.13,
       "upper": 0.52
+     }
+    }
+   },
+   "PLS_loo_rmse_inflight_ytsma": {
+    "note": "Ytsma 2023 Table 1：官方校准模型在 ChemCam 在轨靶上的 Mars-based RMSE（wt%）。本管线的留一靶 CV 口径更严（该靶完全不参与训练），容差取 [0.4×ref, 3×ref]",
+    "oxides": {
+     "SiO2": {
+      "reference": 1.3,
+      "lower": 0.52,
+      "upper": 3.9
+     },
+     "TiO2": {
+      "reference": 0.36,
+      "lower": 0.144,
+      "upper": 1.08
+     },
+     "Al2O3": {
+      "reference": 5.36,
+      "lower": 2.144,
+      "upper": 16.08
+     },
+     "FeOT": {
+      "reference": 0.98,
+      "lower": 0.392,
+      "upper": 2.94
+     },
+     "MgO": {
+      "reference": 0.96,
+      "lower": 0.384,
+      "upper": 2.88
+     },
+     "CaO": {
+      "reference": 1.52,
+      "lower": 0.608,
+      "upper": 4.56
+     },
+     "Na2O": {
+      "reference": 1.65,
+      "lower": 0.66,
+      "upper": 4.95
+     },
+     "K2O": {
+      "reference": 0.55,
+      "lower": 0.22,
+      "upper": 1.65
      }
     }
    }
