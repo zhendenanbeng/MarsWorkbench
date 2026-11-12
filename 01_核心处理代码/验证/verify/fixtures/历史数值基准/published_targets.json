@@ -190,6 +190,28 @@
    "note": "同上建造级结论的 Máaz 侧",
    "source_key": "corpolongo2023",
    "locator": "摘要 + WebSearch 摘要级要点"
+  },
+  {
+   "sol": 370,
+   "sol_context": "Alfalfa 研磨约 sol 363-370",
+   "target": "Alfalfa",
+   "formation": "Máaz（上部）",
+   "granularity": "target",
+   "published_classes": [
+    "feldspar",
+    "pyroxene",
+    "olivine",
+    "Fe-oxides",
+    "carbonate",
+    "phyllosilicates",
+    "chlorite",
+    "phosphate",
+    "perchlorate",
+    "organics"
+   ],
+   "note": "白色长石板+辉石，可能含橄榄石/石英；蚀变弱于此前研磨斑",
+   "source_key": "sun2023",
+   "locator": "PDF p.44（索引 43）"
   }
  ],
  "growth_path": {
