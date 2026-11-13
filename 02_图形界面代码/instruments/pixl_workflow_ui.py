@@ -87,6 +87,15 @@ async function pollReport(){try{const d=await api('report/status');reporting=!!d
 $('qcBtn').onclick=async()=>{reportRequested=true;reporting=true;$('qcBtn').disabled=true;$('qcLinks').replaceChildren();$('qcMsg').hidden=false;try{await api('report/start',{obs:scanSel.value,rxl:$('rxl').value,frame:Number($('frame').value||0)});clearTimeout(reportTimer);pollReport();}catch(e){reportRequested=false;reporting=false;$('qcMsg').textContent='未生成：'+e.message;$('qcBtn').disabled=reporting||!allObservations.length;}};$('cancelQcBtn').onclick=()=>api('report/cancel',{}).then(()=>{$('qcMsg').textContent='正在取消报告，等待当前观测完成…';}).catch(e=>msg(e.message));
 __DOWNLOAD_JS__
 api('init').then(async d=>{preferences=d.preferences||{};preferences.default_download=d.download_root;if(preferences.download_dest)$('dlDest').value=preferences.download_dest;if(d.folder)await loadFolder(d.folder);else controls(false);pollReport();}).catch(e=>msg(e.message));setInterval(()=>fetch('/api/ping').catch(()=>{}),10000);window.addEventListener('beforeunload',()=>clearTimeout(reportTimer));
+api('sfs').then(async d=>{
+  var sfs=document.createElement('div');
+  sfs.style.cssText='margin:12px 0;padding:10px;border:1px solid #444';
+  if(!d.available){sfs.innerHTML='<b>SFS 原始谱层</b><p style="margin:4px 0">'+d.reason+'</p>';}
+  else{
+    sfs.innerHTML='<b>SFS 原始谱层（能量轴自证）</b><p style="margin:4px 0">增益 '+d.axis.keV_per_ch.toFixed(5)+' keV/ch，零点 '+d.axis.zero_keV.toFixed(3)+' keV；'+d.n_pmc+' 个 PMC 配对。Ca 峰面积 vs 官方 CaO 相关 '+Number(d.ca_corr).toFixed(3)+'；Fe 独立验证 '+Number(d.fe_corr).toFixed(3)+'。</p><p style="margin:4px 0;font-size:12px">'+(d.scope||'')+'</p>';
+  }
+  document.body.insertBefore(sfs, document.body.firstChild.nextSibling);
+}).catch(()=>{});
 })();</script></body></html>'''
 
 PAGE=PAGE.replace('__NAV__',history.NAV_JS).replace('__DOWNLOAD__',pixl_download_ui.HTML).replace('__DOWNLOAD_JS__',pixl_download_ui.JS)

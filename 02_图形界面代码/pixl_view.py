@@ -82,6 +82,16 @@ def route(handler,state):
     if url.path=='/pixl':
         import product_ui
         return send(product_ui.inject(PAGE.encode(),'pixl',state.get('launcher_url','/')),'text/html; charset=utf-8')
+    if url.path == '/api/pixl/sfs':
+        import project_layout
+        axis_p = project_layout.data_root() / 'PIXL' / '缓存' / 'sfs_energy_axis.json'
+        if not axis_p.is_file():
+            return send({'available': False,
+                         'reason': 'SFS 能量轴未生成：先下载 sol 的 SFS 数据并运行谱层自证'})
+        doc = json.loads(axis_p.read_text(encoding='utf-8'))
+        return send({'available': True, 'axis': doc.get('axis'),
+                     'ca_corr': doc.get('ca_corr'), 'fe_corr': doc.get('fe_corr'),
+                     'n_pmc': doc.get('n_pmc'), 'scope': doc.get('scope')})
     if url.path.startswith('/data/pixl/'):
         parts=urllib.parse.unquote(url.path).split('/')
         folder=st['exports'].get(parts[3] if len(parts)>=5 else '')
