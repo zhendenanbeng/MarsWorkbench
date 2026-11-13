@@ -177,7 +177,7 @@ def plot_for(state, backend, scan_i, point_i, shot, steps_on):
         "absorption":d.get('absorption'),
         "annotate": {"marks": marks, "elements": elements,"element_evidence":ievidence.element_statistics(marks,elements)},
         "n_points": obs.n_points,
-        "quant": (backend.quant_payload(obs) if backend.id == "chemcam" and getattr(backend, "quant_payload", None) else None),
+        "quant": (backend.quant_payload(obs) if backend.id in ("chemcam", "supercam") and getattr(backend, "quant_payload", None) else None),
     }
     if backend.id == "apxs":
         ox = backend.oxides(obs, point)

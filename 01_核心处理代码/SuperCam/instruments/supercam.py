@@ -377,6 +377,47 @@ class SuperCamBackend(base.Backend):
                     "FeOT 为全铁。RMSEP 为官方表给出的模型预测误差指标，与逐点标准差不同。",
         }
 
+    # -- 自研 PLS 定量（Phase 2；与 ChemCam quant_payload 同构） -------------
+
+    def quant_payload(self, obs):
+        """观测级自研 PLS 成分（SCCT 训练模型；口径与边界同 ChemCam）。"""
+        from . import base as _b
+        try:
+            import project_layout
+            model_path = (project_layout.data_root() / "SuperCam" / "缓存"
+                          / "pls_model.json")
+        except Exception:                                # noqa: BLE001
+            return {"available": False, "reason": "数据根不可用"}
+        if not model_path.is_file():
+            return {"available": False,
+                    "reason": "模型未训练：先运行 SuperCam 数据准备脚本 01 --fit-model"}
+        from instruments import libs_quant
+        doc = libs_quant.load_model(model_path)
+        if doc is None:
+            return {"available": False, "reason": "模型文件损坏，请重新训练"}
+        spectra = []
+        used = 0
+        for pt in obs.points:
+            path = pt.files.get("cl1")
+            if not path:
+                continue
+            try:
+                d = self.load_point(pt, None, {"dust": True, "despike": True,
+                                               "baseline": True})
+            except Exception:                            # noqa: BLE001
+                continue
+            spectra.append(np.asarray(d["y"], dtype=float))
+            used += 1
+        if not used:
+            return {"available": False, "reason": "本观测没有可读的主动 CL1 点"}
+        try:
+            values = libs_quant.predict_mean(np.mean(spectra, axis=0), doc)
+        except ValueError as exc:
+            return {"available": False, "reason": str(exc)}
+        return {"available": True, "values": values, "n_points_used": used,
+                "scope": doc["scope"],
+                "trained_targets": doc["meta"].get("trained_targets", [])}
+
     # -- 下载面板分组 --------------------------------------------------------
 
     def parse_listing(self, entries):
