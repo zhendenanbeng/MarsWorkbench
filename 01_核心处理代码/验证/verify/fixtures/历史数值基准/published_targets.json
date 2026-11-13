@@ -29,17 +29,24 @@
    "formation": "Máaz（Roubion 段）",
    "granularity": "target",
    "published_classes": [
-    "plagioclase",
-    "pyroxene",
     "Ca-sulfate",
+    "Fe-oxides",
     "halite",
     "perchlorate",
     "phosphate",
-    "Fe-oxides"
+    "plagioclase",
+    "pyroxene",
+    "sulfate"
    ],
    "note": "深色晶粒=斜长石+辉石（明确无橄榄石）；白斑=Ca硫酸盐/岩盐/高氯酸盐/磷酸盐；褐斑=铁氧化物",
    "source_key": "sun2023",
-   "locator": "PDF p.38（索引 37）"
+   "locator": "PDF p.38（索引 37）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": 185,
@@ -48,15 +55,25 @@
    "formation": "Máaz（Rochette 段）",
    "granularity": "target",
    "published_classes": [
+    "Ca-phosphate",
+    "Ca-sulfate",
+    "FeTi-oxides",
+    "perchlorate",
+    "perchlorate or phosphate",
     "plagioclase",
     "pyroxene",
-    "FeTi-oxides",
-    "Ca-sulfate",
-    "Ca-phosphate"
+    "silicate",
+    "sulfate"
    ],
    "note": "内部浅色斑=充填型蚀变产物（Ca硫酸盐/Ca磷酸盐）；深色=辉石/斜长石/FeTi氧化物",
    "source_key": "sun2023",
-   "locator": "PDF p.40（索引 39）"
+   "locator": "PDF p.40（索引 39）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": 207,
@@ -65,13 +82,24 @@
    "formation": "Séítah",
    "granularity": "target",
    "published_classes": [
+    "carbonate",
+    "feldspar",
     "olivine",
+    "perchlorate",
+    "perchlorate or phosphate",
+    "phosphate",
     "pyroxene",
-    "feldspar"
+    "silicate"
    ],
    "note": "研磨斑以粗粒橄榄石为主，辉石与长石穿插",
    "source_key": "sun2023",
-   "locator": "PDF p.41（索引 40）"
+   "locator": "PDF p.41（索引 40）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": 253,
@@ -80,14 +108,24 @@
    "formation": "Séítah",
    "granularity": "target",
    "published_classes": [
-    "sulfate",
-    "carbonate",
     "amorphous-silicate",
-    "organics"
+    "carbonate",
+    "olivine",
+    "organics",
+    "perchlorate",
+    "phosphate",
+    "silicate",
+    "sulfate"
    ],
    "note": "其他蚀变相为硫酸盐/碳酸盐/非晶硅酸盐及有机质（引 Corpolongo 2023; Sharma 2022）",
    "source_key": "sun2023",
-   "locator": "PDF p.42（索引 41）"
+   "locator": "PDF p.42（索引 41）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": 320,
@@ -96,15 +134,25 @@
    "formation": "Séítah",
    "granularity": "target",
    "published_classes": [
-    "olivine",
+    "Fe-oxides",
     "Mg-Ca-sulfate",
     "carbonate",
     "hydrated-phases",
-    "Fe-oxides"
+    "olivine",
+    "perchlorate",
+    "perchlorate or phosphate",
+    "silicate",
+    "sulfate"
    ],
    "note": "主矿物为橄榄石（褐边铁质蚀变）；浅色斑=Mg/Ca硫酸盐、碳酸盐及其他水合相",
    "source_key": "sun2023",
-   "locator": "PDF p.43（索引 42）"
+   "locator": "PDF p.43（索引 42）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": 346,
@@ -114,12 +162,20 @@
    "granularity": "target",
    "published_classes": [
     "carbonate",
+    "perchlorate",
+    "perchlorate or phosphate",
     "phosphate",
-    "perchlorate"
+    "silicate"
    ],
    "note": "次生矿物与碳酸盐及可能的磷酸盐/高氯酸盐一致（章节归属依 p.44 行文顺序）",
    "source_key": "sun2023",
-   "locator": "PDF p.44（索引 43，章节首句）"
+   "locator": "PDF p.44（索引 43，章节首句）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": null,
@@ -128,21 +184,29 @@
    "formation": "Máaz（上部）",
    "granularity": "target",
    "published_classes": [
-    "feldspar",
-    "pyroxene",
-    "olivine",
-    "quartz",
     "Fe-oxides",
     "carbonate",
-    "phyllosilicates",
     "chlorite",
-    "phosphate",
+    "feldspar",
+    "olivine",
+    "organics",
     "perchlorate",
-    "organics"
+    "perchlorate or phosphate",
+    "phosphate",
+    "phyllosilicates",
+    "pyroxene",
+    "quartz",
+    "silicate"
    ],
    "note": "白色长石板+辉石，可能含橄榄石/石英；蚀变弱于此前研磨斑（引 Corpolongo 2023）",
    "source_key": "sun2023",
-   "locator": "PDF p.44（索引 43）"
+   "locator": "PDF p.44（索引 43）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   },
   {
    "sol": null,
@@ -198,24 +262,33 @@
    "formation": "Máaz（上部）",
    "granularity": "target",
    "published_classes": [
-    "feldspar",
-    "pyroxene",
-    "olivine",
     "Fe-oxides",
     "carbonate",
-    "phyllosilicates",
     "chlorite",
-    "phosphate",
+    "feldspar",
+    "olivine",
+    "organics",
     "perchlorate",
-    "organics"
+    "perchlorate or phosphate",
+    "phosphate",
+    "phyllosilicates",
+    "pyroxene",
+    "silicate"
    ],
    "note": "白色长石板+辉石，可能含橄榄石/石英；蚀变弱于此前研磨斑",
    "source_key": "sun2023",
-   "locator": "PDF p.44（索引 43）"
+   "locator": "PDF p.44（索引 43）",
+   "sources_merged": [
+    {
+     "key": "corpolongo2023",
+     "locator": "PDF 全文靶点段落（Section 3）"
+    }
+   ]
   }
  ],
  "growth_path": {
   "target_rows_goal": 30,
-  "blocking": "Corpolongo 2023 Table（逐靶点×类别）需人工转录：出版方 OAuth 墙拦截匿名抓取，机构库（QUT/DiVA）无托管副本。转录后本文件 rows 直接到 30+，护栏下限随之上调。"
+  "blocking": "Corpolongo 2023 Table（逐靶点×类别）需人工转录：出版方 OAuth 墙拦截匿名抓取，机构库（QUT/DiVA）无托管副本。转录后本文件 rows 直接到 30+，护栏下限随之上调。",
+  "status_2026_11_13": "Corpolongo 2023 逐靶点段落自动转录完成，台账扩至 11 行；06 号对账脚本覆盖以 PDS 可得数据为准。"
  }
 }
