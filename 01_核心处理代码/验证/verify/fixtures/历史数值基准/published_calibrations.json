@@ -192,6 +192,14 @@
    "detail": "Máaz 四研磨斑（Guillaumes/Bellegarde/Montpezat/Alfalfa，PMC 674/2809/2700/3249，双探测器 SFS 已下载）跨扫描峰面积→wt% 文献多点标定尝试：过原点单参 LOO 不可达 ±σ（Montpezat 面积异常 +42σ 等）。根因=跨扫描地形/衍射/死时间修正缺失（论文 Table S4 用双探测器择低加谱并做地形衍射校正）。边界声明：峰面积层只做扫描内定量（逐 PMC 相关 Ca 0.9904/Fe 0.9777）与比值信号，跨扫描绝对定量属 PIQUANT 基本参数层职责。",
    "source_key": "schmidt2025",
    "locator": "Table S4（四斑 Bulk/Low-salt 值与 PMC 数）；SOM Fig.S6-S8（几何/衍射修正）"
+  },
+  {
+   "instrument": "apxs",
+   "item": "apxs_si_ratio_layer_scope_boundary",
+   "granularity": "method",
+   "detail": "Si 内标比值层适用边界：25 靶标定集（sol 629-4327）内 Ca/Fe/K/Mg 跨靶相关 0.89-0.98、Ca 留出误差 2.5%；对时代外靶（rocknest3_rp sol 102）冻结幂律预测偏差 -85%~+60%——APXS 探测器随任务时间辐照退化，效率漂移使幂律不可跨时代外推。比值层适用域=标定时代内的靶；时代外需探测器退化修正（GUAPX/官方管线职责）。负结果如实记录（apxs_ratio_calib.json holdout_rocknest3_rp）。",
+   "source_key": "schmidt2014",
+   "locator": "25 靶数据（01_multitarget_calib.py）；边界验证（02_ratio_calibration.py holdout）"
   }
  ],
  "growth_path": {
