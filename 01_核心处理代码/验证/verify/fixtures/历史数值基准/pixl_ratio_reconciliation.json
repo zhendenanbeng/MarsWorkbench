@@ -10,5 +10,46 @@
    "old_n_pmc": 2809,
    "note": "真轴 v4 + Bellegarde 全扫描集（2809 PMC，A/B 低者）；旧冻结 sol187 尾部 732 PMC、旧轴 0.00695/0.08 下相关 0.947"
   }
- ]
+ ],
+ "ratio_matrix": {
+  "n_pairs": 66,
+  "n_pmc": 2809,
+  "axis_keV_per_ch": 0.007863768115942029,
+  "top8": [
+   {
+    "pair": "Si/Fe",
+    "loglog_corr": 0.9941
+   },
+   {
+    "pair": "Si/S",
+    "loglog_corr": 0.9888
+   },
+   {
+    "pair": "Ca/S",
+    "loglog_corr": 0.986
+   },
+   {
+    "pair": "Ca/Fe",
+    "loglog_corr": 0.9843
+   },
+   {
+    "pair": "Al/S",
+    "loglog_corr": 0.9834
+   },
+   {
+    "pair": "Si/Ca",
+    "loglog_corr": 0.9831
+   },
+   {
+    "pair": "Al/Fe",
+    "loglog_corr": 0.9812
+   },
+   {
+    "pair": "Ti/S",
+    "loglog_corr": 0.9796
+   }
+  ],
+  "min_corr": 0.488,
+  "generator": "01_核心处理代码/PIXL/数据准备脚本/01_sfs_pipeline.py"
+ }
 }

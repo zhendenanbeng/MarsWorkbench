@@ -171,7 +171,44 @@ def main():
         check(abs(ox.get("MgO", -1) - 8.33) > 2.0,
               "MgO %.2f 与土壤 bulk 8.33 明确区分（|差|>2.0）" % ox.get("MgO", -1))
 
-    # ========== 3. 台账锚点在册 ==========
+    # ========== 3. PIXL 比值矩阵（01_sfs_pipeline 生成，真轴 v4）==========
+    rec = json.loads((BASE / "pixl_ratio_reconciliation.json").read_text(encoding="utf-8"))
+    mat = rec.get("ratio_matrix") or {}
+    pairs = {p["pair"]: p["loglog_corr"] for p in rec.get("ratio_matrix", {}).get("top8", [])}
+    check(mat.get("n_pairs") == 66,
+          "比值矩阵 66 对在册（现 %s，12 元素两两）" % mat.get("n_pairs"))
+    TOP8 = {"Si/Fe": 0.9941, "Si/S": 0.9888, "Ca/S": 0.9860, "Ca/Fe": 0.9843,
+            "Al/S": 0.9834, "Si/Ca": 0.9831, "Al/Fe": 0.9812, "Ti/S": 0.9796}
+    bad_top = [k for k, v in TOP8.items()
+               if pairs.get(k) is None or pairs[k] < v - 0.01]
+    check(not bad_top, "Top8 比值相关不低于冻结值-0.01（%s）"
+          % ("；".join("%s %.4f<%.4f" % (k, pairs.get(k, -1), TOP8[k] - 0.01)
+                       for k in bad_top) or "全部达标"))
+    check((mat.get("min_corr") or 0) >= 0.45,
+          "全矩阵最差相关 ≥0.45（现 %s，弱尾=Na 低能边/远 Z 对）" % mat.get("min_corr"))
+
+    # ========== 4. APXS 峰位自证（能量轴一致性）==========
+    from instruments import apxs as apxs_backend
+    rsp2 = _layout.project_layout.VERIFY / "fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.csv"
+    if not rsp2.is_file():
+        skip("APXS 峰位自证（fixture 不在位）")
+    else:
+        from instruments import apxs_fit
+        data = apxs_backend.pds3.read_table(str(rsp2), skiprows=1)
+        energy = data[:, 0] / 1000.0
+        counts = data[:, 1] if data.shape[1] == 2 else np.median(data[:, 1:-1], axis=1)
+        re = apxs_fit.spectrum_areas(energy[1:-1], counts[1:-1])
+        dev = []
+        for el in ("Na", "Mg", "Al", "Si", "K", "Ca", "Fe"):
+            r = re.get(el)
+            if r and r.get("center_kev") is not None:
+                dev.append(abs(r["center_kev"] - apxs_fit.KA_KEV[el]))
+        # 峰位=argmax（道分辨率 ~24 eV）；Mg 受相邻 Na Kα 拖拽 ~2 道属物理合理
+        check(len(dev) == 7 and max(dev) <= 0.06,
+              "APXS 7 主元素拟合峰位与理论 Kα 偏差 ≤0.06 keV（最大 %.3f，道分辨 ~24eV）"
+              % (max(dev) if dev else -1))
+
+    # ========== 5. 台账锚点在册 ==========
     gi = json.loads((BASE / "gold_intervals.json").read_text(encoding="utf-8"))
     check("bellegarde_schmidt2025_corrected" in gi.get("anchors", {}).get("pixl", {}),
           "gold_intervals.pixl.bellegarde_schmidt2025_corrected 锚点在册")
