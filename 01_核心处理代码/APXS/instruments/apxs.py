@@ -167,7 +167,25 @@ class APXSBackend(base.Backend):
             rows.append({"label": el, "value": float(r["amp"]),
                          "err": float(r["error"]),
                          "detected": bool(r["detected"])})
+        official = None
+        for pt in obs.points:
+            rwp_path = pt.files.get("rwp")
+            if rwp_path:
+                try:
+                    import csv as _csv
+                    official = {}
+                    for r in _csv.reader(open(rwp_path, encoding="utf-8",
+                                              errors="replace")):
+                        if len(r) >= 2 and r[0].strip():
+                            try:
+                                official[r[0].strip()] = float(r[1])
+                            except ValueError:
+                                continue
+                except Exception:                        # noqa: BLE001
+                    official = None
+                break
         return {"available": True, "mode": "apxs_peaks", "rows": rows,
+                "official": official,
                 "n_points_used": len(spectra),
                 "scope": "APXS 峰拟合层：元素 Kα 峰高/净面积（原始信号量，"
                          "不是浓度）。官方 rwp 氧化物表仍是定量引用口径；"

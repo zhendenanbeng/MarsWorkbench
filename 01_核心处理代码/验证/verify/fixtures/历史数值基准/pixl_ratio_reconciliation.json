@@ -1,0 +1,6 @@
+{
+ "scope": "PIXL 元素比值对账：自研 Ca/Fe 峰面积比 vs 官方 CaO/FeO wt 比（log-log 相关 0.947，732 PMC）。峰面积比是半定量比值信号，不是浓度；官方 wt% 仍是引用口径。",
+ "source_sha256": "5905e8d68ff65676cbae5160fcb1548e88616da4f4df483b959dcf91bcc92bd0",
+ "ca_fe_ratio_loglog_corr": 0.947,
+ "n_pmc": 732
+}

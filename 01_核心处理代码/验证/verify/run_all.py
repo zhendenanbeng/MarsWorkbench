@@ -97,7 +97,7 @@ CHECKS = [
     ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧", 18),
     ("published_targets_check.py", "已发表靶点台账：结构、来源DOI、定位与只增不缩", 12),
     ("gold_intervals_check.py", "区间数值基准与标定台账：四仪器自主定量对账契约", 15),
-    ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、模型往返持久化与安全降级", 19),
+    ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、auto选择、模型往返与安全降级", 21),
     ("pixl_sfs_check.py", "PIXL SFS谱层：读取、能量自证、峰面积恢复与安全降级", 10),
     ("apxs_fit_check.py", "APXS峰拟合：合成能谱峰高恢复、检出判定与越界不猜值", 9),
     ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩与判定结构", 6),

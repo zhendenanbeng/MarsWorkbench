@@ -105,6 +105,14 @@ def main():
     ext = model2.predict(X * 1.2)
     check(bool(np.isfinite(ext).all()), "外推预测有限值（无 NaN/Inf）")
 
+    # --- 5b. auto_components 契约：合成场景选出合法成分数且 RMSE 不劣于固定 1 ---
+    k_best, rmse_best = libs_quant.auto_components(spectra, comps, "SiO2")
+    check(1 <= k_best <= 4, "auto_components 返回合法成分数（%d）" % k_best)
+    r_fixed = libs_quant.loo_target_cv(spectra, comps, "SiO2", components=1)
+    check(rmse_best <= r_fixed["rmse"] + 1e-9,
+          "auto_components 的 CV RMSE 不劣于 components=1（%.3f ≤ %.3f）"
+          % (rmse_best, r_fixed["rmse"]))
+
     # --- 6. 模型持久化契约（产品化：工作台预测依赖） ---
     import json as _json
     import os as _os
