@@ -414,9 +414,47 @@ class SuperCamBackend(base.Backend):
             values = libs_quant.predict_mean(np.mean(spectra, axis=0), doc)
         except ValueError as exc:
             return {"available": False, "reason": str(exc)}
-        return {"available": True, "values": values, "n_points_used": used,
+        official = self._official_moc_for(obs)
+        return {"available": True, "values": values, "official": official,
+                "n_points_used": used,
                 "scope": doc["scope"],
                 "trained_targets": doc["meta"].get("trained_targets", [])}
+
+    def _official_moc_for(self, obs):
+        """官方 MOC 查本观测的成分预测（对账列）；缓存缺失/未命中返回 None。"""
+        try:
+            import project_layout
+            moc_p = project_layout.legacy_cache("supercam_moc.csv")
+            if moc_p is None or not os.path.isfile(str(moc_p)):
+                moc_p = (project_layout.data_root() / "SuperCam" / "随包缓存"
+                         / "supercam_moc.csv")
+            if not moc_p.is_file():
+                return None
+            want = set()
+            for pt in obs.points:
+                for f in pt.files.values():
+                    # 文件名带版本后缀（_14p01），MOC 行无版本（_14p）——去尾段匹配
+                    stem = re.sub(r"_\d+p\d*\.fits$", "", os.path.basename(f).upper(), flags=re.I)
+                    want.add(stem)
+            if not want:
+                return None
+            hits = []
+            for line in moc_p.read_text(encoding="utf-8", errors="replace").splitlines():
+                parts = [p.strip() for p in line.split(",")]
+                if len(parts) < 18 or not parts[0].startswith("scam_"):
+                    continue
+                if re.sub(r"_\d+p\d*$", "", parts[0].upper(), flags=re.I) in want:
+                    try:
+                        hits.append({ox: [float(parts[1 + 2 * i]), float(parts[2 + 2 * i])]
+                                     for i, ox in enumerate(("SiO2", "TiO2", "Al2O3", "FeOT",
+                                                             "MgO", "CaO", "Na2O", "K2O"))})
+                    except (ValueError, IndexError):
+                        continue
+            return hits[0] if hits else None
+        except Exception:
+            import traceback
+            traceback.print_exc()
+            return None
 
     # -- 下载面板分组 --------------------------------------------------------
 

@@ -130,6 +130,49 @@ class APXSBackend(base.Backend):
 
     # -- 读点 ---------------------------------------------------------------
 
+    # -- 自研峰面积层（Phase 4 产品化；原始信号量，不是浓度） -------------
+
+    def quant_payload(self, obs):
+        """观测级自研峰面积 payload（供工作台 quant 面板，APXS 口径）。
+
+        读观测全部 rsp 能谱（与 load_point 同构口径：剔首末通道）→
+        逐元素 Kα 高斯拟合峰高/净面积+误差+检出判定。无 rsp 或拟合
+        失败显式降级，绝不产出虚构峰面积。
+        """
+        from . import apxs_fit
+        spectra = []
+        for pt in obs.points:
+            path = pt.files.get("rsp")
+            if not path:
+                continue
+            try:
+                data = pds3.read_table(path, skiprows=1)
+            except Exception:                            # noqa: BLE001
+                continue
+            if data.ndim != 2 or data.shape[1] < 2:
+                continue
+            energy_kev = data[:, 0] / 1000.0
+            counts = data[:, 1] if data.shape[1] == 2 else np.median(
+                data[:, 1:-1], axis=1)
+            energy_kev, counts = energy_kev[1:-1], counts[1:-1]
+            spectra.append(np.asarray(counts, dtype=float))
+        if not spectra:
+            return {"available": False, "reason": "本观测没有可读的 rsp 能谱"}
+        mean = np.mean(spectra, axis=0)
+        areas = apxs_fit.spectrum_areas(energy_kev, mean)
+        rows = []
+        for el, r in areas.items():
+            if r["area"] is None:
+                continue
+            rows.append({"label": el, "value": float(r["amp"]),
+                         "err": float(r["error"]),
+                         "detected": bool(r["detected"])})
+        return {"available": True, "mode": "apxs_peaks", "rows": rows,
+                "n_points_used": len(spectra),
+                "scope": "APXS 峰拟合层：元素 Kα 峰高/净面积（原始信号量，"
+                         "不是浓度）。官方 rwp 氧化物表仍是定量引用口径；"
+                         "基本参数定量不在此层。"}
+
     def load_point(self, point, shot, steps_on):
         path = point.files["rsp"]
         data = pds3.read_table(path, skiprows=1)      # 首行是备注 HEADER

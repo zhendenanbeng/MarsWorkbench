@@ -7,6 +7,11 @@ if(!q.available){box.innerHTML='<b>PLS 成分（独立标定）</b><p class="ev"
 var h='<b>PLS 成分（独立标定，在轨靶训练）</b><p class="ev">'+q.scope+'</p>';
 var official=q.official;
 h+='<table class="t"><tr><th>氧化物</th><th>预测 wt%</th><th>留一靶 RMSE</th>'+(official?'<th>官方 MOC</th>':'')+'</tr>';
+if(q.rows){
+  h+='<table class="t"><tr><th>元素</th><th>峰高 (计数)</th><th>±误差</th><th>检出</th></tr>';
+  q.rows.forEach(function(r){h+='<tr><td>'+r.label+'</td><td>'+r.value.toFixed(0)+'</td><td>±'+r.err.toFixed(0)+'</td><td>'+(r.detected?'检出':'—')+'</td></tr>';});
+  h+='</table><p class="ev">本观测使用 '+q.n_points_used+' 个点。</p>';
+  box.innerHTML=h;box.hidden=false;return;}
 var order=['SiO2','TiO2','Al2O3','FeOT','MgO','CaO','Na2O','K2O'];
 order.forEach(function(ox){var v=q.values[ox];if(!v)return;
 var oc=(official&&official.oxides[ox])?official.oxides[ox][0].toFixed(2):'—';
