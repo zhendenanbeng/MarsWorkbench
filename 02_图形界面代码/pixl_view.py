@@ -89,14 +89,27 @@ def route(handler,state):
             return send({'available': False,
                          'reason': 'SFS 能量轴未生成：先下载 sol 的 SFS 数据并运行谱层自证'})
         doc = json.loads(axis_p.read_text(encoding='utf-8'))
-        # 谱采样（能量轴自证后的 mean spectrum，~400 点供 SVG 渲染）
+        # 谱采样（能量轴自证后的 mean spectrum，~400 点供 SVG 渲染）；
+        # 扫描目录按轴 doc 记录优先（Bellegarde 全扫描集 sfs_sol0186），
+        # 旧安装回退 sfs_sol187 尾部
         spectrum = None
+        scan_used = None
         try:
             import glob
             import numpy as np
             from instruments import sfs_spectra
             specs = []
-            sfs_dir = project_layout.data_root() / 'PIXL' / '下载' / 'sfs_sol187'
+            for cand in (doc.get('scan_dir'), 'sfs_sol0186', 'sfs_sol187'):
+                if not cand:
+                    continue
+                sfs_dir = project_layout.data_root() / 'PIXL' / '下载' / cand
+                if sfs_dir.is_dir():
+                    scan_used = cand
+                    break
+            if scan_used:
+                sfs_dir = project_layout.data_root() / 'PIXL' / '下载' / scan_used
+            else:
+                sfs_dir = project_layout.data_root() / 'PIXL' / '下载' / 'sfs_sol187'
             for f in sorted(glob.glob(str(sfs_dir / '*.csv'))):
                 sp, _ = sfs_spectra.read_sfs(f)
                 if sp is not None:
@@ -116,10 +129,22 @@ def route(handler,state):
                                          if axis['zero_keV'] <= v <= kev[-1]}}
         except Exception:
             spectrum = None
+        ratios = []
+        try:
+            mat_p = (project_layout.data_root() / 'PIXL' / '缓存'
+                     / 'sfs_ratio_matrix.json')
+            if mat_p.is_file():
+                mat = json.loads(mat_p.read_text(encoding='utf-8'))
+                ratios = [{'pair': r['pair'],
+                           'corr': round(float(r['loglog_corr']), 3)}
+                          for r in (mat.get('ratios') or [])[:6]]
+        except Exception:
+            ratios = []
         return send({'available': True, 'axis': doc.get('axis'),
+                     'mode': doc.get('mode'), 'scan_dir': scan_used or doc.get('scan_dir'),
                      'ca_corr': doc.get('ca_corr'), 'fe_corr': doc.get('fe_corr'),
                      'n_pmc': doc.get('n_pmc'), 'scope': doc.get('scope'),
-                     'spectrum': spectrum})
+                     'ratios': ratios, 'spectrum': spectrum})
     if url.path.startswith('/data/pixl/'):
         parts=urllib.parse.unquote(url.path).split('/')
         folder=st['exports'].get(parts[3] if len(parts)>=5 else '')
