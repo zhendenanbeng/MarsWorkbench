@@ -363,6 +363,12 @@ def main():
             check(pa["Ca"]["detected"] and pa["Fe"]["detected"],
                   "扫描级 Ca/Fe 峰检出（面积 %.0f/%.0f）"
                   % (pa["Ca"]["area"], pa["Fe"]["area"]))
+            # 冻结纪律：轴演进必须带 revisions（旧值可追溯）
+            rev = axis.get("revisions") or []
+            ok_rev = bool(rev) and all(
+                isinstance(r, dict) and r.get("date") and r.get("note") for r in rev)
+            check(ok_rev and len(rev) >= 1,
+                  "能量轴 doc 的 revisions 记录完整（%d 条，旧值可追溯）" % len(rev))
 
     # ========== 6. APXS rocknest3_rp 峰面积复算 ==========
     fix = (_layout.project_layout.VERIFY / "fixtures/apxs/sol00102")
