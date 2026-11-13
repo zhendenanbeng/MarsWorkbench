@@ -84,6 +84,7 @@ def main(argv=None):
 
     # 成分不完整的靶按氧化物排除（如 Calcite 无 Na2O/K2O）
     cv_rows = {}
+    chosen = {}
     for ox in libs_quant.OXIDES:
         spectra_ox = {n: s for n, s in spectra.items()
                       if comp.get(n, {}).get("composition", {}).get(ox) is not None}
@@ -98,6 +99,7 @@ def main(argv=None):
                     max_components=min(4, len(spectra_ox) - 2))[0]
             else:
                 chosen_sc = args.components
+            chosen[ox] = chosen_sc
             cv_rows[ox] = libs_quant.loo_target_cv(
                 spectra_ox, {n: v["composition"] for n, v in comp.items()}, ox,
                 components=chosen_sc)
@@ -120,7 +122,6 @@ def main(argv=None):
 
     if args.fit_model and cv_rows:
         names = sorted(spectra)
-        X = np.vstack([np.mean(np.asarray(spectra[n], dtype=float), axis=0) for n in names])
         final = {}
         for ox in cv_rows:
             ok_names = [n for n in names
@@ -128,9 +129,11 @@ def main(argv=None):
             Xo = np.vstack([np.mean(np.asarray(spectra[n], dtype=float), axis=0)
                             for n in ok_names])
             yo = np.array([float(comp[n]["composition"][ox]) for n in ok_names])
-            final[ox] = libs_quant.PLS1Model(components=args.components).fit(Xo, yo)
+            # 与 CV 同口径：每氧化物用其 auto-chosen 成分数训练
+            final[ox] = libs_quant.PLS1Model(
+                components=chosen.get(ox, args.components)).fit(Xo, yo)
         comp_path = data_root / "SuperCam" / "缓存" / "scct_composition.json"
-        meta = {"components": {ox: (chosen_sc if ox == ox else args.components) for ox in []} or args.components, "trained_targets": names,
+        meta = {"components": dict(chosen), "trained_targets": names,
                 "composition_sha256": sha256_of(comp_path),
                 "cv_rmse": {ox: r["rmse"] for ox, r in cv_rows.items()},
                 "trained_utc": datetime.datetime.now(datetime.timezone.utc)
@@ -145,12 +148,17 @@ def main(argv=None):
                     "独立复现口径；精度预期与官方 Anderson 2022 334 标样不可比）。",
            "generated_utc": datetime.datetime.now(datetime.timezone.utc)
            .strftime("%Y-%m-%dT%H:%M:%SZ"),
-           "components": args.components, "n_targets": len(spectra),
+           "components": dict(chosen), "n_targets": len(spectra),
            "targets": sorted(spectra),
            "cv": {ox: {"rmse": r["rmse"], "bias": r["bias"],
                        "predictions": r["predictions"], "true": r["true"]}
                   for ox, r in cv_rows.items()},
            "moc_rmsep_verdict": verdict,
+           "composition_sha256": sha256_of(data_root / "SuperCam" / "缓存"
+                                           / "scct_composition.json"),
+           "training_manifest_sha256": sha256_of(data_root / "SuperCam" / "下载"
+                                                 / "scct_training"
+                                                 / "training_manifest.json"),
            "code_sha256": project_layout.source_hashes(include_verification=False)}
     out.write_text(json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
     print("冻结:", out)

@@ -103,6 +103,7 @@ CHECKS = [
     ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩与判定结构", 6),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
+    ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹", 22),
 ]
 
 DIST_SCRIPTS={'multi_instrument_check.py','data_integrity_check.py','scientific_evidence_check.py',
