@@ -203,6 +203,33 @@ def main():
     check(all((inscan.get(el) or {}).get("k", 0) > 0 for el in INSCAN_MIN),
           "扫描内标定斜率全部为正（面积-浓度方向一致）")
 
+    # ========== 3b. APXS Si 内标比值层（02_ratio_calibration 生成，数据在位时）==========
+    rc_p = _layout.project_layout.data_root() / "APXS" / "缓存" / "apxs_ratio_calib.json"
+    if not rc_p.is_file():
+        skip("APXS 比值层断言（apxs_ratio_calib.json 不在位）")
+    else:
+        rc = json.loads(rc_p.read_text(encoding="utf-8"))
+        els = rc.get("elements") or {}
+        RATIO_MIN = {"Ca": 0.97, "Fe": 0.94, "K": 0.92, "Mg": 0.88}
+        bad_rc = [(el, (els.get(el) or {}).get("corr_all", 0))
+                  for el, lo in RATIO_MIN.items()
+                  if (els.get(el) or {}).get("corr_all", 0) < lo]
+        ca = els.get("Ca") or {}
+        check(not bad_rc,
+              "APXS Si 内标比值相关达标（Ca %.4f/Fe %.4f/K %.4f/Mg %.4f）"
+              % tuple((els.get(el) or {}).get("corr_all", 0)
+                      for el in ("Ca", "Fe", "K", "Mg")))
+        check(not bad_rc, "APXS 比值相关低于冻结下限: %s"
+              % ("；".join("%s %.4f" % (el, v) for el, v in bad_rc) or "无"))
+        check((ca.get("val_rel_err_median") or 1) <= 0.05
+              and 0.5 <= (ca.get("power_b") or 0) <= 1.5,
+              "APXS Ca 留出中位相对误差 <=5%%（%.1f%%）且幂律指数 b∈[0.5,1.5]（%.3f）"
+              % ((ca.get("val_rel_err_median") or 1) * 100, ca.get("power_b") or 0))
+        check(abs((rc.get("n_targets") or 0) - 25) == 0
+              and (rc.get("n_fit") or 0) + (rc.get("n_val") or 0) == 25,
+              "APXS 比值层 25 靶齐（拟合 %s + 留出 %s）"
+              % (rc.get("n_fit"), rc.get("n_val")))
+
     # ========== 4. APXS 峰位自证（能量轴一致性）==========
     from instruments import apxs as apxs_backend
     rsp2 = _layout.project_layout.VERIFY / "fixtures/apxs/sol00102/apa_406545731rsp01020050178_______p1.csv"
