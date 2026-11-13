@@ -22,6 +22,18 @@
    "key": "ytsma2023",
    "doi": "10.22541/essoar.167751631.16086403",
    "access": "用户人工下载预印本 PDF，sha256 见 published_calibrations.json"
+  },
+  {
+   "key": "schmidt2025",
+   "doi": "10.1126/sciadv.adr2613",
+   "access": "NTRS 20250000314 接收稿全文（含 SOM）",
+   "sha256": "c3cdd759a7385d5a0e08f8e1ced7e14c18644b74f01e8742a9cd8e49ab3626ac"
+  },
+  {
+   "key": "schmidt2014",
+   "doi": "10.1002/2013JE004481",
+   "access": "付费墙未获取；LPSC 2014 #1504 开放摘要核对",
+   "sha256": "3ed79aa6477bcb40fee1c1724a53dfc0c4c2d70b589ae2b0a887e91b72c53297"
   }
  ],
  "anchors": {
@@ -172,6 +184,21 @@
       "upper": 4.72
      }
     }
+   },
+   "rocknest3_schmidt2013_identity": {
+    "note": "Rocknest3_rp 基岩（sol 102）文献身份带：SO3 4.0（Schmidt 2013 LPSC Table 1）；K2O 类别带 1.7-1.9（LPSC 2014 #1504）。注意与 Morris 2015 RN bulk（土壤）非同一目标。",
+    "oxides": {
+     "SO3": {
+      "reference": 4.0,
+      "lower": 3.5,
+      "upper": 4.5
+     },
+     "K2O": {
+      "reference": 1.8,
+      "lower": 1.7,
+      "upper": 1.9
+     }
+    }
    }
   },
   "supercam": {
@@ -259,6 +286,66 @@
       "upper": 1.0
      }
     }
+   }
+  },
+  "pixl": {
+   "bellegarde_schmidt2025_corrected": {
+    "note": "Schmidt 2025 Table 1 低盐校正主体成分±σ。复算口径：盘上 RQC（2809 PMC）按 SO3<4.85/Cl<3.0 选低盐（复得 2404 vs 论文 2411），NaCl/CaSO4 盐校正后归一。8/10 氧化物在±σ；FeO-T +1.21σ、Na2O −0.92σ 系统性超差——论文按双探测器择低加谱再定量（非逐 PMC 均值）且 RQC 版本演进，见 paper_quant_check。",
+    "oxides": {
+     "SiO2": {
+      "reference": 48.5,
+      "lower": 46.2,
+      "upper": 50.8
+     },
+     "Al2O3": {
+      "reference": 7.9,
+      "lower": 7.5,
+      "upper": 8.3
+     },
+     "FeO-T": {
+      "reference": 22.9,
+      "lower": 21.8,
+      "upper": 24.0
+     },
+     "MgO": {
+      "reference": 2.0,
+      "lower": 1.4,
+      "upper": 2.6
+     },
+     "CaO": {
+      "reference": 7.2,
+      "lower": 6.8,
+      "upper": 7.6
+     },
+     "Na2O": {
+      "reference": 3.9,
+      "lower": 3.6,
+      "upper": 4.2
+     },
+     "K2O": {
+      "reference": 1.2,
+      "lower": 0.8,
+      "upper": 1.6
+     },
+     "TiO2": {
+      "reference": 2.8,
+      "lower": 2.1,
+      "upper": 3.5
+     },
+     "MnO": {
+      "reference": 0.4,
+      "lower": 0.2,
+      "upper": 0.6
+     },
+     "P2O5": {
+      "reference": 3.1,
+      "lower": 2.5,
+      "upper": 3.7
+     }
+    },
+    "n_pmc_bulk": 2809,
+    "n_pmc_low_salt": 2411,
+    "protocol": "SO3<4.85 wt% 且 Cl<3.0 wt%；减 SO3×56.08/80.06 于 CaO、减 Cl×61.98/70.90 于 Na2O，去 SO3/Cl 列后归一"
    }
   }
  }

@@ -34,6 +34,26 @@
    "doi": "10.1016/j.sab.2016.11.003",
    "access": "USGS 出版页开放摘要；PLS1+ICA 配方，训练集细节待转录",
    "locator": "pubs.usgs.gov/publication/70194123"
+  },
+  {
+   "key": "schmidt2025",
+   "author_year": "Schmidt et al. 2025",
+   "title": "Diverse and highly differentiated lava suite in Jezero crater, Mars: Constraints on intracrustal magmatism revealed by Mars 2020 PIXL",
+   "doi": "10.1126/sciadv.adr2613",
+   "access": "NTRS 20250000314 接收稿（含 SOM）全文 PDF，90 页；正式版 Science Advances 11 开放（PMC11778241）",
+   "sha256": "c3cdd759a7385d5a0e08f8e1ced7e14c18644b74f01e8742a9cd8e49ab3626ac",
+   "locator_sha_extra": {
+    "schmidt2013_lpsc": "849f7c9483bc9ff6620989e41554c1f197ca782cab43e0a4d96e13fb92a9e0ca",
+    "morris2015_lpsc": "f75f2252b46e4b304b739e7231d9664d58ca6f136faaa98d74599681732e9c41"
+   }
+  },
+  {
+   "key": "schmidt2014",
+   "author_year": "Schmidt et al. 2014",
+   "title": "Geochemical diversity in first rocks examined by the Curiosity rover in Gale Crater",
+   "doi": "10.1002/2013JE004481",
+   "access": "Wiley 付费墙未获取全文；逐靶数值经 LPSC 2014 #1504（www.hou.usra.edu 开放 PDF）与 Schmidt 2013 LPSC（NTRS 20130009734）开放摘要核对：Rocknest_3=基岩 sol102 SO3 4.0；Rocknest3 类 K2O 1.7-1.9",
+   "sha256": "3ed79aa6477bcb40fee1c1724a53dfc0c4c2d70b589ae2b0a887e91b72c53297"
   }
  ],
  "rows": [
@@ -148,6 +168,22 @@
    "detail": "基本参数法+迭代归一到100%氧化物；含水矿物使归一化产生显著误差（论文扩展了 H2O+ 测定）；常规分析路线=峰面积→标定曲线，TAS 分岩石类型的经验标定可改进",
    "source_key": "campbell2010",
    "locator": "摘要+§1-3"
+  },
+  {
+   "instrument": "pixl",
+   "item": "bellegarde_corrected_bulk_schmidt2025",
+   "granularity": "metric",
+   "detail": "Bellegarde（sol 187 PIXL 扫描）低盐校正火成岩主体成分（wt%±σ）：SiO2 48.5±2.3 / Al2O3 7.9±0.4 / FeOT 22.9±1.1 / MgO 2.0±0.6 / CaO 7.2±0.4 / Na2O 3.9±0.3 / K2O 1.2±0.4 / TiO2 2.8±0.7 / MnO 0.4±0.2 / P2O5 3.1±0.6。低盐判据 SO3<4.85 且 Cl<3.0（2411/2809 PMCs）；Bulk #PMC 2809 与盘上 RQC 行数一致；Mg# 13.6",
+   "source_key": "schmidt2025",
+   "locator": "Table 1（p.12/90）；判据 Table S4（p.63/90）"
+  },
+  {
+   "instrument": "apxs",
+   "item": "rocknest3_rp_literature_identity",
+   "granularity": "metric",
+   "detail": "Rocknest_3=基岩（sol 102、接触测量、SO3 4.0 wt%，Schmidt 2013 LPSC Table 1，NTRS 20130009734，PDF sha 849f7c9483bc9ff6）；Rocknest3 类高碱 K2O 1.7-1.9 wt%（LPSC 2014 #1504，PDF sha 3ed79aa6477bcb40）。与 Morris 2015 LPSC（NTRS 20150001942，PDF sha f75f2252b46e4b30）Table 1 RN bulk（Rocknest 风成土壤：SiO2 41.18/MgO 8.33/K2O 0.47）非同一目标——土壤锚点不得套用于 rocknest3_rp 岩石",
+   "source_key": "schmidt2014",
+   "locator": "Schmidt 2013 LPSC Table 1；LPSC 2014 #1504 正文"
   }
  ],
  "growth_path": {

@@ -19,6 +19,18 @@
    "doi": "10.1029/2022JE007455",
    "access": "出版方开放获取（is_oa=True，Unpaywall 核验）；匿名抓取被 OAuth 墙拦截，摘要经 Semantic Scholar API 核验",
    "locator_abstract": "JGR Planets 128(3) e2022JE007455"
+  },
+  {
+   "key": "schmidt2025",
+   "author_year": "Schmidt et al. 2025",
+   "title": "Diverse and highly differentiated lava suite in Jezero crater, Mars: Constraints on intracrustal magmatism revealed by Mars 2020 PIXL",
+   "doi": "10.1126/sciadv.adr2613",
+   "access": "NTRS 20250000314 接收稿（含 SOM）全文 PDF，90 页；正式版 Science Advances 11 开放（PMC11778241）",
+   "sha256": "c3cdd759a7385d5a0e08f8e1ced7e14c18644b74f01e8742a9cd8e49ab3626ac",
+   "locator_sha_extra": {
+    "schmidt2013_lpsc": "849f7c9483bc9ff6620989e41554c1f197ca782cab43e0a4d96e13fb92a9e0ca",
+    "morris2015_lpsc": "f75f2252b46e4b304b739e7231d9664d58ca6f136faaa98d74599681732e9c41"
+   }
   }
  ],
  "rows": [
@@ -65,13 +77,17 @@
     "silicate",
     "sulfate"
    ],
-   "note": "内部浅色斑=充填型蚀变产物（Ca硫酸盐/Ca磷酸盐）；深色=辉石/斜长石/FeTi氧化物",
+   "note": "内部浅色斑=充填型蚀变产物（Ca硫酸盐/Ca磷酸盐）；深色=辉石/斜长石/FeTi氧化物；Schmidt 2025 定量锚点已入 gold_intervals.pixl",
    "source_key": "sun2023",
    "locator": "PDF p.40（索引 39）",
    "sources_merged": [
     {
      "key": "corpolongo2023",
      "locator": "PDF 全文靶点段落（Section 3）"
+    },
+    {
+     "key": "schmidt2025",
+     "locator": "Table 1/S4：sol 187 PIXL 扫描低盐校正成分（Bulk #PMC 2809 与盘上 RQC 行数一致；paper_quant_check 对账）"
     }
    ]
   },
