@@ -370,6 +370,81 @@ def main():
             check(ok_rev and len(rev) >= 1,
                   "能量轴 doc 的 revisions 记录完整（%d 条，旧值可追溯）" % len(rev))
 
+    # ========== 5b. 第二扫描跨扫描一致性（sol0300）==========
+    sfs2 = data_root / "PIXL" / "下载" / "sfs_sol0300"
+    rqc2_p = next((data_root / "PIXL" / "随包示例").glob("rqc_sol0300_*.csv"), None) \
+        if (data_root / "PIXL" / "随包示例").is_dir() else None
+    if not (sfs2.is_dir() and rqc2_p):
+        skip("第二扫描一致性（sol0300 数据不在位）")
+    else:
+        # 真轴跨扫描物理一致性：独立自证轴与 Bellegarde 冻结轴差 ≤1%
+        det2 = {}
+        for f in sorted(sfs2.glob("*.csv")):
+            up = f.name.upper()
+            det = "ENA" if "ENA" in up else ("ENB" if "ENB" in up else None)
+            if det is None:
+                continue
+            sp_, meta = sfs_spectra.read_sfs(f)
+            if sp_ is None:
+                continue
+            sp_ = np.asarray(sp_, dtype=float)
+            lt = np.array([float(m.get("live_time") or 0) for m in meta])
+            lt[lt <= 0] = np.nan
+            det2[det] = sp_.mean(axis=0) / np.nanmean(lt)
+        re_axis2 = sfs_spectra.calibrate_energy(np.mean(list(det2.values()), axis=0))
+        check(abs(re_axis2["keV_per_ch"] - ax["keV_per_ch"]) / ax["keV_per_ch"] <= 0.01
+              and abs(re_axis2["zero_keV"] - ax["zero_keV"]) <= 0.05,
+              "第二扫描独立自证轴与冻结轴一致（g=%.6f/%.6f，b=%+.3f/%+.3f）"
+              % (re_axis2["keV_per_ch"], ax["keV_per_ch"],
+                 re_axis2["zero_keV"], ax["zero_keV"]))
+        # 第二扫描逐 PMC 定量（A/B 择低）vs 其配套 RQC
+        det_pmc = {}
+        for f in sorted(sfs2.glob("*.csv")):
+            up = f.name.upper()
+            det = "ENA" if "ENA" in up else ("ENB" if "ENB" in up else None)
+            if det is None:
+                continue
+            sp_, meta = sfs_spectra.read_sfs(f)
+            if sp_ is None:
+                continue
+            for i, pm in enumerate(meta):
+                p = int(pm.get("PMC") or 0)
+                if p <= 0:
+                    continue
+                det_pmc.setdefault(p, {})[det] = sp_[i]
+        rqc2 = {}
+        for r in csv.DictReader(open(rqc2_p, encoding="utf-8-sig", newline="")):
+            try:
+                rqc2[int(float(r["PMC"]))] = r
+            except (ValueError, KeyError):
+                continue
+        common2 = [p for p in sorted(det_pmc) if p in rqc2]
+        cover = len(common2) / max(len(det_pmc), 1)
+        check(cover >= 0.95,
+              "第二扫描 PMC 覆盖率 ≥95%%（%.0f%%，%d/%d）"
+              % (cover * 100, len(common2), len(det_pmc)))
+        ca2 = []
+        for p in common2:
+            vals = []
+            for det in ("ENA", "ENB"):
+                if det in det_pmc[p]:
+                    pa = sfs_spectra.peak_areas(det_pmc[p][det], ax, elements=("Ca",))
+                    if pa["Ca"]["area"] is not None:
+                        vals.append(pa["Ca"]["area"])
+            ca2.append(min(vals) if vals else 0.0)
+        wt2 = []
+        for p in common2:
+            try:
+                wt2.append(float(rqc2[p]["CaO_wt%"]))
+            except (KeyError, ValueError, TypeError):
+                wt2.append(float("nan"))
+        wt2 = np.asarray(wt2, dtype=float)
+        ca2 = np.asarray(ca2, dtype=float)
+        ok2 = np.isfinite(wt2)
+        ca_corr2 = float(np.corrcoef(ca2[ok2], wt2[ok2])[0, 1])
+        check(ca_corr2 >= 0.98,
+              "第二扫描逐 PMC Ca 相关 ≥0.98（%.4f，n=%d）" % (ca_corr2, int(ok2.sum())))
+
     # ========== 6. APXS rocknest3_rp 峰面积复算 ==========
     fix = (_layout.project_layout.VERIFY / "fixtures/apxs/sol00102")
     areas_p = data_root / "APXS" / "缓存" / "apxs_peak_areas.json"

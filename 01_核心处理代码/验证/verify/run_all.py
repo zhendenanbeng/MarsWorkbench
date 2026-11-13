@@ -103,7 +103,7 @@ CHECKS = [
     ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩与判定结构", 6),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
-    ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹", 23),
+    ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹/第二扫描一致性", 26),
     ("paper_quant_check.py", "文献定量对账：Bellegarde盐校正+Rocknest3身份+比值矩阵+扫描内标定+APXS峰位自证+APXS比值层", 24),
 ]
 
