@@ -268,7 +268,7 @@ def main():
         check(cv_match, "%s 模型 meta 的 CV RMSE 与 CV JSON 一致" % inst)
 
     # ========== 5. PIXL 能量轴/峰面积复算 ==========
-    sfs_dir = data_root / "PIXL" / "下载" / "sfs_sol187"
+    sfs_dir = data_root / "PIXL" / "下载" / "sfs_sol0186"
     axis_p = data_root / "PIXL" / "缓存" / "sfs_energy_axis.json"
     sfs_v = data_root / "PIXL" / "缓存" / "sfs_vs_rqc.json"
     rqc_p = next(_layout.project_layout.ROOT.glob("03_下载数据/PIXL/随包示例/*rqc*.csv"),
@@ -279,11 +279,15 @@ def main():
         axis = json.loads(axis_p.read_text(encoding="utf-8"))
         ax = axis["axis"]
         v = json.loads(sfs_v.read_text(encoding="utf-8"))
-        # 冻结口径：逐 PMC 对重叠观测（两份 J03 的同名 PMC 行）取均值谱，
-        # 再按冻结轴算峰面积。整文件大平均或 calibrate_energy 重推轴都
-        # 不是冻结口径（后者是算法版本演进，不构成数据损坏判据）。
-        spec_by_pmc = {}
+        # 冻结口径（2026-11-14 真轴 v4）：Bellegarde 全扫描集（sfs_sol0186
+        # ENA/ENB，PMC 6-2815 = 2809），逐 PMC 峰面积取 A/B 探测器低者
+        # （论文 Table S4 口径），轴 = calibrate_energy 自证值（审计可复算）。
+        det_by_pmc = {}
         for f in sorted(sfs_dir.glob("*.csv")):
+            up = f.name.upper()
+            det = "ENA" if "ENA" in up else ("ENB" if "ENB" in up else None)
+            if det is None:
+                continue
             try:
                 sp_, meta = sfs_spectra.read_sfs(f)
             except Exception:
@@ -294,19 +298,26 @@ def main():
                 pmc = pm.get("PMC")
                 if pmc in (None, "", "0"):
                     continue
-                spec_by_pmc.setdefault(int(float(pmc)), []).append(sp_[i])
-        pmcs_ok = [p for p in v["pmc"] if p in spec_by_pmc]
+                try:
+                    lt = float(pm.get("live_time") or 0)
+                except (ValueError, TypeError):
+                    lt = 0.0
+                det_by_pmc.setdefault(int(float(pmc)), {})[det] = (
+                    sp_[i] / lt if lt > 0 else None)
+        pmcs_ok = [p for p in v["pmc"]
+                   if p in det_by_pmc and det_by_pmc[p].get("ENA") is not None
+                   and det_by_pmc[p].get("ENB") is not None]
         if len(pmcs_ok) < len(v["pmc"]):
             skip("PIXL SFS 复算（PMC 不齐：%d/%d）" % (len(pmcs_ok), len(v["pmc"])))
         else:
-            def _pmc_mean(pmc):
-                return np.mean(np.vstack(spec_by_pmc[pmc]), axis=0)
-
             ca_re, fe_re = [], []
             for p in pmcs_ok:
-                pa = sfs_spectra.peak_areas(_pmc_mean(p), ax, elements=("Ca", "Fe"))
-                ca_re.append(pa["Ca"]["area"])
-                fe_re.append(pa["Fe"]["area"])
+                a_out = sfs_spectra.peak_areas(det_by_pmc[p]["ENA"], ax,
+                                               elements=("Ca", "Fe"))
+                b_out = sfs_spectra.peak_areas(det_by_pmc[p]["ENB"], ax,
+                                               elements=("Ca", "Fe"))
+                ca_re.append(min(x["area"] or 0.0 for x in (a_out["Ca"], b_out["Ca"])))
+                fe_re.append(min(x["area"] or 0.0 for x in (a_out["Fe"], b_out["Fe"])))
             d_ca = max(abs(a - b) for a, b in zip(ca_re, v["ca_area"]))
             d_fe = max(abs(a - b) for a, b in zip(fe_re, v["fe_area"]))
             check(d_ca < 1e-6 and d_fe < 1e-6,
@@ -346,7 +357,8 @@ def main():
                   and abs(fe_corr - axis["fe_corr"]) < 1e-9,
                   "SFS vs RQC 相关复算与冻结一致（Ca %.4f / Fe %.4f）"
                   % (ca_corr, fe_corr))
-            mean = np.vstack([_pmc_mean(p) for p in pmcs_ok]).mean(axis=0)
+            mean = np.mean([np.mean(np.vstack(list(det_by_pmc[p].values())), axis=0)
+                            for p in pmcs_ok], axis=0)
             pa = sfs_spectra.peak_areas(mean, ax, elements=("Ca", "Fe"))
             check(pa["Ca"]["detected"] and pa["Fe"]["detected"],
                   "扫描级 Ca/Fe 峰检出（面积 %.0f/%.0f）"

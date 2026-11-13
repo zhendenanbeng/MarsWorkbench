@@ -23,7 +23,9 @@ import re
 import numpy as np
 
 # 元素 Kα 线（keV）——PIXL RQC 元素集（Na-Br）+ 主量
-KA_KEV = {"Na": 1.041, "Mg": 1.254, "Al": 1.487, "Si": 1.740, "S": 2.308,
+# P 2.0144（2026-11-14 增补，文献多点标定需要 P2O5；纯增量，不影响既有窗口）
+KA_KEV = {"Na": 1.041, "Mg": 1.254, "Al": 1.487, "Si": 1.740, "P": 2.014,
+          "S": 2.308,
           "Cl": 2.622, "K": 3.314, "Ca": 3.691, "Ti": 4.511, "Cr": 5.415,
           "Mn": 5.899, "Fe": 6.404, "Ni": 7.478, "Zn": 8.639, "Sr": 14.165,
           "Br": 13.291}
@@ -88,21 +90,33 @@ def find_peak_channels(spec, n=12, min_gap=20):
     return sorted(picked)
 
 
-def calibrate_energy(mean_spec, gain_lo=0.0035, gain_hi=0.0070):
-    """能量轴自证 v3（两层）。
+def calibrate_energy(mean_spec, gain_lo=0.0030, gain_hi=0.0100):
+    """能量轴自证 v4（多点线系两层；v3 单点启发保留为平票兜底）。
 
-    第一层：枚举强峰对 (p1<p2) 解 Ca/Fe 两点（g=(6.404-3.691)/(p2-p1)，
-    b=3.691-g·p1），物理约束 g∈[0.0035,0.0070] keV/ch（4096 通道覆盖
-    0-14 keV+）、b 近 0（|b|≤0.15）。第二层（Fe 峰弱时兜底）：对每个
+    第一层（v4 多点线系）：枚举强峰对 (p1<p2) 解两点 (g,b)，物理约束
+    g∈[0.0030,0.0100] keV/ch（v4：真轴 ≈0.007884——2026-11-14 发现旧
+    [0.0035,0.0070] 域漏掉真解；全量程 ≈32 keV/4096 ch）、b 近 0
+    （|b|≤0.15）。每个候选按"多点线系支持"打分：KA_KEV 主线（Si/S/Cl/K/
+    Ca/Ti/Cr/Mn/Fe）期望通道 ±5 ch 内存在实测峰的条数；取支持数最高者，
+    平票时回退 v3 的 Ca/Fe 计数和启发。第二层（Fe 峰弱时兜底）：对每个
     强峰 p1 假设 p1=Ca Kα（g=3.691/p1，b=0），验证 Fe Kα 通道
     (6.404/g)±15 处存在显著峰（计数 > 全谱中位数的 1.5 倍）。
-    多候选取 Ca/Fe 计数和最大者；无解抛 ValueError。
+    无解抛 ValueError。
+
+    修订记录（冻结纪律）：
+      v4 2026-11-14 —— Máaz 四研磨斑 sum 谱 10 线最小二乘发现真轴
+      g≈0.007884/b≈-0.028（线残差 ≤0.015 keV）；旧两点法把最强峰（富硅
+      斑的 Si）误当 Ca，且旧增益域漏掉真解，冻结轴窗实际落在 Kβ/肩部
+      （仍随元素浓度涨落但相关性退化：Ca 0.9712→0.9902、Fe 0.9624→0.9776）。
     """
     peaks = find_peak_channels(mean_spec, n=30)
     if len(peaks) < 2:
         raise ValueError("可辨识峰不足 2 个，无法能量自证")
     s = np.convolve(mean_spec, np.ones(5) / 5, mode="same")
     e1, e2 = CAL_PAIR[0][1], CAL_PAIR[1][1]
+    # 线匹配只认强峰（≥3×中位数）：噪声假匹配会抬高错误候选的线系支持数
+    med = float(np.median(s[s > 0])) if (s > 0).any() else 0.0
+    strong = [p for p in peaks if s[p] >= 3 * med] or list(peaks)
     cands = []
     for i, p1 in enumerate(peaks):
         for p2 in peaks[i + 1:]:
@@ -111,12 +125,21 @@ def calibrate_energy(mean_spec, gain_lo=0.0035, gain_hi=0.0070):
             g = (e2 - e1) / (p2 - p1)
             b = e1 - g * p1
             if gain_lo <= g <= gain_hi and abs(b) <= 0.15:
-                cands.append((s[p1] + s[p2], p1, p2, g, b))
+                # 多点线系支持：主线期望通道 ±5 ch 内有实测强峰的条数
+                support = 0
+                for el, kev in KA_KEV.items():
+                    if el in ("Na", "Mg", "Sr", "Br"):
+                        continue        # 低信噪/近满量程线不参与评分
+                    ch_exp = (kev - b) / g
+                    if any(abs(ch_exp - p) <= 5 for p in strong):
+                        support += 1
+                cands.append((support, s[p1] + s[p2], p1, p2, g, b))
     if cands:
         cands.sort(reverse=True)
-        _, p1, p2, g, b = cands[0]
+        support, _, p1, p2, g, b = cands[0]
         return {"keV_per_ch": float(g), "zero_keV": float(b),
-                "peaks": [[int(p1), e1], [int(p2), e2]], "mode": "两点"}
+                "peaks": [[int(p1), e1], [int(p2), e2]],
+                "mode": "两点" if support <= 2 else "两点+%d线支持" % support}
     # 第二层：单点 Ca 锚 + Fe 窗验证
     med = float(np.median(s[s > 0])) if (s > 0).any() else 0.0
     for p1 in peaks:

@@ -1,6 +1,14 @@
 {
- "scope": "PIXL 元素比值对账：自研 Ca/Fe 峰面积比 vs 官方 CaO/FeO wt 比（log-log 相关 0.947，732 PMC）。峰面积比是半定量比值信号，不是浓度；官方 wt% 仍是引用口径。",
- "source_sha256": "5905e8d68ff65676cbae5160fcb1548e88616da4f4df483b959dcf91bcc92bd0",
- "ca_fe_ratio_loglog_corr": 0.947,
- "n_pmc": 732
+ "scope": "PIXL 元素比值对账：自研 Ca/Fe 峰面积比 vs 官方 CaO/FeO wt 比（log-log 相关 0.9843，2809 PMC，真轴 v4）。峰面积比是半定量比值信号，不是浓度；官方 wt% 仍是引用口径。",
+ "source_sha256": "da3ecb109ee5771984ee141dd2d273b9f108053f4d7d820f260a600f4d7db9da",
+ "ca_fe_ratio_loglog_corr": 0.9842718567069426,
+ "n_pmc": 2809,
+ "revisions": [
+  {
+   "date": "2026-11-14",
+   "old_corr": 0.9842739634182082,
+   "old_n_pmc": 2809,
+   "note": "真轴 v4 + Bellegarde 全扫描集（2809 PMC，A/B 低者）；旧冻结 sol187 尾部 732 PMC、旧轴 0.00695/0.08 下相关 0.947"
+  }
+ ]
 }

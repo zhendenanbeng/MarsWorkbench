@@ -184,6 +184,14 @@
    "detail": "Rocknest_3=基岩（sol 102、接触测量、SO3 4.0 wt%，Schmidt 2013 LPSC Table 1，NTRS 20130009734，PDF sha 849f7c9483bc9ff6）；Rocknest3 类高碱 K2O 1.7-1.9 wt%（LPSC 2014 #1504，PDF sha 3ed79aa6477bcb40）。与 Morris 2015 LPSC（NTRS 20150001942，PDF sha f75f2252b46e4b30）Table 1 RN bulk（Rocknest 风成土壤：SiO2 41.18/MgO 8.33/K2O 0.47）非同一目标——土壤锚点不得套用于 rocknest3_rp 岩石",
    "source_key": "schmidt2014",
    "locator": "Schmidt 2013 LPSC Table 1；LPSC 2014 #1504 正文"
+  },
+  {
+   "instrument": "pixl",
+   "item": "maaz_crossscan_calibration_boundary",
+   "granularity": "method",
+   "detail": "Máaz 四研磨斑（Guillaumes/Bellegarde/Montpezat/Alfalfa，PMC 674/2809/2700/3249，双探测器 SFS 已下载）跨扫描峰面积→wt% 文献多点标定尝试：过原点单参 LOO 不可达 ±σ（Montpezat 面积异常 +42σ 等）。根因=跨扫描地形/衍射/死时间修正缺失（论文 Table S4 用双探测器择低加谱并做地形衍射校正）。边界声明：峰面积层只做扫描内定量（逐 PMC 相关 Ca 0.9904/Fe 0.9777）与比值信号，跨扫描绝对定量属 PIQUANT 基本参数层职责。",
+   "source_key": "schmidt2025",
+   "locator": "Table S4（四斑 Bulk/Low-salt 值与 PMC 数）；SOM Fig.S6-S8（几何/衍射修正）"
   }
  ],
  "growth_path": {
