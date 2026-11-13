@@ -141,48 +141,79 @@ def main(argv=None):
             except (ValueError, KeyError):
                 continue
         common = [p for p in pmcs if p in rqc]
+        # PMC 是每扫描局部计数：编号巧合重叠不代表同一物理点。对账要求
+        # 双向覆盖率 ≥95%（SFS 全体 PMC 与 RQC 全体行互相吻合），
+        # 否则判定"扫描集不匹配"并显式跳过（如新扫描 × 随包 RQC）。
+        cover_sfs = len(common) / max(len(pmcs), 1)
+        cover_rqc = len(common) / max(len(rqc), 1)
+        if cover_sfs < 0.95 or cover_rqc < 0.95:
+            print("RQC 对账跳过：PMC 覆盖率不足（SFS 侧 %.0f%% / RQC 侧 %.0f%%）——"
+                  "扫描集与该 RQC 不匹配（PMC 为扫描内局部计数，跨扫描编号巧合重叠不可配对）"
+                  % (cover_sfs * 100, cover_rqc * 100))
+        else:
+            def wt_of(p, el):
+                try:
+                    return float(rqc[p].get(RQC_COL[el] + "_wt%", "") or "nan")
+                except ValueError:
+                    return float("nan")
 
-        def wt_of(p, el):
-            try:
-                return float(rqc[p].get(RQC_COL[el] + "_wt%", "") or "nan")
-            except ValueError:
-                return float("nan")
+            ca_a = np.array([areas["Ca"][i] for i, p in enumerate(pmcs) if p in rqc])
+            fe_a = np.array([areas["Fe"][i] for i, p in enumerate(pmcs) if p in rqc])
+            ca_wt = np.array([wt_of(p, "Ca") for p in common])
+            fe_wt = np.array([wt_of(p, "Fe") for p in common])
+            good = np.isfinite(ca_wt) & np.isfinite(fe_wt)
+            ca_corr = float(np.corrcoef(ca_a[good], ca_wt[good])[0, 1])
+            fe_corr = float(np.corrcoef(fe_a[good], fe_wt[good])[0, 1])
+            ratio_corr = float(np.corrcoef(np.log(ca_a[good] / np.maximum(fe_a[good], 1e-9)),
+                                           np.log(ca_wt[good] / np.maximum(fe_wt[good], 1e-9)))[0, 1])
+            print("逐PMC相关: Ca %.4f | Fe %.4f | Ca/Fe 比值 log-log %.4f（n=%d）"
+                  % (ca_corr, fe_corr, ratio_corr, len(common)))
+            ca_area = ca_a.tolist()
+            fe_area = fe_a.tolist()
+            ca_wt = ca_wt.tolist()
+            fe_wt = fe_wt.tolist()
 
-        ca_a = np.array([areas["Ca"][i] for i, p in enumerate(pmcs) if p in rqc])
-        fe_a = np.array([areas["Fe"][i] for i, p in enumerate(pmcs) if p in rqc])
-        ca_wt = np.array([wt_of(p, "Ca") for p in common])
-        fe_wt = np.array([wt_of(p, "Fe") for p in common])
-        good = np.isfinite(ca_wt) & np.isfinite(fe_wt)
-        ca_corr = float(np.corrcoef(ca_a[good], ca_wt[good])[0, 1])
-        fe_corr = float(np.corrcoef(fe_a[good], fe_wt[good])[0, 1])
-        ratio_corr = float(np.corrcoef(np.log(ca_a[good] / np.maximum(fe_a[good], 1e-9)),
-                                       np.log(ca_wt[good] / np.maximum(fe_wt[good], 1e-9)))[0, 1])
-        print("逐PMC相关: Ca %.4f | Fe %.4f | Ca/Fe 比值 log-log %.4f（n=%d）"
-              % (ca_corr, fe_corr, ratio_corr, len(common)))
-        ca_area = ca_a.tolist()
-        fe_area = fe_a.tolist()
-        ca_wt = ca_wt.tolist()
-        fe_wt = fe_wt.tolist()
+            # 全元素两两 log-log 比值矩阵
+            wts = {el: np.array([wt_of(p, el) for p in common]) for el in elements}
+            a_by_el = {el: np.array([areas[el][i] for i, p in enumerate(pmcs) if p in rqc])
+                       for el in elements}
+            for i, e1 in enumerate(elements):
+                for e2 in elements[i + 1:]:
+                    ok = (np.isfinite(wts[e1]) & np.isfinite(wts[e2])
+                          & (a_by_el[e1] > 0) & (a_by_el[e2] > 0)
+                          & (wts[e1] > 0) & (wts[e2] > 0))
+                    if ok.sum() < 200:
+                        continue
+                    c = float(np.corrcoef(np.log(a_by_el[e1][ok] / a_by_el[e2][ok]),
+                                          np.log(wts[e1][ok] / wts[e2][ok]))[0, 1])
+                    ratios.append({"pair": "%s/%s" % (e1, e2), "loglog_corr": c,
+                                   "n": int(ok.sum())})
+            ratios.sort(key=lambda r: -r["loglog_corr"])
+            top = ratios[:6]
+            print("比值矩阵（%d 对，前 6）: %s" % (
+                len(ratios), "; ".join("%s %.4f" % (r["pair"], r["loglog_corr"]) for r in top)))
 
-        # 全元素两两 log-log 比值矩阵
-        wts = {el: np.array([wt_of(p, el) for p in common]) for el in elements}
-        a_by_el = {el: np.array([areas[el][i] for i, p in enumerate(pmcs) if p in rqc])
-                   for el in elements}
-        for i, e1 in enumerate(elements):
-            for e2 in elements[i + 1:]:
-                ok = (np.isfinite(wts[e1]) & np.isfinite(wts[e2])
-                      & (a_by_el[e1] > 0) & (a_by_el[e2] > 0)
-                      & (wts[e1] > 0) & (wts[e2] > 0))
+            # 扫描内半定量标定：wt = k_el × area（过原点最小二乘，逐 PMC）。
+            # k_el 只对本扫描有效（跨扫描地形/衍射/死时间变化 → PIQUANT 层职责）。
+            calib = {}
+            for el in elements:
+                a = a_by_el[el]
+                w = wts[el]
+                ok = np.isfinite(w) & (a > 0) & (w > 0)
                 if ok.sum() < 200:
                     continue
-                c = float(np.corrcoef(np.log(a_by_el[e1][ok] / a_by_el[e2][ok]),
-                                      np.log(wts[e1][ok] / wts[e2][ok]))[0, 1])
-                ratios.append({"pair": "%s/%s" % (e1, e2), "loglog_corr": c,
-                               "n": int(ok.sum())})
-        ratios.sort(key=lambda r: -r["loglog_corr"])
-        top = ratios[:6]
-        print("比值矩阵（%d 对，前 6）: %s" % (
-            len(ratios), "; ".join("%s %.4f" % (r["pair"], r["loglog_corr"]) for r in top)))
+                k = float(np.dot(a[ok], w[ok]) / np.dot(a[ok], a[ok]))
+                resid = k * a[ok] - w[ok]
+                denom = float(np.sum((w[ok] - np.mean(w[ok])) ** 2))
+                r2 = 1 - float(np.sum(resid ** 2) / denom) if denom > 0 else 0.0
+                med_rel = float(np.median(np.abs(resid) / np.maximum(w[ok], 1e-9)))
+                calib[el] = {"k": k, "r2": r2, "median_rel_resid": med_rel,
+                             "n": int(ok.sum())}
+            if calib:
+                print("扫描内标定 wt=k×area（过原点，k 仅本扫描有效）:")
+                for el, c in sorted(calib.items(), key=lambda kv: -kv[1]["r2"]):
+                    print("  %-2s k=%.6f  R²=%.4f  中位相对残差 %.1f%%（n=%d）"
+                          % (el, c["k"], c["r2"], c["median_rel_resid"] * 100, c["n"]))
     else:
         print("RQC 不在位——跳过对账与比值矩阵")
 
@@ -219,7 +250,9 @@ def main(argv=None):
             "pmc": common, "ca_area": ca_area, "fe_area": fe_area,
             "ca_wt": ca_wt, "fe_wt": fe_wt,
             "axis_keV_per_ch": axis["keV_per_ch"], "axis_zero_keV": axis["zero_keV"],
-            "protocol": "逐 PMC Kα 峰面积取 A/B 探测器低者（Schmidt 2025 Table S4 口径）",
+            "in_scan_calibration": calib,
+            "protocol": "逐 PMC Kα 峰面积取 A/B 探测器低者（Schmidt 2025 Table S4 口径）；"
+                        "in_scan_calibration 的 k 仅本扫描有效（跨扫描需 PIQUANT 层修正）",
             "generated_utc": stamp}, ensure_ascii=False), encoding="utf-8")
         (CACHE / "sfs_ratio_matrix.json").write_text(json.dumps({
             "scope": "全元素两两 log-log 比值相关矩阵（面积比 vs RQC wt 比，逐 PMC）。"

@@ -186,6 +186,22 @@ def main():
                        for k in bad_top) or "全部达标"))
     check((mat.get("min_corr") or 0) >= 0.45,
           "全矩阵最差相关 ≥0.45（现 %s，弱尾=Na 低能边/远 Z 对）" % mat.get("min_corr"))
+    # 扫描内半定量标定（wt=k×area，过原点）：强元素 R² 冻结下限
+    inscan = rec.get("in_scan_calibration") or {}
+    INSCAN_MIN = {"Ca": 0.975, "S": 0.975, "Ti": 0.97, "K": 0.95,
+                  "Fe": 0.92, "Si": 0.89}
+    bad_cal = [(el, (inscan.get(el) or {}).get("r2", 0))
+               for el, lo in INSCAN_MIN.items()
+               if (inscan.get(el) or {}).get("r2", 0) < lo]
+    check(not bad_cal and len(inscan) == 12,
+          "扫描内标定 R^2 达标（Ca %.4f/S %.4f/Ti %.4f/Fe %.4f/Si %.4f；%d 元素，Na 不可用如实记录）"
+          % tuple([(inscan.get(el) or {}).get("r2", 0)
+                   for el in ("Ca", "S", "Ti", "Fe", "Si")] + [len(inscan)]))
+    check(not bad_cal, "扫描内标定 R^2 低于冻结下限: %s"
+          % ("；".join("%s %.4f<%.2f" % (el, v, INSCAN_MIN[el]) for el, v in bad_cal)
+             or "无"))
+    check(all((inscan.get(el) or {}).get("k", 0) > 0 for el in INSCAN_MIN),
+          "扫描内标定斜率全部为正（面积-浓度方向一致）")
 
     # ========== 4. APXS 峰位自证（能量轴一致性）==========
     from instruments import apxs as apxs_backend

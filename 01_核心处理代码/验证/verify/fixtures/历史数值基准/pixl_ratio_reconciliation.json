@@ -51,5 +51,68 @@
   ],
   "min_corr": 0.488,
   "generator": "01_核心处理代码/PIXL/数据准备脚本/01_sfs_pipeline.py"
- }
+ },
+ "in_scan_calibration": {
+  "Ca": {
+   "k": 0.019588,
+   "r2": 0.9808,
+   "median_rel_resid": 0.0478
+  },
+  "S": {
+   "k": 0.027295,
+   "r2": 0.9802,
+   "median_rel_resid": 0.1793
+  },
+  "Ti": {
+   "k": 0.017342,
+   "r2": 0.9783,
+   "median_rel_resid": 0.0933
+  },
+  "K": {
+   "k": 0.023526,
+   "r2": 0.957,
+   "median_rel_resid": 0.0965
+  },
+  "Fe": {
+   "k": 0.015813,
+   "r2": 0.9306,
+   "median_rel_resid": 0.0939
+  },
+  "Si": {
+   "k": 0.071584,
+   "r2": 0.903,
+   "median_rel_resid": 0.0504
+  },
+  "Al": {
+   "k": 0.203381,
+   "r2": 0.8506,
+   "median_rel_resid": 0.1762
+  },
+  "P": {
+   "k": 0.07068,
+   "r2": 0.8345,
+   "median_rel_resid": 0.4122
+  },
+  "Mn": {
+   "k": 0.011681,
+   "r2": 0.7986,
+   "median_rel_resid": 0.1874
+  },
+  "Cl": {
+   "k": 0.020407,
+   "r2": 0.7429,
+   "median_rel_resid": 0.1031
+  },
+  "Mg": {
+   "k": 0.682664,
+   "r2": 0.6374,
+   "median_rel_resid": 0.2499
+  },
+  "Na": {
+   "k": 2.47203,
+   "r2": 0.1061,
+   "median_rel_resid": 0.2955
+  }
+ },
+ "in_scan_scope": "扫描内半定量标定（wt=k_el×area，过原点，逐 PMC 2809，真轴 v4）。k_el 仅本扫描有效：跨扫描地形/衍射/死时间修正缺失（PIQUANT 层职责）。Na R²=0.11 不可用（低能边），Mg 0.64 弱——如实记录。"
 }
