@@ -146,7 +146,9 @@ def save_model(models, path, meta):
         "models": {ox: {"components": mdl.components,
                         "x_mean": mdl.x_mean.tolist(), "x_std": mdl.x_std.tolist(),
                         "y_mean": mdl.y_mean,
-                        "W": mdl.W.tolist(), "P": mdl.P.tolist(), "q": mdl.q.tolist()}
+                        "W": mdl.W.tolist(), "P": mdl.P.tolist(), "q": mdl.q.tolist(),
+                        "channel_mask": (meta.get("window_masks") or {})
+                                        .get(ox)}
                    for ox, mdl in models.items()},
     }
     path = _Path(path)
@@ -170,6 +172,8 @@ def load_model(path):
             mdl.P = np.asarray(d["P"], dtype=float)
             mdl.q = np.asarray(d["q"], dtype=float)
             models[ox] = mdl
+            if d.get("channel_mask"):
+                mdl.channel_mask = np.asarray(d["channel_mask"], dtype=int)
         return {"models": models, "meta": doc.get("meta", {}), "scope": doc.get("scope", "")}
     except (OSError, ValueError, KeyError, TypeError):
         return None
@@ -185,10 +189,14 @@ def predict_mean(mean_spectrum, model_doc):
     rmse = model_doc["meta"].get("cv_rmse", {})
     x = np.asarray(mean_spectrum, dtype=float).ravel()
     for ox, mdl in model_doc["models"].items():
-        if mdl.x_mean.shape != x.shape:
-            raise ValueError("模型通道数 %d 与谱通道数 %d 不一致"
-                             % (mdl.x_mean.shape[0], x.shape[0]))
-        out[ox] = {"value": float(mdl.predict(x[None, :])[0]),
+        xs = x
+        mask = getattr(mdl, "channel_mask", None)
+        if mask is not None:
+            xs = x[mask]
+        if mdl.x_mean.shape != xs.shape:
+            raise ValueError("%s：模型通道数 %d 与谱通道数 %d 不一致"
+                             % (ox, mdl.x_mean.shape[0], xs.shape[0]))
+        out[ox] = {"value": float(mdl.predict(xs[None, :])[0]),
                    "rmse": float(rmse.get(ox)) if rmse.get(ox) is not None else None}
     return out
 
@@ -218,3 +226,59 @@ def auto_components(spectra_by_target, composition, oxide, max_components=4):
         if r["rmse"] < best[1]:
             best = (k, r["rmse"])
     return best
+
+
+# 每氧化物的元素主要发射线波长窗（nm）——ChemCam 三分光计口径
+# （UV 240-342 / VIO 382-470 / VNIR 473-905）；窗=该氧化物主元素线的
+# 聚集区。窄窗输入降低无关通道噪声对 PLS 的稀释（Clegg 2017 Norm 分组
+# 思路的简化版）。
+OXIDE_WAVELENGTH_WINDOWS = {
+    "SiO2": [(240.0, 300.0), (630.0, 650.0)],        # Si 288.2 / Si 634-642
+    "TiO2": [(320.0, 342.0), (480.0, 500.0)],        # Ti 334.9 / Ti 490s
+    "Al2O3": [(305.0, 312.0), (394.0, 397.0)],       # Al 308.2 / Al 394-396
+    "FeOT": [(238.0, 310.0), (438.0, 445.0)],        # Fe 238-305 / Fe 438
+    "MgO": [(277.0, 292.0), (516.0, 519.0)],         # Mg 279-285 / Mg 517
+    "CaO": [(391.0, 398.0), (845.0, 860.0)],         # Ca 393/396 / Ca 845-857
+    "Na2O": [(585.0, 592.0), (815.0, 822.0)],        # Na 589 / Na 818-820
+    "K2O": [(764.0, 770.0)],                         # K 766.5
+}
+
+
+def channel_mask_for_oxide(wavelength_nm, oxide):
+    """给定波长轴，返回该氧化物波长窗的通道布尔掩码。
+
+    波长轴未提供/窗为空时返回全 True（退回全谱）。
+    """
+    wl = np.asarray(wavelength_nm, dtype=float)
+    windows = OXIDE_WAVELENGTH_WINDOWS.get(oxide)
+    if windows is None or wl.size == 0:
+        return np.ones(wl.size, dtype=bool)
+    mask = np.zeros(wl.size, dtype=bool)
+    for lo, hi in windows:
+        mask |= (wl >= lo) & (wl <= hi)
+    return mask if mask.any() else np.ones(wl.size, dtype=bool)
+
+
+def loo_target_cv_windowed(spectra_by_target, composition, oxide, wavelength_nm,
+                           components=3):
+    """波长窗版留一靶 CV：输入谱先按元素线窗裁剪，再走标准流程。
+
+    返回与 loo_target_cv 同构的结果 + n_channels（窗内通道数）。
+    """
+    names = sorted(spectra_by_target)
+    if len(names) < 3:
+        raise ValueError("留一靶交叉验证至少需要 3 个靶（现 %d 个）" % len(names))
+    mask = channel_mask_for_oxide(wavelength_nm, oxide)
+    X = np.vstack([np.mean(np.asarray(spectra_by_target[n], dtype=float), axis=0)[mask]
+                   for n in names])
+    y = np.array([float(composition[n][oxide]) for n in names])
+    preds = {}
+    for i, hold in enumerate(names):
+        train_idx = [j for j in range(len(names)) if j != i]
+        model = PLS1Model(components=components).fit(X[train_idx], y[train_idx])
+        preds[hold] = float(model.predict(X[i:i + 1])[0])
+    err = np.array([preds[n] - y[j] for j, n in enumerate(names)])
+    return {"predictions": preds, "true": dict(zip(names, y.tolist())),
+            "rmse": float(np.sqrt(np.mean(err ** 2))),
+            "bias": float(np.mean(err)), "n_targets": len(names),
+            "n_channels": int(mask.sum())}

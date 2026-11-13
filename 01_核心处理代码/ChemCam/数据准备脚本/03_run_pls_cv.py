@@ -135,6 +135,7 @@ def main(argv=None):
                 print("跳过 %s：%s" % (row["file"], str(exc)[:60]))
         if rows:
             spectra_by_target[target] = np.vstack(rows)
+            wavelengths = wl
     if missing_comp:
         print("成分未转录的靶（已跳过）：%s" % ", ".join(missing_comp))
     if skipped_official:
@@ -147,6 +148,7 @@ def main(argv=None):
     print("参与 CV 的靶：%s（%d 个）" % (", ".join(sorted(spectra_by_target)), len(spectra_by_target)))
     cv_rows = {}
     chosen = {}
+    mode_used = {}
     for ox in libs_quant.OXIDES:
         try:
             if args.auto_components:
@@ -158,8 +160,26 @@ def main(argv=None):
                 chosen[ox] = args.components
             cv_rows[ox] = libs_quant.loo_target_cv(spectra_by_target, {n: v["composition"] for n, v in composition.items()}, ox,
                                                    components=chosen[ox])
-            print("  %-6s RMSE %.3f  bias %+.3f  (n=%d)"
-                  % (ox, cv_rows[ox]["rmse"], cv_rows[ox]["bias"], cv_rows[ox]["n_targets"]))
+            # 元素线窗版（H1：Clegg Norm 分组思路的简化）——RMSE 更小则采用
+            try:
+                r_win = libs_quant.loo_target_cv_windowed(
+                    spectra_by_target,
+                    {n: v["composition"] for n, v in composition.items()}, ox,
+                    wavelengths, components=chosen[ox])
+            except ValueError:
+                r_win = None
+            if r_win and r_win["rmse"] < cv_rows[ox]["rmse"]:
+                mode_used[ox] = {"mode": "windowed",
+                                 "n_channels": r_win["n_channels"]}
+                cv_rows[ox] = r_win
+                print("  %-6s RMSE %.3f  bias %+.3f  (n=%d，元素线窗 %d 通道，优于全谱 %.3f)"
+                      % (ox, r_win["rmse"], r_win["bias"], r_win["n_targets"],
+                         r_win["n_channels"], cv_rows[ox]["rmse"]))
+            else:
+                mode_used[ox] = {"mode": "full"}
+                print("  %-6s RMSE %.3f  bias %+.3f  (n=%d)"
+                      % (ox, cv_rows[ox]["rmse"], cv_rows[ox]["bias"],
+                         cv_rows[ox]["n_targets"]))
         except ValueError as exc:
             print("  %-6s 跳过：%s" % (ox, exc))
 
@@ -183,6 +203,7 @@ def main(argv=None):
 
     if args.fit_model and cv_rows:
         final = {}
+        window_masks = {}
         X = np.vstack([np.mean(np.asarray(spectra_by_target[n], dtype=float), axis=0)
                        for n in sorted(spectra_by_target)])
         for ox in libs_quant.OXIDES:
@@ -190,9 +211,19 @@ def main(argv=None):
                 continue
             y = np.array([float(composition[n]["composition"][ox])
                           for n in sorted(spectra_by_target)])
-            final[ox] = libs_quant.PLS1Model(components=args.components).fit(X, y)
+            if mode_used.get(ox, {}).get("mode") == "windowed":
+                mask = libs_quant.channel_mask_for_oxide(wavelengths, ox)
+                window_masks[ox] = [int(i) for i in np.where(mask)[0]]
+                final[ox] = libs_quant.PLS1Model(
+                    components=chosen.get(ox, args.components)).fit(X[:, mask], y)
+                continue
+            # 全谱模式：最终模型全谱训练（预测端口径一致）（预测端 quant_payload 全谱口径一致）；
+            # 窗模式的 CV 改善记录在 meta["modes"]，产品化窗模型另立项。
+            final[ox] = libs_quant.PLS1Model(
+                components=chosen.get(ox, args.components)).fit(X, y)
         meta = {
-            "components": chosen,
+            "components": chosen, "modes": mode_used,
+            "window_masks": window_masks,
             "trained_targets": sorted(spectra_by_target),
             "composition_sha256": sha256_of(comp_path),
             "cv_rmse": {ox: r["rmse"] for ox, r in cv_rows.items()},
