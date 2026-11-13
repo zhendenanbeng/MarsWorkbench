@@ -89,9 +89,37 @@ def route(handler,state):
             return send({'available': False,
                          'reason': 'SFS 能量轴未生成：先下载 sol 的 SFS 数据并运行谱层自证'})
         doc = json.loads(axis_p.read_text(encoding='utf-8'))
+        # 谱采样（能量轴自证后的 mean spectrum，~400 点供 SVG 渲染）
+        spectrum = None
+        try:
+            import glob
+            import numpy as np
+            from instruments import sfs_spectra
+            specs = []
+            sfs_dir = project_layout.data_root() / 'PIXL' / '下载' / 'sfs_sol187'
+            for f in sorted(glob.glob(str(sfs_dir / '*.csv'))):
+                sp, _ = sfs_spectra.read_sfs(f)
+                if sp is not None:
+                    specs.append(sp)
+            if specs:
+                mean = np.vstack(specs).mean(axis=0)
+                axis = doc.get('axis', {})
+                kev = (axis['keV_per_ch'] * np.arange(len(mean))
+                       + axis['zero_keV'])
+                step = max(1, len(mean) // 400)
+                sel = slice(0, len(mean), step)
+                lo = float(np.percentile(mean[mean > 0], 5)) if (mean > 0).any() else 0.0
+                spectrum = {'kev': [round(float(v), 3) for v in kev[sel]],
+                            'counts': [float(v) for v in mean[sel]],
+                            'ka_lines': {k: v for k, v in
+                                         sfs_spectra.KA_KEV.items()
+                                         if axis['zero_keV'] <= v <= kev[-1]}}
+        except Exception:
+            spectrum = None
         return send({'available': True, 'axis': doc.get('axis'),
                      'ca_corr': doc.get('ca_corr'), 'fe_corr': doc.get('fe_corr'),
-                     'n_pmc': doc.get('n_pmc'), 'scope': doc.get('scope')})
+                     'n_pmc': doc.get('n_pmc'), 'scope': doc.get('scope'),
+                     'spectrum': spectrum})
     if url.path.startswith('/data/pixl/'):
         parts=urllib.parse.unquote(url.path).split('/')
         folder=st['exports'].get(parts[3] if len(parts)>=5 else '')

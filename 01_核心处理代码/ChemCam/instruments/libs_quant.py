@@ -199,3 +199,22 @@ def file_sha(path):
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def auto_components(spectra_by_target, composition, oxide, max_components=4):
+    """按留一靶 CV 扫描成分数，返回 (最优 components, 最优 RMSE)。
+
+    范围 1..max_components（留一靶口径下训练集靶数-2 为实际上限）。
+    平局取更少成分（更简模型）。
+    """
+    names = sorted(spectra_by_target)
+    best = (1, float("inf"))
+    for k in range(1, max_components + 1):
+        try:
+            r = loo_target_cv(spectra_by_target, composition, oxide,
+                              components=k)
+        except ValueError:
+            break
+        if r["rmse"] < best[1]:
+            best = (k, r["rmse"])
+    return best

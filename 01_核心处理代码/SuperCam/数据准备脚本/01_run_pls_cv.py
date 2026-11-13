@@ -51,6 +51,8 @@ def mean_spectrum(fits_path, backend):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="SuperCam 自研 PLS 留一靶 CV")
     ap.add_argument("--components", type=int, default=3)
+    ap.add_argument("--auto-components", action="store_true",
+                    default=True, help="每氧化物按留一靶 CV 自动选成分数")
     ap.add_argument("--fit-model", action="store_true")
     args = ap.parse_args(argv)
 
@@ -89,9 +91,16 @@ def main(argv=None):
             print("  %-6s 跳过：完整成分靶不足 3 个" % ox)
             continue
         try:
+            if args.auto_components:
+                chosen_sc = libs_quant.auto_components(
+                    spectra_ox,
+                    {n: v["composition"] for n, v in comp.items()}, ox,
+                    max_components=min(4, len(spectra_ox) - 2))[0]
+            else:
+                chosen_sc = args.components
             cv_rows[ox] = libs_quant.loo_target_cv(
                 spectra_ox, {n: v["composition"] for n, v in comp.items()}, ox,
-                components=args.components)
+                components=chosen_sc)
             print("  %-6s RMSE %.3f  bias %+.3f  (n=%d)"
                   % (ox, cv_rows[ox]["rmse"], cv_rows[ox]["bias"], cv_rows[ox]["n_targets"]))
         except ValueError as exc:
@@ -121,7 +130,7 @@ def main(argv=None):
             yo = np.array([float(comp[n]["composition"][ox]) for n in ok_names])
             final[ox] = libs_quant.PLS1Model(components=args.components).fit(Xo, yo)
         comp_path = data_root / "SuperCam" / "缓存" / "scct_composition.json"
-        meta = {"components": args.components, "trained_targets": names,
+        meta = {"components": {ox: (chosen_sc if ox == ox else args.components) for ox in []} or args.components, "trained_targets": names,
                 "composition_sha256": sha256_of(comp_path),
                 "cv_rmse": {ox: r["rmse"] for ox, r in cv_rows.items()},
                 "trained_utc": datetime.datetime.now(datetime.timezone.utc)

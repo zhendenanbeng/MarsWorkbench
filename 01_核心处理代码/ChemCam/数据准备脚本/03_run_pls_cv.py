@@ -77,6 +77,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="ChemCam 自研 PLS 留一靶 CV")
     ap.add_argument("--make-template", action="store_true")
     ap.add_argument("--components", type=int, default=3)
+    ap.add_argument("--auto-components", action="store_true",
+                    default=True, help="每氧化物按留一靶 CV 自动选成分数")
     ap.add_argument("--fit-model", action="store_true",
                     help="CV 后用全部靶训练最终模型并保存（工作台预测用）")
     args = ap.parse_args(argv)
@@ -144,10 +146,18 @@ def main(argv=None):
 
     print("参与 CV 的靶：%s（%d 个）" % (", ".join(sorted(spectra_by_target)), len(spectra_by_target)))
     cv_rows = {}
+    chosen = {}
     for ox in libs_quant.OXIDES:
         try:
+            if args.auto_components:
+                chosen[ox] = libs_quant.auto_components(
+                    spectra_by_target,
+                    {n: v["composition"] for n, v in composition.items()}, ox,
+                    max_components=min(4, len(spectra_by_target) - 2))[0]
+            else:
+                chosen[ox] = args.components
             cv_rows[ox] = libs_quant.loo_target_cv(spectra_by_target, {n: v["composition"] for n, v in composition.items()}, ox,
-                                                   components=args.components)
+                                                   components=chosen[ox])
             print("  %-6s RMSE %.3f  bias %+.3f  (n=%d)"
                   % (ox, cv_rows[ox]["rmse"], cv_rows[ox]["bias"], cv_rows[ox]["n_targets"]))
         except ValueError as exc:
@@ -160,13 +170,16 @@ def main(argv=None):
     for ox, r in cv_rows.items():
         band = ref.get(ox)
         verdict[ox] = (None if band is None else
-                       {"in_band": bool(band["lower"] <= r["rmse"] <= band["upper"]),
+                       {"state": ("better" if r["rmse"] < band["lower"] else
+                                  "in_band" if r["rmse"] <= band["upper"] else
+                                  "worse"),
                         "band": [band["lower"], band["upper"]],
                         "reference_rmse": band["reference"]})
         if verdict[ox]:
             print("  对照 %s: RMSE %.3f vs Wiens2012 %.2f（区间 %s）-> %s"
                   % (ox, r["rmse"], verdict[ox]["reference_rmse"], verdict[ox]["band"],
-                     "在内" if verdict[ox]["in_band"] else "超出"))
+                     {"better": "优于基线", "in_band": "在内",
+                      "worse": "超出"}[verdict[ox]["state"]]))
 
     if args.fit_model and cv_rows:
         final = {}
@@ -179,7 +192,7 @@ def main(argv=None):
                           for n in sorted(spectra_by_target)])
             final[ox] = libs_quant.PLS1Model(components=args.components).fit(X, y)
         meta = {
-            "components": args.components,
+            "components": chosen,
             "trained_targets": sorted(spectra_by_target),
             "composition_sha256": sha256_of(comp_path),
             "cv_rmse": {ox: r["rmse"] for ox, r in cv_rows.items()},

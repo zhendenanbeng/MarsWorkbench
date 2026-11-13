@@ -93,6 +93,25 @@ api('sfs').then(async d=>{
   if(!d.available){sfs.innerHTML='<b>SFS 原始谱层</b><p style="margin:4px 0">'+d.reason+'</p>';}
   else{
     sfs.innerHTML='<b>SFS 原始谱层（能量轴自证）</b><p style="margin:4px 0">增益 '+d.axis.keV_per_ch.toFixed(5)+' keV/ch，零点 '+d.axis.zero_keV.toFixed(3)+' keV；'+d.n_pmc+' 个 PMC 配对。Ca 峰面积 vs 官方 CaO 相关 '+Number(d.ca_corr).toFixed(3)+'；Fe 独立验证 '+Number(d.fe_corr).toFixed(3)+'。</p><p style="margin:4px 0;font-size:12px">'+(d.scope||'')+'</p>';
+    if(d.spectrum&&d.spectrum.kev&&d.spectrum.kev.length>10){
+      var kv=d.spectrum.kev,ct=d.spectrum.counts;
+      var xmax=kv[kv.length-1],ymax=Math.max.apply(null,ct)||1;
+      var W=760,H=160,L=46,T=8;
+      var pts='';
+      for(var i=0;i<kv.length;i++){
+        var x=L+(kv[i]/xmax)*(W-L-8), y=T+(1-Math.min(1,Math.log(1+ct[i])/Math.log(1+ymax)))*(H-T-18);
+        pts+=(i?'L':'M')+x.toFixed(1)+','+y.toFixed(1);
+      }
+      var lines='';
+      var colors={Ca:'#e0a020',Fe:'#c04040',Si:'#6080c0',S:'#40a060',K:'#8040a0',Ti:'#40a0a0'};
+      for(var el in d.spectrum.ka_lines){
+        var e=d.spectrum.ka_lines[el]; if(e>xmax)continue;
+        var lx=L+(e/xmax)*(W-L-8);
+        lines+='<line x1="'+lx+'" y1="'+T+'" x2="'+lx+'" y2="'+(H-10)+'" stroke="'+(colors[el]||'#888')+'" stroke-width="'+(el==='Ca'||el==='Fe'?1.6:0.8)+'" opacity="0.75"/>';
+        if(el==='Ca'||el==='Fe'||el==='Si')lines+='<text x="'+(lx+2)+'" y="'+(T+10)+'" font-size="10" fill="'+(colors[el]||'#888')+'">'+el+'</text>';
+      }
+      sfs.innerHTML+='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="background:#111">'+lines+'<path d="'+pts+'" stroke="#4fc3f7" fill="none" stroke-width="1"/></svg>';
+    }
   }
   document.body.insertBefore(sfs, document.body.firstChild.nextSibling);
 }).catch(()=>{});

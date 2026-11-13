@@ -1,0 +1,163 @@
+{
+ "scope": "软件分类输出 vs 已发表结论的逐靶对账摘要（冻结）。复现数只增不缩；数字只对本文件记录的来源指纹负责。",
+ "frozen_utc": "2026-11-13T17:35:56Z",
+ "source_numbers_sha256": "ed27d6dcfe814298979c8ae65e13325038f64d8aad0b1abf3dbbac667d2d21bb",
+ "pairs": {
+  "Garde": {
+   "sol_dir": "03_下载数据\\SHERLOC\\练习数据\\raw\\sol_00207"
+  },
+  "Alfalfa": {
+   "sol_dir": "03_下载数据\\SHERLOC\\练习数据\\raw\\sol_00370"
+  }
+ },
+ "n_judgeable": 14,
+ "n_reproduced": 7,
+ "per_target": {
+  "Garde": {
+   "verdict": {
+    "carbonate": {
+     "paper_class": "carbonate",
+     "status": "reproduced",
+     "software_keys": [
+      "carbonate"
+     ],
+     "max_points": 76
+    },
+    "feldspar": {
+     "paper_class": "feldspar",
+     "status": "reproduced",
+     "software_keys": [
+      "silicate"
+     ],
+     "max_points": 3
+    },
+    "olivine": {
+     "paper_class": "olivine",
+     "status": "reproduced",
+     "software_keys": [
+      "olivine"
+     ],
+     "max_points": 65
+    },
+    "perchlorate": {
+     "paper_class": "perchlorate",
+     "status": "not_reproduced",
+     "note": "本 sol 观测中无该类候选（记录差异，不判对错）"
+    },
+    "perchlorate or phosphate": {
+     "paper_class": "perchlorate or phosphate",
+     "status": "unmapped",
+     "note": "映射表未覆盖（请人工核对后补充 PAPER_TO_KEYS）"
+    },
+    "phosphate": {
+     "paper_class": "phosphate",
+     "status": "not_reproduced",
+     "note": "本 sol 观测中无该类候选（记录差异，不判对错）"
+    },
+    "pyroxene": {
+     "paper_class": "pyroxene",
+     "status": "not_reproduced",
+     "note": "本 sol 观测中无该类候选（记录差异，不判对错）"
+    },
+    "silicate": {
+     "paper_class": "silicate",
+     "status": "unmapped",
+     "note": "映射表未覆盖（请人工核对后补充 PAPER_TO_KEYS）"
+    }
+   }
+  },
+  "Alfalfa": {
+   "verdict": {
+    "carbonate": {
+     "paper_class": "carbonate",
+     "status": "not_reproduced",
+     "note": "本 sol 观测中无该类候选（记录差异，不判对错）"
+    },
+    "chlorite": {
+     "paper_class": "chlorite",
+     "status": "reproduced",
+     "software_keys": [
+      "silicate"
+     ],
+     "max_points": 30
+    },
+    "fe-oxides": {
+     "paper_class": "fe-oxides",
+     "status": "excluded",
+     "note": "SHERLOC 深紫外拉曼类别体系无对应（拉曼惰性/无单矿物键）"
+    },
+    "feldspar": {
+     "paper_class": "feldspar",
+     "status": "reproduced",
+     "software_keys": [
+      "silicate"
+     ],
+     "max_points": 30
+    },
+    "olivine": {
+     "paper_class": "olivine",
+     "status": "reproduced",
+     "software_keys": [
+      "olivine"
+     ],
+     "max_points": 6
+    },
+    "organics": {
+     "paper_class": "organics",
+     "status": "excluded",
+     "note": "SHERLOC 深紫外拉曼类别体系无对应（拉曼惰性/无单矿物键）"
+    },
+    "perchlorate": {
+     "paper_class": "perchlorate",
+     "status": "weak",
+     "software_keys": [
+      "perchlorate_or_phosphate"
+     ],
+     "note": "仅模糊键候选（缺次级峰区分），计部分复现",
+     "max_points": 2
+    },
+    "perchlorate or phosphate": {
+     "paper_class": "perchlorate or phosphate",
+     "status": "unmapped",
+     "note": "映射表未覆盖（请人工核对后补充 PAPER_TO_KEYS）"
+    },
+    "phosphate": {
+     "paper_class": "phosphate",
+     "status": "weak",
+     "software_keys": [
+      "perchlorate_or_phosphate"
+     ],
+     "note": "仅模糊键候选（缺次级峰区分），计部分复现",
+     "max_points": 2
+    },
+    "phyllosilicates": {
+     "paper_class": "phyllosilicates",
+     "status": "reproduced",
+     "software_keys": [
+      "silicate"
+     ],
+     "max_points": 30
+    },
+    "pyroxene": {
+     "paper_class": "pyroxene",
+     "status": "weak",
+     "software_keys": [
+      "sulfate_or_pyroxene"
+     ],
+     "note": "仅模糊键候选（缺次级峰区分），计部分复现",
+     "max_points": 3
+    },
+    "quartz": {
+     "paper_class": "quartz",
+     "status": "excluded",
+     "note": "SHERLOC 深紫外拉曼类别体系无对应（拉曼惰性/无单矿物键）"
+    },
+    "silicate": {
+     "paper_class": "silicate",
+     "status": "unmapped",
+     "note": "映射表未覆盖（请人工核对后补充 PAPER_TO_KEYS）"
+    }
+   }
+  }
+ }
+}

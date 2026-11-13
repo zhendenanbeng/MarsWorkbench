@@ -100,12 +100,13 @@ CHECKS = [
     ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、模型往返持久化与安全降级", 19),
     ("pixl_sfs_check.py", "PIXL SFS谱层：读取、能量自证、峰面积恢复与安全降级", 10),
     ("apxs_fit_check.py", "APXS峰拟合：合成能谱峰高恢复、检出判定与越界不猜值", 9),
+    ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩与判定结构", 6),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
 ]
 
 DIST_SCRIPTS={'multi_instrument_check.py','data_integrity_check.py','scientific_evidence_check.py',
-              'fit_profile_check.py','repeatability_check.py','chemcam_passive_check.py','phase11_check.py','pixl_browser_check.py','pixl_download_check.py','workflow_alignment_check.py','instbkg_check.py','published_targets_check.py','gold_intervals_check.py','libs_quant_check.py','pixl_sfs_check.py','apxs_fit_check.py','theme_check.py','layout_check.py'}
+              'fit_profile_check.py','repeatability_check.py','chemcam_passive_check.py','phase11_check.py','pixl_browser_check.py','pixl_download_check.py','workflow_alignment_check.py','instbkg_check.py','published_targets_check.py','gold_intervals_check.py','libs_quant_check.py','pixl_sfs_check.py','apxs_fit_check.py','paper_crosscheck_check.py','theme_check.py','layout_check.py'}
 
 
 def run(script, args=()):
