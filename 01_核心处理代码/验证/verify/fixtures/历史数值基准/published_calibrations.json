@@ -152,6 +152,7 @@
  ],
  "growth_path": {
   "rows_goal": 25,
-  "blocking": "CCS/SCCT 靶成分数值表（Fabre 2011/Vaniman/Cousin 2022）与 Ytsma 2023 RMSEP 数值需人工从出版方下载转录；转录后 rows 扩到 25+，CCS 观测谱下载与 PLS 训练（Phase 1）随即解锁。"
+  "status_2026_11_13": "ChemCam 训练集扩容已验证并结论：408 地面标样的谱不在 PDS（节点仅 6 个飞行数据集：EDR/RMI/RDR/SOH/PSV；标样谱属 LANL 内部）——6 个在轨靶为自主定量的数据上限，CV 数字即为该上限下的诚实基线。成分数值转录路线维持（CCS/SCCT 靶表已入册）。",
+  "blocking": "SCCT 成分表转录（Cousin 2022 已在手）待 SuperCam 阶段；Ytsma RMSEP 数值已入 gold_intervals。"
  }
 }

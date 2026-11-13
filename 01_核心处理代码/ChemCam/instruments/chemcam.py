@@ -233,9 +233,51 @@ class ChemCamBackend(base.Backend):
             values = libs_quant.predict_mean(mean, doc)
         except ValueError as exc:
             return {"available": False, "reason": str(exc)}
-        return {"available": True, "values": values, "n_points_used": used,
+        official = self._official_moc_for(obs)
+        return {"available": True, "values": values, "official": official,
+                "n_points_used": used,
                 "scope": doc["scope"],
                 "trained_targets": doc["meta"].get("trained_targets", [])}
+
+    def _official_moc_for(self, obs):
+        """查官方 MOC 缓存，返回本观测任一 CCS 文件的官方成分预测（对账列）。
+
+        MOC 缓存缺失/未命中返回 None——对账列是加分项，不是预测前提。
+        """
+        try:
+            import project_layout
+            moc_dir = (project_layout.data_root() / "ChemCam" / "缓存" / "moc")
+            files = sorted(moc_dir.glob("moc_*.csv"))
+            if not files:
+                return None
+            want = set()
+            for pt in obs.points:
+                for f in pt.files.values():
+                    stem = os.path.basename(f).upper()
+                    want.add(stem.replace(".CSV", "").replace(".LBL", ""))
+            if not want:
+                return None
+            hits = []
+            for fp in files:
+                for line in fp.read_text(encoding="utf-8", errors="replace").splitlines():
+                    parts = [p.strip() for p in line.split(",")]
+                    if len(parts) < 34 or not parts[0]:
+                        continue
+                    stem = parts[0].upper().replace(".CSV", "")
+                    if stem in want:
+                        try:
+                            hits.append((parts[1],
+                                         {ox: [float(parts[2 + 4 * i]), float(parts[4 + 4 * i])]
+                                          for i, ox in enumerate(("SiO2", "TiO2", "Al2O3", "FeOT",
+                                                                  "MgO", "CaO", "Na2O", "K2O", "MnO"))}))
+                        except (ValueError, IndexError):
+                            continue
+            if not hits:
+                return None
+            name, vals = hits[0]
+            return {"target": name, "oxides": vals, "n_moc_rows": len(hits)}
+        except Exception:                                # noqa: BLE001
+            return None
 
     # -- 下载面板分组 --------------------------------------------------------
 
