@@ -42,6 +42,10 @@ def main():
     check(not bad, "判定状态只用约定枚举（%d 类目）" % (n_judge,))
     check(bool(doc.get("source_numbers_sha256")), "来源 numbers.json 指纹在场")
     check(bool(doc.get("pairs")), "对账靶对清单在场")
+    note = doc.get("class_mapping_note") or ""
+    check("silicate" in note and "3" in note,
+          "类目映射注记在册（7 类复现中 3 类经 silicate 粗类命中，如实标注）")
+
     print("共 %d 项断言，%d 项失败" % (TOTAL, FAIL))
     return int(FAIL > 0)
 

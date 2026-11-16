@@ -5,7 +5,7 @@
   管线输入 = PDS data_raw_spectroscopy 的 SFS csv（逐 PMC 4096 通道 XRF 计数）；
   自研科学变换 = CSV 解析 → PMC 谱矩阵 → 能量轴自证（两点定标：钙富扫描的
                最强峰=Ca Kα 3.691 keV、次强=Fe Kα 6.404 keV）→ 元素 Kα 窗
-               净峰面积（线性背景）+误差+检出判定；
+               净峰面积（窗两侧各 8 通道的中位数常数背景）+误差+检出判定；
   对账基准 = PIQUANT（官方开源，可选交叉验证）与官方 RQC wt%——只在台账。
   能量轴自证结果写入 energy_axis.json 供全部扫描复用；钙/铁身份假设仅在
   CaO 显著高的扫描上启用，且轴参数跨扫描一致性要校验。
@@ -160,7 +160,7 @@ def ch_to_kev(ch, axis):
 
 
 def peak_areas(spec, axis, elements=("Ca", "Fe", "Si", "Mg", "Al", "S", "Ti", "K")):
-    """元素 Kα 窗净面积（半宽 ±0.06 keV，线性背景取窗两端）。
+    """元素 Kα 窗净面积（半宽 ±0.06 keV；背景=窗两侧各 8 通道的中位数常数）。
 
     返回 {元素: {area, error, channel, kev, detected}}；窗越界→detected=False
     且 area=None（不猜值）。error=面积的开方近似（泊松）。

@@ -25,7 +25,7 @@ PEAK_KEV_FWHM = 0.15          # APXS 探测器分辨率量级（keV）
 def fit_peak_area(energy_kev, counts, center_kev, half_width=0.12):
     """单峰高斯拟合+线性背景，返回净面积与误差。
 
-    拟合域：[center±half_width]；背景 = 域两端各 3 通道的线性插值；
+    拟合域：[center±half_width]；背景 = 域两端各 2 通道的线性 polyfit；
     高斯初值：峰值位置=窗内 argmax、σ=PEAK_KEV_FWHM/2.355。
     数据不足/窗越界返回 area=None（不猜值）。
     """

@@ -211,6 +211,28 @@ def main():
         e5 = instbkg_log(res_default["log"])
         check(e5 is not None and e5["kind"] == "skip", "steps 缺省时 instbkg 默认跳过")
 
+    # 部分覆盖契约：本底谱只覆盖部分波段时，覆盖外通道必须逐位不变
+    with tempfile.TemporaryDirectory(prefix="sherlock-instbkg-partial-") as folder2:
+        cov = SHIFT <= 2600.0          # 覆盖 ~61%（裁边后仍 >50%，不触发整步跳过）
+        make_background_file(folder2, SHIFT[cov], (_true_background(SHIFT) * M_TRUE)[cov])
+        env2 = {"MARSWORKBENCH_DATA_HOME": folder2}
+        on_nb = {"deadpixel": True, "dark": True, "laser": True,
+                 "instbkg": True, "baseline": False}   # 关基线：隔离本底步效应
+        off_nb = {k: v for k, v in on_nb.items() if k != "instbkg"}
+        with patch.dict(os.environ, env2):
+            res_on = preprocess.run_pipeline(scan_a, dict(on_nb))
+            res_off = preprocess.run_pipeline(scan_a, dict(off_nb))
+        # 掩码用管线自身返回的 shift 轴（deadpixel 已裁边，通道数与 r1 一致）
+        shift_out = np.asarray(res_on["shift"], dtype=float)
+        r_on_m = np.asarray(res_on["r1"], dtype=float)
+        r_off_m = np.asarray(res_off["r1"], dtype=float)
+        out_mask = shift_out > 2800.0                 # 覆盖外（>2600 cm-1 留裕量）
+        in_mask = (shift_out >= 400.0) & (shift_out <= 1200.0)   # 覆盖内含 800 主带
+        same_out = bool(np.array_equal(r_on_m[:, out_mask], r_off_m[:, out_mask]))
+        check(same_out, "部分覆盖：覆盖外通道逐位不变（instbkg 不越界）")
+        diff_in = not np.array_equal(r_on_m[:, in_mask], r_off_m[:, in_mask])
+        check(diff_in, "部分覆盖：覆盖内通道确有减除（对照有效）")
+
     print("共 %d 项断言，%d 项失败" % (TOTAL, FAIL))
     return int(FAIL > 0)
 
