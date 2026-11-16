@@ -367,8 +367,13 @@ def main():
             rev = axis.get("revisions") or []
             ok_rev = bool(rev) and all(
                 isinstance(r, dict) and r.get("date") and r.get("note") for r in rev)
-            check(ok_rev and len(rev) >= 1,
-                  "能量轴 doc 的 revisions 记录完整（%d 条，旧值可追溯）" % len(rev))
+            # 旧值必须与当前轴不同（revision 自指 = 记录失效）
+            self_ref = [r for r in rev
+                        if isinstance(r.get("old_axis"), dict)
+                        and abs(r["old_axis"].get("keV_per_ch", 0)
+                                - ax["keV_per_ch"]) < 1e-12]
+            check(ok_rev and len(rev) >= 1 and not self_ref,
+                  "能量轴 doc 的 revisions 记录完整且旧值非自指（%d 条）" % len(rev))
 
     # ========== 5b. 第二扫描跨扫描一致性（sol0300）==========
     sfs2 = data_root / "PIXL" / "下载" / "sfs_sol0300"

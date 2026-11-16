@@ -187,14 +187,19 @@ def main(argv=None):
     gi = json.loads((B / "gold_intervals.json").read_text(encoding="utf-8"))
     ref = gi["anchors"]["chemcam"]["PLS_loo_rmse_ground"]["oxides"]
     verdict = {}
+    # gold 区间的铁键名是 Fe2O3（Wiens 2012 表口径），CV 键是 FeOT——
+    # 当量近似对比（FeOT≈Fe2O3 当量，未做 1.111 质量换算），带 note 说明
+    ALIAS = {"FeOT": "Fe2O3"}
     for ox, r in cv_rows.items():
-        band = ref.get(ox)
+        band = ref.get(ox) or ref.get(ALIAS.get(ox, ""))
         verdict[ox] = (None if band is None else
                        {"state": ("better" if r["rmse"] < band["lower"] else
                                   "in_band" if r["rmse"] <= band["upper"] else
                                   "worse"),
                         "band": [band["lower"], band["upper"]],
-                        "reference_rmse": band["reference"]})
+                        "reference_rmse": band["reference"],
+                        **({"note": "gold 键为 Fe2O3；FeOT 当量近似对比（未做 1.111 质量换算）"}
+                           if ox in ALIAS and not ref.get(ox) else {})})
         if verdict[ox]:
             print("  对照 %s: RMSE %.3f vs Wiens2012 %.2f（区间 %s）-> %s"
                   % (ox, r["rmse"], verdict[ox]["reference_rmse"], verdict[ox]["band"],

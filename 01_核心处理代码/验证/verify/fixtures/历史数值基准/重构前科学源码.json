@@ -41,7 +41,7 @@
    "old": "01_软件工作台/sherloc/preprocess.py",
    "new": "01_核心处理代码/SHERLOC/sherloc/preprocess.py",
    "bytes": 21536,
-   "sha256": "2dd98bbdc9ee9a5c24bf5029f4c7ab0f9a6e6ec71cae0a6adf2c55bee900de11"
+   "sha256": "03107b6ee1873972177d0f4a550790f79a11742047014fdc040cfe3ba4d47aa7"
   },
   {
    "old": "01_软件工作台/sherloc/qc.py",
@@ -71,6 +71,13 @@
    ],
    "reason": "精度提升阶段（分支 precision/bkg）：preprocess 新增可选「仪器本底扣除」步骤（Jakubek 2024 收纳臂口径，默认关）；minerals 仅在 800 带警示文本中提及该开关。分类阈值与输入口径未改。护栏 instbkg_check.py（18 项）与 run_all --dist 全绿随行。",
    "branch": "precision/bkg"
+  },
+  {
+   "date": "2026-11-16",
+   "files": [
+    "01_核心处理代码/SHERLOC/sherloc/preprocess.py"
+   ],
+   "reason": "instbkg 语义修正（用户复核发现）：本底谱覆盖外通道受 np.interp 端点钳制影响被错误减除，与注释/日志声明的「窗口外不动」不符——改为覆盖内置零（覆盖内全波段按官方做法相减，覆盖外不动）；注释与日志同步对齐。合成护栏 18 项复跑全绿。"
   }
  ]
 }

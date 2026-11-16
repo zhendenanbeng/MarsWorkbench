@@ -154,6 +154,7 @@ def main(argv=None):
                        "predictions": r["predictions"], "true": r["true"]}
                   for ox, r in cv_rows.items()},
            "moc_rmsep_verdict": verdict,
+           "moc_rmsep_verdict_note": "区间判定如实记录（当前 0/7 worse）；TiO2 官方 RMSEP 待转录无锚点，不参与判定。",
            "composition_sha256": sha256_of(data_root / "SuperCam" / "缓存"
                                            / "scct_composition.json"),
            "training_manifest_sha256": sha256_of(data_root / "SuperCam" / "下载"

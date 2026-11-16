@@ -267,7 +267,8 @@ def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
     # SNR<1 不可见，但逐点中位/平均时会显形；橄榄石识别峰 815-865 与
     # 800 主带直接重叠。官方做法：暗天空本底谱按缩放因子 M 相减。
     # 这里 M 只按 800 主带窗估计（Phase 1 实测：多窗联合口径会过校正），
-    # 其余本底带按本底谱形状随减；窗口外通道不动。基线在此步之后跑，
+    # 本底谱覆盖内全波段按形状缩放相减（官方做法），覆盖外通道不动。
+    # 基线在此步之后跑，
     # 所以减除发生在"量纲尚未被逐点增益与多项式改写"的最干净位置。
     if steps.get("instbkg", False):
         bkg = _load_stowed_background()
@@ -307,12 +308,12 @@ def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
                 else:
                     scale = float(np.clip(med8 / med_bg8, 0.0, 2.0))
                     curve = np.interp(wl, bkg_wl, bkg_y)
+                    curve[~inside] = 0.0
                     R[region] = R[region].astype(float) - scale * curve[None, :]
                     put("instbkg", "已减除收纳臂本底谱（%d 个收纳臂扫描）："
-                                   "M=%.3f（按 800 cm-1 主带窗估计），波长覆盖 %.0f%%，"
-                                   "减后主带中位 %.1f。M 只在主带窗内对齐；"
-                                   "窗口外通道保持原值；结果以「仪器本底扣除」开关"
-                                   "的对照口径为准"
+                                   "M=%.3f（只按 800 cm-1 主带窗估计），"
+                                   "本底谱覆盖内全波段按形状缩放相减（官方做法），"
+                                   "覆盖外通道不动；波长覆盖 %.0f%%，减后主带中位 %.1f"
                         % (bkg["scans"], scale, coverage * 100,
                            float(np.median(R[region][:, w8]))))
     else:

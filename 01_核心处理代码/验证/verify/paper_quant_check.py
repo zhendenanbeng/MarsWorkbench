@@ -242,14 +242,16 @@ def main():
         counts = data[:, 1] if data.shape[1] == 2 else np.median(data[:, 1:-1], axis=1)
         re = apxs_fit.spectrum_areas(energy[1:-1], counts[1:-1])
         dev = []
-        for el in ("Na", "Mg", "Al", "Si", "K", "Ca", "Fe"):
+        for el in apxs_fit.KA_KEV:
             r = re.get(el)
             if r and r.get("center_kev") is not None:
-                dev.append(abs(r["center_kev"] - apxs_fit.KA_KEV[el]))
-        # 峰位=argmax（道分辨率 ~24 eV）；Mg 受相邻 Na Kα 拖拽 ~2 道属物理合理
-        check(len(dev) == 7 and max(dev) <= 0.06,
-              "APXS 7 主元素拟合峰位与理论 Kα 偏差 ≤0.06 keV（最大 %.3f，道分辨 ~24eV）"
-              % (max(dev) if dev else -1))
+                dev.append((el, abs(r["center_kev"] - apxs_fit.KA_KEV[el])))
+        # 峰位=argmax（道分辨率 ~24 eV）；Mg 受相邻 Na Kα 拖拽 ~2 道属物理合理。
+        # 覆盖全部有拟合结果的元素（主量 7 + S/Cl/Ti/Cr/Mn/Ni/Zn，实测最大 0.053）
+        elmax = max(dev, key=lambda x: x[1]) if dev else ("-", -1)
+        check(len(dev) >= 14 and elmax[1] <= 0.06,
+              "APXS %d 元素拟合峰位与理论 Kα 偏差 ≤0.06 keV（最大 %s %.3f，道分辨 ~24eV）"
+              % (len(dev), elmax[0], elmax[1]))
 
     # ========== 5. 台账锚点在册 ==========
     gi = json.loads((BASE / "gold_intervals.json").read_text(encoding="utf-8"))
