@@ -32,6 +32,7 @@ def main():
     aprobe = os.path.normpath(os.path.join(str(_layout.project_layout.legacy_cache_root()),"phase5_probe","apxs_sol999"))
     if not (os.path.isdir(cprobe) and os.path.isdir(aprobe)):
         print("  （探针缓存不在本机，T3 对照护栏跳过——跑过一次 phase5 探针下载后生效）")
+        print("SKIP 数据不在位：探针缓存不在本机（跑过 phase5 探针下载后生效）")
         print("\n共 0 项断言，0 项失败")
         return 0
 

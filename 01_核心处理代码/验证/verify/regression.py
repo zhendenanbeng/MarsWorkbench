@@ -166,6 +166,14 @@ def class_summary(res):
 
 
 def main():
+    # 冻结 GOLD/NEW_GOLD 基线绑定 0.16.0 时代 processed 练习树（sol 141/186/257/293/349）。
+    # 当前仓练习树为 raw/sol_00207+00370——基线重算属独立任务，此前先显式跳过。
+    import os as _os
+    if not _os.path.isdir(_os.path.join(str(ROOT), "..", "03_下载数据", "SHERLOC",
+                                        "练习数据", "processed")):
+        print("SKIP 数据不在位：processed 练习树不在本仓（GOLD 基线绑定的 sol 141/186/257/293/349 缺席）")
+        print("共 0 项断言，0 项失败")
+        return 0
     _products, observations = scan_folder(DATA)
     fails = []
     checks = 0

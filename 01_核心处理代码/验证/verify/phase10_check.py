@@ -136,6 +136,12 @@ def library_checks():
 
 
 def main():
+    import os as _os
+    if not _os.path.isdir(_os.path.join(str(ROOT), "..", "03_下载数据", "SHERLOC", "练习数据", "processed")):
+        print("SKIP 数据不在位：练习数据 processed 树不在本仓")
+        print("共 0 项断言，0 项失败")
+        return 0
+
     with tempfile.TemporaryDirectory(prefix='sherloc-phase10-') as folder:
         image_checks(Path(folder))
         map_checks(Path(folder))

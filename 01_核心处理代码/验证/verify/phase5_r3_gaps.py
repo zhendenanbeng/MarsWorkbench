@@ -55,6 +55,11 @@ def chk(name, ok, detail=""):
 
 
 def main():
+    if not os.path.isdir(os.path.join(str(ROOT), "..", "03_下载数据", "SHERLOC", "练习数据", "processed")):
+        print("SKIP 数据不在位：练习数据 processed 树不在本仓")
+        print("共 0 项断言，0 项失败")
+        return 0
+
     _p, scans = scan_folder(DATA)
 
     def get(sol, seq):

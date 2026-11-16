@@ -43,6 +43,7 @@ def main():
     edr = os.path.normpath(os.path.join(str(_layout.project_layout.legacy_cache_root()),"edr_labels","sol01000"))
     if not (os.path.isdir(probe) and os.path.isdir(edr)):
         print("  （探针缓存不在本机，第六期投影护栏跳过——跑过 phase3/phase6 探针后生效）")
+        print("SKIP 数据不在位：探针缓存不在本机（跑过 phase3/phase6 探针后生效）")
         print("\n共 0 项断言，0 项失败")
         return 0
 
