@@ -54,7 +54,23 @@ def configured_sherloc_port():
 
 
 _sherloc_services=[]
+_console_holder={"server":None,"state":None}
 _launcher_context=None
+
+def _supervised_serve(server,port,name,make,on_rebuild=None):
+    """serve_forever 看护：服务线程意外退出时原地重建（曾观察到处理器异常
+    导致线程死亡、端口失联直到重启——看护让端口自愈）。shutdown() 正常
+    关闭则退出看护循环。"""
+    while True:
+        try:
+            server.serve_forever()
+            return
+        except Exception as exc:
+            print('[%s:%d] 服务线程异常退出（%r），3 秒后原地重建'
+                  % (name,port,exc),flush=True)
+            time.sleep(3)
+            server,state=make()
+            if on_rebuild:on_rebuild(server,state)
 
 def ensure_sherloc(port,timeout=30):
     import view
@@ -64,10 +80,17 @@ def ensure_sherloc(port,timeout=30):
             with urllib.request.urlopen(url+'api/status',timeout=.5) as r:
                 if json.load(r).get('build')==view.BUILD:return url
         except (OSError,ValueError):pass
-    server,state=view.start(port)
-    if _launcher_context:state['launcher_url']=_launcher_context.get('launcher_url')
-    threading.Thread(target=server.serve_forever,daemon=True).start()
-    _sherloc_services.append((server,state))
+    def _make():
+        server,state=view.start(port)
+        if _launcher_context:state['launcher_url']=_launcher_context.get('launcher_url')
+        _sherloc_services.append((server,state))
+        return server,state
+    def _rebuild(server,state):
+        if _launcher_context is not None and 'sherloc_port' in _launcher_context:
+            _launcher_context['sherloc_port']=server.server_port
+    server,state=_make()
+    threading.Thread(target=_supervised_serve,
+                     args=(server,port,'sherloc',_make,_rebuild),daemon=True).start()
     return 'http://127.0.0.1:%d/'%server.server_port
 
 
@@ -356,10 +379,19 @@ def main(argv=None):
     if any(not 0<=p<=65535 for p in (args.port,args.console_port,args.sherloc_port)):ap.error('端口须在0到65535之间')
     runtime_http.initialize()
     import console
-    common,common_state=console.start(args.console_port)
-    threading.Thread(target=common.serve_forever,daemon=True).start()
-    state={'last_ping':None,'launcher_port':args.port,'console_port':common.server_port,
-           'sherloc_port':args.sherloc_port,'shutdown':lambda:None,'ensure_sherloc':ensure_sherloc,'console_state':common_state}
+    state={'last_ping':None,'launcher_port':args.port,'console_port':args.console_port,
+           'sherloc_port':args.sherloc_port,'shutdown':lambda:None,'ensure_sherloc':ensure_sherloc}
+    common_state={}
+    def _make_console():
+        server,cstate=console.start(args.console_port)
+        state['console_port']=server.server_port
+        common_state.clear();common_state.update(cstate)   # 原地更新：watchdog 引用不变
+        _console_holder['server']=server;_console_holder['state']=cstate
+        return server,cstate
+    common_server,common_state=_make_console()
+    threading.Thread(target=_supervised_serve,
+                     args=(common_server,args.console_port,'通用工作台',
+                           _make_console,None),daemon=True).start()
     server=runtime_http.bind(make_handler(state),args.port)
     state['launcher_port']=server.server_port;state['shutdown']=server.shutdown
     # Rebuild the page using the actual port if the requested launcher port was occupied.
@@ -367,13 +399,14 @@ def main(argv=None):
     url='http://127.0.0.1:%d/'%server.server_port
     state['launcher_url']=url;common_state['launcher_url']=url;_launcher_context=state
     print('MarsWorkbench '+appenv.build_id()+' · 选择器：'+url,flush=True)
-    print('通用工作台：http://127.0.0.1:%d/'%common.server_port,flush=True)
+    print('通用工作台：http://127.0.0.1:%d/'%_console_holder['server'].server_port,flush=True)
     if not args.no_watchdog:threading.Thread(target=_watchdog,args=(state,common_state),daemon=True).start()
     if not args.no_window:open_app_window(url,not args.browser,size=(1440,900))
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:
-        common.shutdown();common.server_close()
+        if _console_holder.get('server'):
+            _console_holder['server'].shutdown();_console_holder['server'].server_close()
         for child,_ in _sherloc_services:child.shutdown();child.server_close()
         server.server_close()
     return 0
