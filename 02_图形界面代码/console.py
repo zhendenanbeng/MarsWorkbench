@@ -709,7 +709,10 @@ function draw(d){
   for(k=0;k<=4;k++){
     v=lo+(hi-lo)*k/4; var gy=fy(v);
     s.push('<line class="gridline" x1="'+m.l+'" y1="'+gy.toFixed(1)+'" x2="'+(m.l+iw)+'" y2="'+gy.toFixed(1)+'"/>');
-    var tickTxt=(Math.abs(v)>=1000)?(v/1000).toFixed(1)+'k':String(Number(v).toPrecision(3));
+    var a=Math.abs(v), tickTxt=(a>=1e9)?(v/1e9).toFixed(a>=1e10?0:1)+'G'
+      :(a>=1e6)?(v/1e6).toFixed(a>=1e7?0:1)+'M'
+      :(a>=1000)?(v/1e3).toFixed(a>=1e4?0:1)+'k'
+      :String(Number(v).toPrecision(3));
     s.push('<text class="tick" x="'+(m.l-8)+'" y="'+(gy+4).toFixed(1)+'" text-anchor="end">'
       +tickTxt+'</text>');
   }
@@ -734,16 +737,18 @@ function draw(d){
   /* 元素线标注：只画检出的，标签两行错开防压字 */
   var an=d.annotate||{};
   if(an.marks){
-    var prevX=-999, row=0;
+    var rowLast=[-999,-999,-999];
     an.marks.forEach(function(mk){
       if(!mk.detected) return;
       var cx=fxw(mk.x);
       if(cx<m.l+4||cx>m.l+iw-4) return;
-      if(cx-prevX<38){ row=(row+1)%2; } else { row=0; }
-      prevX=cx;
+      var row=0;
+      while(row<rowLast.length && cx-rowLast[row]<30) row++;
+      if(row>=rowLast.length) row=0;
+      rowLast[row]=cx;
       s.push('<line class="peakline" x1="'+cx.toFixed(1)+'" y1="'+m.t+'" x2="'+cx.toFixed(1)
         +'" y2="'+(m.t+ih)+'" stroke="var(--accent)"/>');
-      s.push('<text class="peaklabel" x="'+(cx+4).toFixed(1)+'" y="'+(m.t+11+row*15)
+      s.push('<text class="peaklabel" x="'+(cx+4).toFixed(1)+'" y="'+(m.t+11+row*13)
         +'" fill="var(--accent)">'+mk.elem+'</text>');
     });
   }
