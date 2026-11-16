@@ -69,7 +69,7 @@ def write_snapshot(results, started, auc_result=None, tested_hashes=None, scope=
 
 # (脚本, 一句话说明, 预期断言条数)
 CHECKS = [
-    ("regression.py", "判类结果护栏（GOLD 基线绑定 0.16.0 时代 processed 练习树；树更换后待重算，暂跳过）", 0),
+    ("regression.py", "判类结果护栏（按 sol 数据在位跑子集：当前树覆盖 Garde 单元级/Alfalfa NEW_GOLD/G 带）", 50),
     ("duplicate_steps.py", "不重复预处理护栏（processed 不许再处理；下限绑定当前练习树）", 30),
     ("integration_guards.py", "集成路径护栏（地图冒烟需上色缓存；下限绑定当前树）", 40),
     ("ui_workflows_check.py", "启动/下载/发号/摘要护栏", 35),

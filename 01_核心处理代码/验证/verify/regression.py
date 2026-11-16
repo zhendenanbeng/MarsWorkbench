@@ -166,14 +166,6 @@ def class_summary(res):
 
 
 def main():
-    # 冻结 GOLD/NEW_GOLD 基线绑定 0.16.0 时代 processed 练习树（sol 141/186/257/293/349）。
-    # 当前仓练习树为 raw/sol_00207+00370——基线重算属独立任务，此前先显式跳过。
-    import os as _os
-    if not _os.path.isdir(_os.path.join(str(ROOT), "..", "03_下载数据", "SHERLOC",
-                                        "练习数据", "processed")):
-        print("SKIP 数据不在位：processed 练习树不在本仓（GOLD 基线绑定的 sol 141/186/257/293/349 缺席）")
-        print("共 0 项断言，0 项失败")
-        return 0
     _products, observations = scan_folder(DATA)
     fails = []
     checks = 0
@@ -258,6 +250,9 @@ def main():
     # C 之二：2026-09-15 补的三个靶点（Montpezat / Bellegarde / Alfalfa）
     print("新增靶点（论文 3.2.3–3.2.6：Montpezat / Bellegarde / Alfalfa）")
     for sol, seq, sclk_pre, name, (c0, tol), (lo, hi), paper_n in NEW_GOLD:
+        if (sol, seq) not in index:
+            print("  SKIP sol %s %s 数据不在位（当前练习树只有 sol 207/370）" % (sol, seq))
+            continue
         tag = "sol %s %s %s" % (sol, seq, sclk_pre)
         got = None
         for sclk, res in index.get((sol, seq), []):
@@ -285,6 +280,9 @@ def main():
     # D 类：扫描分组。这一段防的是 organize.py 被无声改坏。
     print("扫描分组（结构断言）")
     for sol, seq, want, why in STRUCTURE:
+        if (sol, seq) not in index:
+            print("  SKIP sol %s %s 数据不在位（当前练习树只有 sol 207/370）" % (sol, seq))
+            continue
         checks += 1
         got = n_scans.get((sol, seq), 0)
         if got != want:
@@ -296,6 +294,9 @@ def main():
     # E 类：已知假阳性。论文说是零、我们报了东西，这里只设上限，不许变差。
     print("已知假阳性（论文说零信号，只设上限）")
     for sol, seq, cap, note in KNOWN_FALSE_POSITIVE:
+        if (sol, seq) not in index:
+            print("  SKIP sol %s %s 数据不在位（当前练习树只有 sol 207/370）" % (sol, seq))
+            continue
         checks += 1
         tot = 0
         for _sclk, res in index.get((sol, seq), []):
@@ -312,6 +313,9 @@ def main():
     # F 类：扫描级兜底。该有的要有，不该有的不许冒出来。
     print("扫描级兜底")
     for sol, seq, pre, want_cm, tol in SCAN_LEVEL_WANT:
+        if (sol, seq) not in index:
+            print("  SKIP sol %s %s 数据不在位（当前练习树只有 sol 207/370）" % (sol, seq))
+            continue
         checks += 1
         got = None
         for sclk, res in index.get((sol, seq), []):
@@ -330,6 +334,9 @@ def main():
             print("  OK  sol %-4s %-9s %.0f cm-1（%.1fσ，幅度 %.2f×单点噪声）"
                   % (sol, seq, got["center"], got["snr"], got["ratio_to_point_sigma"]))
     for sol, seq in SCAN_LEVEL_DENY:
+        if (sol, seq) not in index:
+            print("  SKIP sol %s %s 数据不在位（当前练习树只有 sol 207/370）" % (sol, seq))
+            continue
         checks += 1
         bad = []
         for sclk, res in index.get((sol, seq), []):
@@ -345,6 +352,9 @@ def main():
     # G 类：有机质 G 带通道
     print("有机质 G 带通道（~1600 cm-1）")
     for sol, seq, pre, want_cm, tol, min_snr in G_BAND_WANT:
+        if (sol, seq) not in index:
+            print("  SKIP sol %s %s 数据不在位（当前练习树只有 sol 207/370）" % (sol, seq))
+            continue
         checks += 1
         got = None
         for sclk, res in index.get((sol, seq), []):
