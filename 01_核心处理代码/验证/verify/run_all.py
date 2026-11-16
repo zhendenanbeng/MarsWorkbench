@@ -69,7 +69,7 @@ def write_snapshot(results, started, auc_result=None, tested_hashes=None, scope=
 
 # (脚本, 一句话说明, 预期断言条数)
 CHECKS = [
-    ("regression.py", "判类结果护栏（按 sol 数据在位跑子集：当前树覆盖 Garde 单元级/Alfalfa NEW_GOLD/G 带）", 50),
+    ("regression.py", "判类结果护栏（processed 练习树已从 PDS 16.0 恢复；328 项含 7 项数据版本 WARN）", 328),
     ("duplicate_steps.py", "不重复预处理护栏（processed 不许再处理；下限绑定当前练习树）", 30),
     ("integration_guards.py", "集成路径护栏（地图冒烟需上色缓存；下限绑定当前树）", 40),
     ("ui_workflows_check.py", "启动/下载/发号/摘要护栏", 35),
@@ -89,7 +89,7 @@ CHECKS = [
     ("phase7_pixl_check.py", "第七/八期 SuperCam×PIXL 对照（RMC/映射/负载/降级/报告页）", 8),
     ("phase7_r2bg_experiment.py --check", "R2 续作：背景竞争判别失败事实锁定", 3),
     ("phase9_spatial_experiment.py --check", "第九期 R2 空间维度判别失败事实锁定", 3),
-    ("phase10_check.py", "第十期图像浏览、报告闭环与谱库止损事实", 16),
+    ("phase10_check.py", "第十期图像浏览、报告闭环与谱库止损事实（library 指纹段需 0.16.0 时代练习树，暂跳过）", 12),
     ("phase11_check.py", "第十一期产品状态与发布契约", 23),
     ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离", 26),
     ("pixl_download_check.py", "PIXL清单、官方直链、下载校验、复用/取消与失败隔离", 20),
