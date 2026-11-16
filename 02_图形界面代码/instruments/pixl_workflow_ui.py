@@ -96,7 +96,7 @@ api('sfs').then(async d=>{
     if(d.ratios&&d.ratios.length){
       ratiosTxt='；元素比值信号（逐 PMC log-log，Top'+d.ratios.length+'）：'+d.ratios.map(function(r){return r.pair+' '+r.corr.toFixed(3);}).join('、');
     }
-    sfs.innerHTML='<b>SFS 原始谱层（能量轴自证，'+(d.mode||'两点')+'定标'+(d.scan_dir?'，扫描集 '+d.scan_dir:'')+')</b><p style="margin:4px 0">增益 '+d.axis.keV_per_ch.toFixed(5)+' keV/ch，零点 '+d.axis.zero_keV.toFixed(3)+' keV；'+d.n_pmc+' 个 PMC 配对。Ca 峰面积 vs 官方 CaO 相关 '+Number(d.ca_corr).toFixed(3)+'；Fe 独立验证 '+Number(d.fe_corr).toFixed(3)+ratiosTxt+'。</p><p style="margin:4px 0;font-size:12px">'+(d.scope||'')+'</p>';
+    sfs.innerHTML='<b>SFS 原始谱层（能量轴自证，'+(d.mode||'两点')+'定标'+(d.scan_dir?'，扫描集 '+d.scan_dir:'')+'）</b><p style="margin:4px 0">增益 '+d.axis.keV_per_ch.toFixed(5)+' keV/ch，零点 '+d.axis.zero_keV.toFixed(3)+' keV；'+d.n_pmc+' 个 PMC 配对。Ca 峰面积 vs 官方 CaO 相关 '+Number(d.ca_corr).toFixed(3)+'；Fe 独立验证 '+Number(d.fe_corr).toFixed(3)+ratiosTxt+'。</p><p style="margin:4px 0;font-size:12px">'+(d.scope||'')+'</p>';
     if(d.spectrum&&d.spectrum.kev&&d.spectrum.kev.length>10){
       var kv=d.spectrum.kev,ct=d.spectrum.counts;
       var xmax=kv[kv.length-1],ymax=Math.max.apply(null,ct)||1;
