@@ -385,6 +385,7 @@ def main(argv=None):
     def _make_console():
         server,cstate=console.start(args.console_port)
         state['console_port']=server.server_port
+        state['console_state']=cstate   # product_api._activate 依赖此键装载三仪器观测
         common_state.clear();common_state.update(cstate)   # 原地更新：watchdog 引用不变
         _console_holder['server']=server;_console_holder['state']=cstate
         return server,cstate
