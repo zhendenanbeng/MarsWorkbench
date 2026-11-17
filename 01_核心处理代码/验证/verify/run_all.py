@@ -8,10 +8,10 @@
 
 两条护栏各管什么：
 
-* `regression.py`（146 项）——**判类结果不许跑偏**：
+* `regression.py`（下限 72；processed 练习树恢复后实跑 328 项）——**判类结果不许跑偏**：
   对照组必须零类别、金标准点数与峰位、单元级结论（Séítah 橄榄石 vs Máaz 盐类）、
   扫描分组结构、已知假阳性上限、扫描级兜底、有机质 G 带通道。
-* `duplicate_steps.py`（152 项）——**processed 数据不许被二次处理**：
+* `duplicate_steps.py`（下限 30；processed 练习树恢复后实跑 235 项）——**processed 数据不许被二次处理**：
   已归一的产品不许再归一、不许再清尖峰；没归一的产品必须照做（反向断言，
   防止"别重复"修成"该做也不做"）。
 
@@ -225,8 +225,12 @@ def main(argv):
     if bad:
         print("有 %d 个护栏没通过——**不要提交，先查清楚是哪一步坏了。**" % bad)
         return 1
-    print("全部通过。%d 条护栏、共 %s 项断言。"
-          % (len(results), sum(r["n"] or 0 for r in results)))
+    skipped = sum(1 for r in results if r.get("skipped"))
+    if skipped:
+        print("全部通过。%d 条护栏、共 %s 项断言（%d 条因数据不在位显式跳过）。"              % (len(results) - skipped, sum(r["n"] or 0 for r in results), skipped))
+    else:
+        print("全部通过。%d 条护栏、共 %s 项断言。"
+              % (len(results), sum(r["n"] or 0 for r in results)))
     return 0
 
 

@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-"""独立数值审计。参考侧禁止调用软件的读表/积分/分类内核。
+"""【已弃用待重算】独立数值审计。参考侧禁止调用软件的读表/积分/分类内核。
+
+冻结清单 independent_manifest.json 是 0.16.0 构建时代产物（绑定旧目录
+01_软件工作台），不在本仓——当前入口显式跳过；其功能已由
+data_audit.py + paper_quant_check.py + regression.py 覆盖。
+重算基线（对当前树重新生成冻结清单并校准断言）属独立任务。
 
 python verify/independent_check.py --out <新报告目录>
 附加 --online 才只读核对 PDS 原件；离线运行不联网、不更新冻结基准。
@@ -432,6 +437,24 @@ def main(argv=None):
     parser.add_argument('--online',action='store_true')
     parser.add_argument('--moc-snapshot',type=Path,help='离线重验已存的官方MOC .csv.gz 原件')
     args=parser.parse_args(argv)
+    if FROZEN.is_file():
+        _bound = json.loads(FROZEN.read_text(encoding='utf-8'))
+        _rows = _bound.get('inputs') or _bound.get('files') or []
+        if any('01_软件工作台' in str(r.get('path', '')) for r in _rows[:50]):
+            print('SKIP 已弃用待重算：冻结清单绑定 0.16.0 时代旧目录'
+                  '（01_软件工作台/…），与当前仓树结构不匹配。'
+                  '其功能已由 data_audit.py + paper_quant_check.py + regression.py 覆盖；'
+                  '对当前树重算冻结清单属独立任务。')
+            print('共 0 项断言，0 项失败')
+            return 0
+    try:
+        import astropy  # noqa: F401
+        import scipy    # noqa: F401
+        import sklearn  # noqa: F401
+    except ImportError as exc:
+        print('SKIP 依赖不在位：%s——本审计需要 full 版依赖'
+              '（pip install astropy scipy scikit-learn）后重跑' % exc)
+        return 0
     args.out.mkdir(parents=True,exist_ok=False)  # 不覆盖上次的审计证据
     audit=Audit(args.out)
     try:
@@ -465,7 +488,7 @@ def main(argv=None):
         audit.check('源文件未更改 '+rec['path'],path.is_file() and sha(path)==rec['actual_sha256'])
     result={'generated_utc':datetime.now(timezone.utc).isoformat(),'results':audit.results,
             'measurements':audit.measurements,'inputs':audit.inputs,
-            'software_files':{str(p.relative_to(ROOT)):sha(p) for p in
+            'software_files':{Path(p).relative_to(WORKSPACE).as_posix() if p.is_relative_to(WORKSPACE) else Path(p).name:sha(p) for p in
                               [*ROOT.glob('*.py'),*(ROOT/'instruments').glob('*.py'),*(ROOT/'sherloc').glob('*.py'),
                                Path(__file__).resolve(),FROZEN]},
             'limits':['尚无独立盲标的矿物阳性/阴性真值，不能给出真实矿物准确率、假阳性率或假阴性率。',

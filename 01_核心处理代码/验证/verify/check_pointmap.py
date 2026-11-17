@@ -28,8 +28,8 @@ if ROOT not in sys.path:
 from sherloc.organize import scan_folder      # noqa: E402
 from sherloc.workbench import _grid_from_rls  # noqa: E402
 
-QC_DIR = os.path.join(os.path.dirname(HERE), "..",
-                      "03_下载数据/SHERLOC/练习数据", "_qc")
+QC_DIR = os.path.join(_layout.project_layout.data_root(), "SHERLOC",
+                      "练习数据", "raw", "_qc")
 DATA = os.path.join(os.path.dirname(ROOT), "03_下载数据/SHERLOC/练习数据")
 
 
@@ -39,7 +39,7 @@ def check(html_path, csv_path):
     if bad:
         return ["HTML 里还有没替换的占位符: %s" % ", ".join(bad)]
 
-    block = html.split("<div class='mmap'>", 1)
+    block = re.split(r"<div class='mmap'[^>]*>", html, maxsplit=1)
     if len(block) < 2:
         return ["没有找到矿物分布图区块"]
     cells = re.findall(r"<div class='([^']*)' style='left:([\d.]+)%;top:([\d.]+)%'"
@@ -112,13 +112,19 @@ def check(html_path, csv_path):
 
 
 def main():
-    base = "sol293_srlc11360_0692979640_115_0692980289_265"
-    html_path = os.path.join(QC_DIR, base + ".html")
-    csv_path = os.path.join(QC_DIR, base + "_points.csv")
-    for p in (html_path, csv_path):
-        if not os.path.exists(p):
-            print("找不到文件:", p)
-            return 1
+    # 自动发现最新的质控报告对（.html + _points.csv）；不再写死旧报告名
+    import glob as _glob
+    pairs = []
+    for html_path in sorted(_glob.glob(os.path.join(QC_DIR, "sol*.html"))):
+        csv_path = html_path[:-5] + "_points.csv"
+        if os.path.exists(csv_path):
+            pairs.append((os.path.getmtime(html_path), html_path, csv_path))
+    if not pairs:
+        print("SKIP 数据不在位：", QC_DIR, " 下没有质控报告（先用工作台生成质控台）")
+        return 0
+    pairs.sort()
+    html_path, csv_path = pairs[-1][1], pairs[-1][2]
+    print("检查最新报告:", os.path.basename(html_path))
     errs = check(html_path, csv_path)
     if errs:
         print("不合格，共 %d 处：" % len(errs))

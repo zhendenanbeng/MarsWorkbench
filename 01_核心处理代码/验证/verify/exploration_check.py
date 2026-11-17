@@ -179,7 +179,7 @@ def api_checks(folder):
 
 def main():
     if not os.path.isdir(os.path.join(str(ROOT), "..", "03_下载数据", "SHERLOC", "练习数据", "processed", "sol_00370")):
-        print("SKIP 数据不在位：练习数据 processed 树不在本仓")
+        print("SKIP 数据不在位：PDS 16.0 未发布 sol_00370 的 processed RRS（exploration 需它在位）")
         print("共 0 项断言，0 项失败")
         return 0
 
