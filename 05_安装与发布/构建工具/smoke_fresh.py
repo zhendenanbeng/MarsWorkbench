@@ -23,6 +23,8 @@ APP=_layout.project_layout.APP
 
 def run(archive=None,proof=None,command_override=None,readonly=False,bat=False):
     owned=_layout.project_layout.INSTALL/'构建缓存/work-smoke';owned.mkdir(exist_ok=True)
+    for stale in owned.glob('fresh-*'):          # 上次失败留下的调试目录
+        shutil.rmtree(stale,ignore_errors=True)
     root=Path(tempfile.mkdtemp(prefix='fresh-',dir=owned))
     profile=root/'profile';profile.mkdir()
     package=root/'package';package.mkdir()
@@ -168,6 +170,10 @@ def run(archive=None,proof=None,command_override=None,readonly=False,bat=False):
     except Exception as exc:
         result.update(ok=False,error=repr(exc))
     finally:
+        # 成功运行删临时目录（每次 run 约 76 MB，曾累积到 6.2 GB）；
+        # 失败时保留 root 供调试，由下次 run 前的清扫兜底。
+        if result.get('ok'):
+            shutil.rmtree(root,ignore_errors=True)
         if launcher:
             try:request(launcher+'api/quit')
             except Exception:pass
