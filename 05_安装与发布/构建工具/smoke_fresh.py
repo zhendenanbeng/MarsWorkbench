@@ -170,10 +170,8 @@ def run(archive=None,proof=None,command_override=None,readonly=False,bat=False):
     except Exception as exc:
         result.update(ok=False,error=repr(exc))
     finally:
-        # 成功运行删临时目录（每次 run 约 76 MB，曾累积到 6.2 GB）；
-        # 失败时保留 root 供调试，由下次 run 前的清扫兜底。
-        if result.get('ok'):
-            shutil.rmtree(root,ignore_errors=True)
+        pass   # root 保留：调用方（如 phase11 E1）要检查运行产物；
+               # 累积由下次 run 开头的清扫兜底（稳态仅 1 个目录约 76 MB）。
         if launcher:
             try:request(launcher+'api/quit')
             except Exception:pass
