@@ -5,6 +5,7 @@ import hashlib
 import html
 import json
 from pathlib import Path
+import sys
 import threading
 import uuid
 import appenv
@@ -78,6 +79,107 @@ def build_report(root,observations,out,current=None,rxl=None,frame=0,cancel=lamb
     from product_theme import report_style
     (folder/'index.html').write_text(report_style(page),encoding='utf-8');(folder/'checks.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
     return folder,rows
+
+def _load_quantify():
+    """按路径加载 数据准备脚本/02_piquant_quantify.py（数字开头模块名）。
+
+    发行包不含数据准备脚本时返回 None，由调用方给可读错误。
+    """
+    import importlib.util
+    import project_layout
+    p = (project_layout.CORE / "PIXL" / "数据准备脚本"
+         / "02_piquant_quantify.py")
+    if not p.is_file():
+        return None
+    spec = importlib.util.spec_from_file_location("mw_piquant_quantify", p)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["mw_piquant_quantify"] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+class PiquantJob:
+    """PIQUANT×RQC 批量对账后台任务（与 ReportJob 同惯例：单实例、进度、取消）。
+
+    输出文件名规则：默认扫描 sfs_sol0186 → 主结果 piquant_vs_rqc.json（复跑
+    即刷新冻结主对账）；其它扫描 → piquant_vs_rqc_<扫描名>.json，不覆盖主结果。
+    """
+
+    DEFAULT_SCAN = "sfs_sol0186"
+
+    def __init__(self):
+        self.lock = threading.RLock()
+        self.state = {'running': False, 'status': 'idle'}
+
+    def snapshot(self):
+        with self.lock:
+            return copy.deepcopy(self.state)
+
+    def cancel(self):
+        with self.lock:
+            self.state['cancel'] = True
+        return self.snapshot()
+
+    def start(self, scan_dir, rqc=None, stride=10):
+        with self.lock:
+            if self.state['running']:
+                raise ValueError('PIQUANT 对账正在运行')
+            spec = _load_quantify()
+            if spec is None:
+                raise ValueError('批量对账脚本不在位（发行包不含数据准备脚本）——'
+                                 '用源码树的 01_核心处理代码/PIXL/数据准备脚本/02_piquant_quantify.py')
+            from instruments import piquant_bridge
+            st = piquant_bridge.status()
+            if not st['available']:
+                raise ValueError(st['reason'])
+            scan = Path(scan_dir) if scan_dir else None
+            if scan is None or not scan.is_dir():
+                raise ValueError('SFS 扫描目录不在位：%s' % scan_dir)
+            out_name = ('piquant_vs_rqc.json' if scan.name == self.DEFAULT_SCAN
+                        else 'piquant_vs_rqc_%s.json' % scan.name)
+            self.state = {'running': True, 'status': 'running', 'cancel': False,
+                          'done': 0, 'total': None, 'scan_dir': str(scan),
+                          'out': out_name}
+            self.thread = threading.Thread(target=self.run,
+                                           args=(spec, scan, rqc, int(stride)),
+                                           daemon=True)
+            self.thread.start()
+        return self.snapshot()
+
+    def run(self, spec, scan_dir, rqc, stride):
+        try:
+            def progress(done, total, label):
+                with self.lock:
+                    self.state.update(done=done, total=total, current=label)
+
+            def cancel():
+                return self.snapshot().get('cancel', False)
+
+            doc, why = spec.reconcile(scan_dir, rqc_p=Path(rqc) if rqc else None,
+                                      stride=stride, log=lambda s: None,
+                                      progress=progress, cancel=cancel)
+            with self.lock:
+                if doc is None:
+                    cancelled = why and '取消' in why
+                    self.state.update(status='cancelled' if cancelled else 'failed',
+                                      error=why)
+                else:
+                    majors = ('FeO-T', 'SiO2', 'CaO', 'Al2O3')
+                    stats = doc.get('stats', {})
+                    self.state.update(
+                        status='completed', scan_dir=doc['scan_dir'],
+                        n_quantified=doc['n_quantified'], n_failed=doc['n_failed'],
+                        majors=[{'oxide': o,
+                                 'median_dev_pct': round(stats[o]['median_rel_dev_pct'], 1),
+                                 'corr': round(stats[o]['corr'], 3)}
+                                for o in majors if o in stats])
+        except Exception as exc:
+            with self.lock:
+                self.state.update(status='failed', error=str(exc))
+        finally:
+            with self.lock:
+                self.state['running'] = False
+
 
 class ReportJob:
     def __init__(self):self.lock=threading.RLock();self.state={'running':False,'status':'idle'}

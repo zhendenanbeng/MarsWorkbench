@@ -93,7 +93,7 @@ CHECKS = [
     ("phase11_check.py", "第十一期产品状态与发布契约", 23),
     ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离", 26),
     ("pixl_download_check.py", "PIXL清单、官方直链、下载校验、复用/取消与失败隔离", 20),
-    ("workflow_alignment_check.py", "工作台操作统一：真实PMC导航、独立导出、全目录报告与共享偏好", 16),
+    ("workflow_alignment_check.py", "工作台操作统一：真实PMC导航、独立导出、全目录报告、PIQUANT对账入口与共享偏好", 17),
     ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧、部分覆盖越界契约", 20),
     ("published_targets_check.py", "已发表靶点台账：结构、来源DOI、定位与只增不缩", 12),
     ("gold_intervals_check.py", "区间数值基准与标定台账：四仪器自主定量对账契约", 15),
@@ -105,7 +105,7 @@ CHECKS = [
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
     ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹/第二扫描一致性", 26),
-    ("paper_quant_check.py", "文献定量对账：Bellegarde盐校正+Rocknest3身份+比值矩阵+扫描内标定+APXS峰位自证+APXS比值层+PIQUANT×RQC对账", 29),
+    ("paper_quant_check.py", "文献定量对账：Bellegarde盐校正+Rocknest3身份+比值矩阵+扫描内标定+APXS峰位自证+APXS比值层+PIQUANT×RQC双扫描对账", 32),
 ]
 
 DIST_SCRIPTS={'multi_instrument_check.py','data_integrity_check.py','scientific_evidence_check.py',

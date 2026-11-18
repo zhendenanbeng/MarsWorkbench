@@ -22,7 +22,7 @@ def state_for(state):
         except (OSError,ValueError):folder=''
         import project_layout
         folder=str(project_layout.resolve_legacy(folder)) if folder else ''
-        state['pixl']={'folder':folder,'observations':[],'loaded':{},'exports':{},'report':pixl_workflow.ReportJob(),'lock':threading.RLock()}
+        state['pixl']={'folder':folder,'observations':[],'loaded':{},'exports':{},'report':pixl_workflow.ReportJob(),'piquant':pixl_workflow.PiquantJob(),'lock':threading.RLock()}
     return state['pixl']
 
 def load_folder(state,path):
@@ -221,6 +221,13 @@ def route(handler,state):
                     result['url']='/data/pixl/'+st['report_token']+'/index.html'
             return send(result)
         raise ValueError('报告操作无效')
+    if url.path.startswith('/api/pixl/piquant/'):
+        job=st['piquant']
+        if action=='start':
+            return send(job.start(p.get('scan_dir'),p.get('rqc') or None,int(p.get('stride',10))))
+        if action=='cancel':return send(job.cancel())
+        if action=='status':return send(job.snapshot())
+        raise ValueError('PIQUANT 对账操作无效')
     if action=='openreport':
         result=st['report'].snapshot();folder=result.get('folder')
         if result.get('running') or not folder or not (Path(folder)/'index.html').is_file():raise ValueError('报告尚未生成')

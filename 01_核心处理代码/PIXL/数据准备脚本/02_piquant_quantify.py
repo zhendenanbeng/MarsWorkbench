@@ -38,6 +38,7 @@ import csv
 import datetime
 import importlib.util
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -75,39 +76,45 @@ def load_rqc(rqc_p: Path):
     return rows
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description="PIQUANT 官方开源定量 × RQC 逐 PMC 对账")
-    ap.add_argument("--dir", default=None, help="SFS 下载目录（默认 sfs_sol0186）")
-    ap.add_argument("--rqc", default=None, help="RQC csv 路径（默认随包示例）")
-    ap.add_argument("--stride", type=int, default=10,
-                    help="PMC 抽样步长（默认 10；每谱 ~3s，步长 10 ≈ 280 点）")
-    ap.add_argument("--limit", type=int, default=0, help="最多量化多少个 PMC（0=不限）")
-    ap.add_argument("--detector", choices=("ENB", "ENA"), default="ENB",
-                    help="量化探测器（默认 ENB=FM 标定官方口径；ENA 未标定仅作参考）")
-    ap.add_argument("--no-write", action="store_true", help="只打印不写缓存")
-    args = ap.parse_args(argv)
+def reconcile(scan_dir, rqc_p=None, stride=10, limit=0, detector="ENB",
+              out_name="piquant_vs_rqc.json", no_write=False,
+              log=None, progress=None, cancel=None):
+    """PIQUANT×RQC 逐 PMC 对账核心（CLI 与工作台后台任务共用）。
+
+    返回 (doc dict, None) 或 (None, 原因)。log/progress/cancel 可选：
+    progress(done, total, label)；cancel() 返回 True 时中止且不落盘。
+    """
+    log = log or (lambda s: None)
+    import numpy as np
 
     st = piquant_bridge.status()
     if not st["available"]:
-        print("PIQUANT 不可用：%s" % st["reason"])
-        return 1
-    print("PIQUANT: %s" % st["bin"])
-    print("FM 配置: %s" % st["config"])
-    print("FM 标定: %s" % st["calibration"])
+        return None, st["reason"]
+    log("PIQUANT: %s" % st["bin"])
 
     pipe = _load_pipeline()
-    scan_dir = Path(args.dir) if args.dir else DR / "PIXL" / "下载" / "sfs_sol0186"
+    scan_dir = Path(scan_dir)
     if not scan_dir.is_dir():
-        print("SFS 目录不存在：%s" % scan_dir)
-        return 1
-    rqc_p = Path(args.rqc) if args.rqc else next((DR / "PIXL" / "随包示例").glob("*rqc*.csv"), None)
+        return None, "SFS 目录不存在：%s" % scan_dir
+    if rqc_p is None:
+        # 默认 RQC：随包可能有多份（不同扫描），按扫描名里的 sol 号匹配
+        # （sfs_sol0186 → 含 0186/0187 的文件）；匹配不到才退回第一份，
+        # 覆盖率门仍会拦住真正不匹配的组合。
+        cands = sorted((DR / "PIXL" / "随包示例").glob("*rqc*.csv"))
+        m = re.search(r"sol(\d{3,4})", scan_dir.name)
+        if m and cands:
+            sol = int(m.group(1))
+            prefer = [c for c in cands
+                      if any(("%04d" % (sol + off)) in c.name for off in (0, 1))]
+            if prefer:
+                cands = prefer
+        rqc_p = cands[0] if cands else None
 
     spec_by_pmc, lt_by_pmc = pipe.load_scan(scan_dir)
     pmcs = sorted(spec_by_pmc)
     if len(pmcs) < 3:
-        print("有效 PMC 不足 3（现 %d）" % len(pmcs))
-        return 1
-    print("PMC 总数 %d（%d-%d）" % (len(pmcs), pmcs[0], pmcs[-1]))
+        return None, "有效 PMC 不足 3（现 %d）" % len(pmcs)
+    log("PMC 总数 %d（%d-%d）" % (len(pmcs), pmcs[0], pmcs[-1]))
 
     # 1) 轴自证（与 01 相同的两探测器均值 v4 流程）
     det_means = []
@@ -116,37 +123,38 @@ def main(argv=None):
                   if det in spec_by_pmc[p] and lt_by_pmc[p][det] > 0
                   and str(lt_by_pmc[p][det]) != "nan"]
         if rows_d:
-            det_means.append(__import__("numpy").mean(__import__("numpy").vstack(rows_d), axis=0))
-    import numpy as np
+            det_means.append(np.mean(np.vstack(rows_d), axis=0))
+    if not det_means:
+        return None, "两探测器均无有效活时间行"
     axis = pipe.sfs_spectra.calibrate_energy(np.mean(det_means, axis=0))
-    print("能量自证: g=%.6f b=%+.4f（%s）" % (axis["keV_per_ch"], axis["zero_keV"], axis["mode"]))
+    log("能量自证: g=%.6f b=%+.4f（%s）" % (axis["keV_per_ch"], axis["zero_keV"], axis["mode"]))
 
     # 2) RQC 覆盖率门（PMC 是扫描内局部计数，双向覆盖 ≥95% 才算同扫描）
     if not (rqc_p and Path(rqc_p).is_file()):
-        print("RQC 不在位——无对账基准，退出（量化结果不落盘）")
-        return 1
+        return None, "RQC 不在位——无对账基准（量化结果不落盘）"
     rqc = load_rqc(Path(rqc_p))
     common = [p for p in pmcs if p in rqc]
     cover_sfs = len(common) / max(len(pmcs), 1)
     cover_rqc = len(common) / max(len(rqc), 1)
     if cover_sfs < 0.95 or cover_rqc < 0.95:
-        print("对账跳过：PMC 覆盖率不足（SFS 侧 %.0f%% / RQC 侧 %.0f%%）——扫描集与该 RQC 不匹配"
-              % (cover_sfs * 100, cover_rqc * 100))
-        return 1
-    print("RQC: %s（%d 行，覆盖率 %.0f%%/%.0f%%）" % (Path(rqc_p).name, len(rqc),
-                                                     cover_sfs * 100, cover_rqc * 100))
+        return None, ("PMC 覆盖率不足（SFS 侧 %.0f%% / RQC 侧 %.0f%%）——"
+                      "扫描集与该 RQC 不匹配" % (cover_sfs * 100, cover_rqc * 100))
+    log("RQC: %s（%d 行，覆盖率 %.0f%%/%.0f%%）" % (Path(rqc_p).name, len(rqc),
+                                                   cover_sfs * 100, cover_rqc * 100))
 
     # 3) 抽样逐 PMC 量化
-    sampled = [p for i, p in enumerate(pmcs) if i % max(args.stride, 1) == 0]
-    if args.limit > 0:
-        sampled = sampled[:args.limit]
-    print("抽样 %d/%d PMC（步长 %d，探测器 %s）——每谱约 3s，预计 ~%.0f 分钟"
-          % (len(sampled), len(pmcs), args.stride, args.detector,
-             len(sampled) * 3.0 / 60))
-    work = CACHE / "piquant_work"
+    sampled = [p for i, p in enumerate(pmcs) if i % max(stride, 1) == 0]
+    if limit > 0:
+        sampled = sampled[:limit]
+    log("抽样 %d/%d PMC（步长 %d，探测器 %s）——每谱约 3s，预计 ~%.0f 分钟"
+        % (len(sampled), len(pmcs), stride, detector, len(sampled) * 3.0 / 60))
+    # 中间目录按扫描名隔离：两个扫描并行跑批时 MSA/plot 同名会互相覆盖
+    work = CACHE / ("piquant_work_" + scan_dir.name)
     rows, fails = [], 0
     for n, p in enumerate(sampled, 1):
-        det = args.detector
+        if cancel is not None and cancel():
+            return None, "已取消（完成 %d/%d 点，部分结果不落盘）" % (n - 1, len(sampled))
+        det = detector
         if det not in spec_by_pmc[p]:
             det = "ENA" if det == "ENB" else "ENB"
             if det not in spec_by_pmc[p]:
@@ -161,12 +169,12 @@ def main(argv=None):
                 title="%s PMC%d %s" % (scan_dir.name, p, det))
         except (OSError, ValueError) as exc:
             fails += 1
-            print("  [%d/%d] PMC %d MSA 导出失败：%s" % (n, len(sampled), p, exc))
+            log("  [%d/%d] PMC %d MSA 导出失败：%s" % (n, len(sampled), p, exc))
             continue
         q, why = piquant_bridge.run_quant(msa, work, ELEMENT_LINES)
         if q is None:
             fails += 1
-            print("  [%d/%d] PMC %d quant 失败：%s" % (n, len(sampled), p, why))
+            log("  [%d/%d] PMC %d quant 失败：%s" % (n, len(sampled), p, why))
             continue
         r = rqc[p]
 
@@ -181,21 +189,21 @@ def main(argv=None):
             row["piquant_" + ox] = q["oxides"].get(ox)
             row["rqc_" + ox] = wt_of(ox)
         rows.append(row)
+        if progress is not None:
+            progress(n, len(sampled), "PMC %d" % p)
         if n % 20 == 0 or n == len(sampled):
             s = q["oxides"]
-            print("  [%d/%d] PMC %d: SiO2 %.2f FeO-T %.2f CaO %.2f（sum %.1f%%）"
-                  % (n, len(sampled), p, s.get("SiO2", -1), s.get("FeO-T", -1),
-                     s.get("CaO", -1), q.get("element_sum_pct", -1)))
+            log("  [%d/%d] PMC %d: SiO2 %.2f FeO-T %.2f CaO %.2f（sum %.1f%%）"
+                % (n, len(sampled), p, s.get("SiO2", -1), s.get("FeO-T", -1),
+                   s.get("CaO", -1), q.get("element_sum_pct", -1)))
     if fails:
-        print("失败 PMC：%d/%d（量化中断或导出失败的点不进对账）" % (fails, len(sampled)))
+        log("失败 PMC：%d/%d（量化中断或导出失败的点不进对账）" % (fails, len(sampled)))
     ok_rows = [r for r in rows
                if all(r.get("piquant_" + ox) is not None for ox in ("SiO2", "FeO-T"))]
     if len(ok_rows) < 10:
-        print("有效量化 <10 点——不足以对账")
-        return 1
+        return None, "有效量化 <10 点——不足以对账（失败 %d）" % fails
 
     # 4) 逐元素偏差统计（PIQUANT vs RQC，同 PMC）
-    import numpy as np
     stats = {}
     for ox in PIQUANT_OXIDES:
         pv = np.array([r["piquant_" + ox] for r in ok_rows], dtype=float)
@@ -212,35 +220,39 @@ def main(argv=None):
                      "corr": corr,
                      "piquant_median_wt": float(np.median(pv[good])),
                      "rqc_median_wt": float(np.median(rv[good]))}
-    print("\nPIQUANT(ENB, FM标定) vs 官方 RQC（同 PMC，正偏差=PIQUANT 偏高）:")
+    log("PIQUANT(%s, FM标定) vs 官方 RQC（同 PMC，正偏差=PIQUANT 偏高）:" % detector)
     for ox, s in sorted(stats.items(), key=lambda kv: kv[1]["mean_abs_rel_dev_pct"]):
-        print("  %-5s n=%-4d 中位偏差 %+6.1f%%  平均|偏差| %5.1f%%  P90 %5.1f%%  相关 %.4f"
-              % (ox, s["n"], s["median_rel_dev_pct"], s["mean_abs_rel_dev_pct"],
-                 s["p90_abs_rel_dev_pct"], s["corr"]))
+        log("  %-5s n=%-4d 中位偏差 %+6.1f%%  平均|偏差| %5.1f%%  P90 %5.1f%%  相关 %.4f"
+            % (ox, s["n"], s["median_rel_dev_pct"], s["mean_abs_rel_dev_pct"],
+               s["p90_abs_rel_dev_pct"], s["corr"]))
 
-    if args.no_write:
-        print("--no-write：缓存未改动")
-        return 0
+    if no_write:
+        log("--no-write：缓存未改动")
+        return {"stats": stats, "n_quantified": len(ok_rows),
+                "n_failed": fails, "scan_dir": scan_dir.name,
+                "axis_keV_per_ch": axis["keV_per_ch"],
+                "detector": detector, "stride": stride, "rows": ok_rows,
+                "no_write": True}, None
 
     # 5) 落盘
     stamp = UTC_NOW()
-    # 中间文件清理：MSA 输入与 plot 曲线可由本脚本重新生成（全部结果行
-    # 已进 piquant_vs_rqc.json），成功收尾后删除，避免缓存目录膨胀。
-    import shutil
-    shutil.rmtree(work, ignore_errors=True)
+    out_name = out_name if out_name.endswith(".json") else out_name + ".json"
+    if out_name != Path(out_name).name:
+        return None, "--out 只取文件名（写入 缓存/），拒绝路径：%s" % out_name
+    rep_name = out_name[:-5] + "_report.md"
     doc = {
         "scope": "PIQUANT（PIXL 官方开源定量，github.com/pixlise/piquant 本地构建）对"
-                 "同一份 SFS 原始谱做官方算法复现：ENB 谱 × FM 配置/FM 标定"
-                 "（SurfaceOps Rev1 Jul2021，官方 COMMENT 指定 B 探测器）→ wt% 与"
+                 "同一份 SFS 原始谱做官方算法复现：%s 谱 × FM 配置/FM 标定"
+                 "（SurfaceOps Rev1 Jul2021，官方 COMMENT 指定 B 探测器）→ wt%% 与"
                  "官方 RQC（A/B 择低逐 PMC 值）对账。两边口径差异（探测器选择、"
                  "标定代次）计入偏差，不代表任一方错误。与本仓库自研峰面积层"
-                 "（sfs_vs_rqc.json）口径分开。",
+                 "（sfs_vs_rqc.json）口径分开。" % detector,
         "piquant_bin_sha256": __import__("hashlib").sha256(
             Path(piquant_bridge.piquant_bin()).read_bytes()).hexdigest(),
         "scan_dir": scan_dir.name,
         "rqc": Path(rqc_p).name,
-        "detector": args.detector,
-        "stride": args.stride,
+        "detector": detector,
+        "stride": stride,
         "axis_keV_per_ch": axis["keV_per_ch"], "axis_zero_keV": axis["zero_keV"],
         "n_pmc_total": len(pmcs), "n_quantified": len(ok_rows), "n_failed": fails,
         "element_lines": ELEMENT_LINES,
@@ -249,12 +261,16 @@ def main(argv=None):
         "generated_utc": stamp,
     }
     CACHE.mkdir(parents=True, exist_ok=True)
-    (CACHE / "piquant_vs_rqc.json").write_text(
+    # 中间文件清理：MSA 输入与 plot 曲线可由本脚本重新生成（全部结果行
+    # 已进 JSON），成功收尾后删除，避免缓存目录膨胀。
+    import shutil
+    shutil.rmtree(work, ignore_errors=True)
+    (CACHE / out_name).write_text(
         json.dumps(doc, ensure_ascii=False), encoding="utf-8")
     rep = ["# PIQUANT × RQC 对账（%s，%s）" % (scan_dir.name, stamp),
            "",
-           "PIQUANT 官方开源定量（ENB × FM 标定）vs 官方 RQC，同 PMC 抽样 %d 点"
-           "（步长 %d）。正偏差 = PIQUANT 偏高。" % (len(ok_rows), args.stride),
+           "PIQUANT 官方开源定量（%s × FM 标定）vs 官方 RQC，同 PMC 抽样 %d 点"
+           "（步长 %d）。正偏差 = PIQUANT 偏高。" % (detector, len(ok_rows), stride),
            "",
            "| 氧化物 | n | 中位偏差 | 平均\\|偏差\\| | P90 | 相关 |",
            "|---|---|---|---|---|---|"]
@@ -265,8 +281,36 @@ def main(argv=None):
     rep.append("")
     rep.append("FM 标定不覆盖 P2O5/MnO/Cr2O3/Sr（无 ECF 条目），该四项不在本层对账内；"
                "Na2O 属低能已知难点（表面效应+标定代次差异），偏差单独解读。")
-    (CACHE / "piquant_vs_rqc_report.md").write_text("\n".join(rep), encoding="utf-8")
-    print("\n缓存写入 %s（piquant_vs_rqc.json + 报告 md）" % CACHE)
+    (CACHE / rep_name).write_text("\n".join(rep), encoding="utf-8")
+    log("缓存写入 %s（%s + %s）" % (CACHE, out_name, rep_name))
+    return doc, None
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="PIQUANT 官方开源定量 × RQC 逐 PMC 对账")
+    ap.add_argument("--dir", default=None, help="SFS 下载目录（默认 sfs_sol0186）")
+    ap.add_argument("--rqc", default=None, help="RQC csv 路径（默认随包示例）")
+    ap.add_argument("--stride", type=int, default=10,
+                    help="PMC 抽样步长（默认 10；每谱 ~3s，步长 10 ≈ 280 点）")
+    ap.add_argument("--limit", type=int, default=0, help="最多量化多少个 PMC（0=不限）")
+    ap.add_argument("--detector", choices=("ENB", "ENA"), default="ENB",
+                    help="量化探测器（默认 ENB=FM 标定官方口径；ENA 未标定仅作参考）")
+    ap.add_argument("--out", default="piquant_vs_rqc.json",
+                    help="输出缓存文件名（默认 piquant_vs_rqc.json=主对账/Bellegarde；"
+                         "第二扫描用独立名字避免覆盖主结果）")
+    ap.add_argument("--no-write", action="store_true", help="只打印不写缓存")
+    args = ap.parse_args(argv)
+
+    def log(s):
+        print(s, flush=True)
+
+    scan_dir = Path(args.dir) if args.dir else DR / "PIXL" / "下载" / "sfs_sol0186"
+    doc, why = reconcile(scan_dir, rqc_p=args.rqc, stride=args.stride,
+                         limit=args.limit, detector=args.detector,
+                         out_name=args.out, no_write=args.no_write, log=log)
+    if doc is None:
+        print("对账未完成：%s" % why)
+        return 1
     return 0
 
 

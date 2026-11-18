@@ -108,6 +108,10 @@ def main():
             with patch.dict(os.environ,{'MARSWORKBENCH_HEADLESS':'0'}),patch.object(desktop,'open_app_window') as opened:
                 request('/api/pixl/openreport',{})
             check('数据检查与成分报告' in body.decode() and b'41.6797' in sub_body and status['done']==1 and denied and opened.call_count==1 and opened.call_args[0][0].endswith('index.html'),'实际HTTP独立CSV和后台报告完成，自动打开已生成报告且只允许已生成目录')
+            pq=request('/api/pixl/piquant/status')
+            try:request('/api/pixl/piquant/start',{'scan_dir':str(temp/'no-such-scan')});pq_bad=False
+            except urllib.error.HTTPError as e:pq_bad=e.code==400
+            check(pq.get('running') is False and pq_bad,'PIQUANT 对账后台任务：状态快照可用、坏目录显式拒绝（不静默起跑）')
         finally:
             for s in servers:s.shutdown();s.server_close()
             for t in threads:t.join()

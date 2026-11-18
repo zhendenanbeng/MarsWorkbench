@@ -142,6 +142,7 @@ def main():
               "Mg# 复算 %.1f vs 论文 13.6（±2.0）" % mgp)
 
     # ========== 1b. PIXL PIQUANT × RQC 对账（官方开源定量层，缓存）==========
+    pq = None
     pq_p = data_root / "PIXL/缓存/piquant_vs_rqc.json" if data_root.is_dir() else None
     if not (pq_p and pq_p.is_file()):
         skip("PIXL PIQUANT×RQC 对账（piquant_vs_rqc.json 不在位——02 号脚本未跑或环境未部署）")
@@ -172,6 +173,30 @@ def main():
                   "PIQUANT 可执行指纹与注册表一致（防静默换版）")
         else:
             skip("PIQUANT 指纹核对（piquant_path.json 不在位）")
+
+    # ========== 1c. PIXL PIQUANT×RQC 第二扫描（跨扫描泛化）==========
+    pq2_p = data_root / "PIXL/缓存/piquant_vs_rqc_sol0300.json" if data_root.is_dir() else None
+    if not (pq2_p and pq2_p.is_file()):
+        skip("PIXL PIQUANT×RQC 第二扫描（piquant_vs_rqc_sol0300.json 不在位——"
+             "02 号脚本 --dir sfs_sol0300 未跑）")
+    else:
+        pq2 = json.loads(pq2_p.read_text(encoding="utf-8"))
+        st2 = pq2.get("stats", {})
+        check(pq2.get("scan_dir") == "sfs_sol0300" and pq2.get("detector") == "ENB"
+              and pq2.get("n_failed") == 0 and pq2.get("n_quantified", 0) >= 250,
+              "第二扫描规模：sol0300 ENB %d 点零失败"
+              % pq2.get("n_quantified", 0))
+        majors2 = ("FeO-T", "SiO2", "CaO", "Al2O3")
+        ok2 = all(o in st2 and st2[o]["corr"] >= 0.85
+                  and abs(st2[o]["median_rel_dev_pct"]) <= 6.0 for o in majors2)
+        check(ok2, "第二扫描四大主量：相关 ≥0.85 且中位偏差 ≤6%%（%s）"
+              % "; ".join("%s %+.1f%%/%.3f" % (o, st2[o]["median_rel_dev_pct"],
+                                              st2[o]["corr"])
+                          for o in majors2 if o in st2))
+        ax1 = pq.get("axis_keV_per_ch") if pq else None
+        ax2 = pq2.get("axis_keV_per_ch")
+        check(ax1 and ax2 and abs(ax1 - ax2) / ax1 < 0.01,
+              "两扫描独立自证能量轴一致 ±1%%（%.6f vs %.6f）" % (ax1 or 0, ax2 or 0))
 
     # ========== 2. APXS Rocknest3_rp（Schmidt 2013 / LPSC 2014）==========
     fix = _layout.project_layout.VERIFY / "fixtures/apxs/sol00102"

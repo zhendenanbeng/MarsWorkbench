@@ -1,7 +1,7 @@
 {
  "scope": "已发表标定成分与精度声明的结构化台账（四仪器自主定量管线的对账锚点）。行来自可公开获取的出版文本并带定位；granularity: target_inventory=靶清单、metric=精度指标、method=方法路线。不是盲测真值，定量链不消费本文件。",
  "version": 2,
- "generated_utc": "2026-11-18T16:41:17Z",
+ "generated_utc": "2026-11-18T17:29:04Z",
  "sources": [
   {
    "key": "wiens2012",
@@ -213,7 +213,7 @@
    "instrument": "pixl",
    "item": "piquant_fm_layer",
    "granularity": "method",
-   "detail": "PIQUANT 官方开源定量本地构建接入（MSVC/NMake @ e855f61，exe sha256 7e84c414…，缓存 piquant_path.json 注册）：ENB 谱 × FM 配置/FM 标定（官方 COMMENT 指定 B 探测器）逐 PMC wt%，与官方 RQC（A/B 择低）对账——Bellegarde sol0186 抽样 281 点零失败，四大主量 FeO-T/SiO2/CaO/Al2O3 中位偏差 -1.6/-2.3/-4.0/-4.3%、相关 0.993/0.980/0.994/0.994；Na/Mg/K/Ti 系统性负偏 10–13%（标定代次+探测器差异，非本层错误）；FM 标定不覆盖 P2O5/MnO/Cr2O3/Sr（无 ECF 条目）。结果见 缓存/piquant_vs_rqc.json，复跑 数据准备脚本/02_piquant_quantify.py。",
+   "detail": "PIQUANT 官方开源定量本地构建接入（MSVC/NMake @ e855f61，exe sha256 7e84c414…，缓存 piquant_path.json 注册）：ENB 谱 × FM 配置/FM 标定（SurfaceOps Rev1 Jul2021，官方 COMMENT 指定 B 探测器）逐 PMC wt%，与官方 RQC（A/B 择低）双扫描对账——Bellegarde sol0186 抽样 281 点零失败：FeO-T/SiO2/CaO/Al2O3 中位偏差 -1.6/-2.3/-4.0/-4.3%、相关 0.993/0.980/0.994/0.994；第二扫描 sol0300（334 点零失败）复验泛化：FeO-T -0.7%/Cl -0.2%/SO3 -3.9%/CaO -4.9%/Al2O3 -3.9%（相关 0.886-0.997），两扫描独立自证能量轴仅差 0.3%（0.0078638 vs 0.007887）；Na/Mg/K/Ti 系统性负偏（Bellegarde 10-13%），sol0300 痕量段 RQC 近检出限时相对偏差失真放大——标定代次+探测器口径+含量区间差异如实入档；FM 标定不覆盖 P2O5/MnO/Cr2O3/Sr（无 ECF 条目）。结果见 缓存/piquant_vs_rqc.json（主）与 piquant_vs_rqc_sol0300.json（第二扫描），复跑 数据准备脚本/02_piquant_quantify.py 或工作台 PIXL 台 SFS 面板批量入口。",
    "source_key": "piquant_repo",
    "locator": "test/data/config/PIXL/（Config_PIXL_FM_SurfaceOps_Rev1_Jul2021.msa + Calibration_*_5minECFs_Rev1_Jul2021.csv）"
   }

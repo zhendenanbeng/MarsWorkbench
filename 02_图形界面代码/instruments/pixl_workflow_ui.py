@@ -103,7 +103,25 @@ api('sfs').then(async d=>{
       if(pq.n_quantified&&pq.majors&&pq.majors.length){
         pqTxt+='｜'+pq.scan_dir+' '+pq.n_quantified+' 点对账：'+pq.majors.map(function(m){return m.oxide+' 中位偏差 '+m.median_dev_pct.toFixed(1)+'%（相关 '+m.corr.toFixed(3)+'）';}).join('，');
       }else{pqTxt+='｜批量对账未跑：用数据准备脚本 02_piquant_quantify.py 生成 piquant_vs_rqc.json';}
-      sfs.innerHTML+='<p style="margin:4px 0;border-top:1px dashed #555;padding-top:4px;font-size:12px">'+pqTxt+'。</p>';
+      var pqDiv=document.createElement('p');
+      pqDiv.style.cssText='margin:4px 0;border-top:1px dashed #555;padding-top:4px;font-size:12px';
+      pqDiv.innerHTML=pqTxt+' <button id="pqRunBtn" style="font-size:11px">运行本扫描对账（步长10，约15分钟）</button> <span id="pqMsg"></span>';
+      sfs.appendChild(pqDiv);
+      $('pqRunBtn').onclick=async()=>{
+        $('pqRunBtn').disabled=true;
+        try{await api('piquant/start',{scan_dir:d.scan_dir});pollPiquant();}
+        catch(e){$('pqMsg').textContent='未启动：'+e.message;$('pqRunBtn').disabled=false;}
+      };
+      function pollPiquant(){
+        api('piquant/status').then(s=>{
+          if(s.running){$('pqMsg').textContent='正在对账… '+(s.done||0)+' / '+(s.total||'?')+' 点';setTimeout(pollPiquant,1500);return;}
+          $('pqRunBtn').disabled=false;
+          if(s.status==='completed'){
+            $('pqMsg').textContent='完成：'+s.n_quantified+' 点零失败 → '+s.out+'（'+s.majors.map(function(m){return m.oxide+' '+m.median_dev_pct.toFixed(1)+'%';}).join('、')+'）';
+          }else if(s.status==='cancelled'){$('pqMsg').textContent='已取消'+(s.error?'：'+s.error:'');}
+          else if(s.status==='failed'){$('pqMsg').textContent='失败：'+(s.error||'未知');}
+        }).catch(()=>setTimeout(pollPiquant,2500));
+      }
     }else{
       sfs.innerHTML+='<p style="margin:4px 0;font-size:12px;color:#999">PIQUANT 官方定量层未部署（可选）：'+(pq.reason||'配置见操作手册')+'</p>';
     }
