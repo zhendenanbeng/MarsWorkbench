@@ -99,16 +99,17 @@ CHECKS = [
     ("gold_intervals_check.py", "区间数值基准与标定台账：四仪器自主定量对账契约", 15),
     ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、auto选择、模型往返与安全降级", 21),
     ("pixl_sfs_check.py", "PIXL SFS谱层：读取、能量自证、峰面积恢复与安全降级", 10),
+    ("piquant_check.py", "PIQUANT官方开源定量桥：FM配置/标定齐备、stdout解析、MSA导出与官方谱基线复现（PIQUANT未配置则跳过）", 13),
     ("apxs_fit_check.py", "APXS峰拟合：合成能谱峰高恢复、检出判定与越界不猜值", 9),
     ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩、判定结构与类目映射注记", 7),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
     ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹/第二扫描一致性", 26),
-    ("paper_quant_check.py", "文献定量对账：Bellegarde盐校正+Rocknest3身份+比值矩阵+扫描内标定+APXS峰位自证+APXS比值层", 24),
+    ("paper_quant_check.py", "文献定量对账：Bellegarde盐校正+Rocknest3身份+比值矩阵+扫描内标定+APXS峰位自证+APXS比值层+PIQUANT×RQC对账", 29),
 ]
 
 DIST_SCRIPTS={'multi_instrument_check.py','data_integrity_check.py','scientific_evidence_check.py',
-              'fit_profile_check.py','repeatability_check.py','chemcam_passive_check.py','phase11_check.py','pixl_browser_check.py','pixl_download_check.py','workflow_alignment_check.py','instbkg_check.py','published_targets_check.py','gold_intervals_check.py','libs_quant_check.py','pixl_sfs_check.py','apxs_fit_check.py','paper_crosscheck_check.py','theme_check.py','layout_check.py'}
+              'fit_profile_check.py','repeatability_check.py','chemcam_passive_check.py','phase11_check.py','pixl_browser_check.py','pixl_download_check.py','workflow_alignment_check.py','instbkg_check.py','published_targets_check.py','gold_intervals_check.py','libs_quant_check.py','pixl_sfs_check.py','piquant_check.py','apxs_fit_check.py','paper_crosscheck_check.py','theme_check.py','layout_check.py'}
 
 
 def run(script, args=()):

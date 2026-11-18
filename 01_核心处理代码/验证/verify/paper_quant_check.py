@@ -141,6 +141,38 @@ def main():
         check(abs(mgp - 13.6) <= 2.0,
               "Mg# 复算 %.1f vs 论文 13.6（±2.0）" % mgp)
 
+    # ========== 1b. PIXL PIQUANT × RQC 对账（官方开源定量层，缓存）==========
+    pq_p = data_root / "PIXL/缓存/piquant_vs_rqc.json" if data_root.is_dir() else None
+    if not (pq_p and pq_p.is_file()):
+        skip("PIXL PIQUANT×RQC 对账（piquant_vs_rqc.json 不在位——02 号脚本未跑或环境未部署）")
+    else:
+        pq = json.loads(pq_p.read_text(encoding="utf-8"))
+        st = pq.get("stats", {})
+        check(pq.get("detector") == "ENB" and pq.get("n_failed") == 0
+              and pq.get("n_quantified", 0) == len(pq.get("rows", [])) >= 250,
+              "PIQUANT 对账规模：ENB 逐 PMC %d 点零失败（步长 %s）"
+              % (pq.get("n_quantified", 0), pq.get("stride")))
+        majors = ("FeO-T", "SiO2", "CaO", "Al2O3")
+        ok_m = all(o in st and st[o]["corr"] >= 0.97
+                   and abs(st[o]["median_rel_dev_pct"]) <= 5.0 for o in majors)
+        check(ok_m, "四大主量（FeO-T/SiO2/CaO/Al2O3）：相关 ≥0.97 且中位偏差 ≤5%%"
+                    "（%s）" % "; ".join("%s %+.1f%%/%.3f" % (o, st[o]["median_rel_dev_pct"],
+                                                            st[o]["corr"])
+                                        for o in majors if o in st))
+        ok_all = all(s["corr"] >= 0.75 for s in st.values()) and len(st) == 10
+        check(ok_all, "全部 10 氧化物相关 ≥0.75（最弱 %s）"
+              % min(st.items(), key=lambda kv: kv[1]["corr"])[0] if st else "空")
+        check(pq.get("scan_dir") == "sfs_sol0186" and "rqc" in pq,
+              "对账扫描与基准留痕（%s × %s）" % (pq.get("scan_dir"), pq.get("rqc")))
+        # 溯源一致性：JSON 里的 exe 指纹 = piquant_path.json 注册指纹
+        ppj = data_root / "PIXL/缓存/piquant_path.json"
+        if ppj.is_file():
+            reg = json.loads(ppj.read_text(encoding="utf-8")).get("sha256", {})
+            check(reg.get("Piquant.exe") == pq.get("piquant_bin_sha256"),
+                  "PIQUANT 可执行指纹与注册表一致（防静默换版）")
+        else:
+            skip("PIQUANT 指纹核对（piquant_path.json 不在位）")
+
     # ========== 2. APXS Rocknest3_rp（Schmidt 2013 / LPSC 2014）==========
     fix = _layout.project_layout.VERIFY / "fixtures/apxs/sol00102"
     rsp = fix / "apa_406545731rsp01020050178_______p1.csv"

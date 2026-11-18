@@ -140,11 +140,40 @@ def route(handler,state):
                           for r in (mat.get('ratios') or [])[:6]]
         except Exception:
             ratios = []
+        # PIQUANT 官方开源定量层（第三条对账线）：只读缓存状态，不在此
+        # 起 subprocess——批量对账走 数据准备脚本/02_piquant_quantify.py
+        piquant = {'available': False}
+        try:
+            from instruments import piquant_bridge
+            pq_status = piquant_bridge.status()
+            if pq_status.get('available'):
+                piquant = {'available': True, 'bin': pq_status.get('bin', ''),
+                           'n_quantified': None, 'majors': [], 'scope': None}
+                pq_p = (project_layout.data_root() / 'PIXL' / '缓存'
+                        / 'piquant_vs_rqc.json')
+                if pq_p.is_file():
+                    pq = json.loads(pq_p.read_text(encoding='utf-8'))
+                    majors = ('FeO-T', 'SiO2', 'CaO', 'Al2O3')
+                    stats = pq.get('stats', {})
+                    piquant.update({
+                        'n_quantified': pq.get('n_quantified'),
+                        'scan_dir': pq.get('scan_dir'),
+                        'majors': [{'oxide': o,
+                                    'median_dev_pct': round(
+                                        stats[o]['median_rel_dev_pct'], 1),
+                                    'corr': round(stats[o]['corr'], 3)}
+                                   for o in majors if o in stats],
+                        'scope': pq.get('scope'),
+                    })
+            else:
+                piquant = {'available': False, 'reason': pq_status.get('reason')}
+        except Exception:
+            pass
         return send({'available': True, 'axis': doc.get('axis'),
                      'mode': doc.get('mode'), 'scan_dir': scan_used or doc.get('scan_dir'),
                      'ca_corr': doc.get('ca_corr'), 'fe_corr': doc.get('fe_corr'),
                      'n_pmc': doc.get('n_pmc'), 'scope': doc.get('scope'),
-                     'ratios': ratios, 'spectrum': spectrum})
+                     'ratios': ratios, 'spectrum': spectrum, 'piquant': piquant})
     if url.path.startswith('/data/pixl/'):
         parts=urllib.parse.unquote(url.path).split('/')
         folder=st['exports'].get(parts[3] if len(parts)>=5 else '')
