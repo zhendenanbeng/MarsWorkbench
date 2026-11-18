@@ -38,3 +38,6 @@ portable.flag
 02_图形界面代码/build/
 dist/
 build/
+
+# ---- 汇报材料：仅在本地保留，不随仓库分发 ----
+/SHERLOC报告/
