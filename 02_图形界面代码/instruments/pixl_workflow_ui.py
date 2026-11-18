@@ -107,7 +107,9 @@ api('sfs').then(async d=>{
       pqDiv.style.cssText='margin:4px 0;border-top:1px dashed #555;padding-top:4px;font-size:12px';
       pqDiv.innerHTML=pqTxt+' <button id="pqRunBtn" style="font-size:11px">运行本扫描对账（步长10，约15分钟）</button> <span id="pqMsg"></span>';
       sfs.appendChild(pqDiv);
-      $('pqRunBtn').onclick=async()=>{
+      // 此刻 sfs 尚未插入文档——getElementById 找不到游离子树里的元素，
+      // 必须经 pqDiv 作用域绑定；点击/轮询时面板已入文档，$() 可用。
+      pqDiv.querySelector('button').onclick=async()=>{
         $('pqRunBtn').disabled=true;
         try{await api('piquant/start',{scan_dir:d.scan_dir});pollPiquant();}
         catch(e){$('pqMsg').textContent='未启动：'+e.message;$('pqRunBtn').disabled=false;}
@@ -146,7 +148,7 @@ api('sfs').then(async d=>{
     }
   }
   document.body.insertBefore(sfs, document.body.firstChild.nextSibling);
-}).catch(()=>{});
+}).catch(e=>{try{var f=document.createElement('div');f.style.cssText='margin:12px 0;padding:10px;border:1px solid #444';f.innerHTML='<b>SFS 原始谱层</b><p style="margin:4px 0">面板数据加载失败：'+(e&&e.message||e)+'</p>';document.body.insertBefore(f, document.body.firstChild.nextSibling);}catch(_e){}});
 })();</script></body></html>'''
 
 PAGE=PAGE.replace('__NAV__',history.NAV_JS).replace('__DOWNLOAD__',pixl_download_ui.HTML).replace('__DOWNLOAD_JS__',pixl_download_ui.JS)

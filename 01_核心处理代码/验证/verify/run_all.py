@@ -91,7 +91,7 @@ CHECKS = [
     ("phase9_spatial_experiment.py --check", "第九期 R2 空间维度判别失败事实锁定", 3),
     ("phase10_check.py", "第十期图像浏览、报告闭环与谱库止损事实（library 指纹段已绑 2026-11-19 重算基线，止损结论跨树复现）", 16),
     ("phase11_check.py", "第十一期产品状态与发布契约", 23),
-    ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离", 26),
+    ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离、PIQUANT入口前端契约与SFS采样缓存", 28),
     ("pixl_download_check.py", "PIXL清单、官方直链、下载校验、复用/取消与失败隔离", 20),
     ("workflow_alignment_check.py", "工作台操作统一：真实PMC导航、独立导出、全目录报告、PIQUANT对账入口与共享偏好", 17),
     ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧、部分覆盖越界契约", 20),

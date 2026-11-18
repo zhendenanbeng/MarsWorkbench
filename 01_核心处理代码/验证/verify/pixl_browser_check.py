@@ -89,6 +89,8 @@ def main():
         scripts='\n'.join(re.findall(r'<script[^>]*>(.*?)</script>',pixl_view.PAGE,re.S))
         syntax=subprocess.run([shutil.which('node'),'--check'],input=scripts,text=True,capture_output=True)
         check(syntax.returncode==0 and 'id="pixlCard"' in launch.PAGE and 'PIXL' in pixl_view.PAGE,'启动器入口和实际前端脚本语法')
+        check("$('pqRunBtn').onclick" not in scripts and "pqDiv.querySelector('button').onclick" in scripts and '面板数据加载失败' in scripts,'PIQUANT 批量入口按钮在面板入文档前经游离节点作用域绑定（getElementById 对游离子树返回 null），SFS 面板失败可见降级不静默')
+        check('_SFS_SAMPLE_CACHE' in (_layout.project_layout.APP/'pixl_view.py').read_text(encoding='utf-8'),'SFS 采样谱按文件指纹缓存（全扫描重读 ~4s/次否则每次进台都白等）')
         class Handler(BaseHTTPRequestHandler):
             def log_message(self,*a):pass
             def _send(self,status,ctype,body):self.send_response(status);self.send_header('Content-Type',ctype);self.end_headers();self.wfile.write(body)
