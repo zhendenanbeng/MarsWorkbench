@@ -126,11 +126,11 @@ def library_checks():
     science={'library.py','minerals.py','qc.py','preprocess.py','peaks.py','fitting.py','reader.py','label.py','organize.py','repeatability.py'}
     sources=all(hashlib.sha256(_layout.project_layout.runtime_path(name).read_bytes()).hexdigest()==sha for name,sha in data['production_source_sha256'].items() if Path(name).name in science)
     inputs=all(hashlib.sha256(_layout.project_layout.resolve_legacy(ROOT.parent/name).read_bytes()).hexdigest()==sha for name,sha in data['input_sha256'].items())
-    check(sources and inputs and len(rows)==112 and sum(r['named'] for r in rows)==50 and data['unnamed']==62,'谱库诊断须绑定冻结来源和112个规则组，不能套到新内核/新数据')
+    check(sources and inputs and len(rows)==233 and sum(r['named'] for r in rows)==67 and data['unnamed']==166,'谱库诊断须绑定冻结来源和233个规则组（2026-11-19 当前树重算），不能套到新内核/新数据')
     visible=[len([v for v in library.sample_peaks(modes) if 800<=v<=1800]) for cls in library.REFERENCE.values() for _,_,modes in cls['samples']]
     check(data['global_snr_scale_invariant'] and len(visible)==103 and visible.count(0)==38 and visible.count(1)==19,'锁定统一SNR缩放不改变当前分数、参考窗口信息不足的诊断事实')
     cross=Counter((r['rule_key'],r['library_class']) for r in rows)
-    check(cross[('unassigned','oxychlorine')]==15 and cross[('unassigned','borate')]==13 and cross[('unassigned','sulfate')]==12 and all(abs(score_auc(rows,m)-data['full_data_auc'][m])<1e-12 for m in METHODS),'交叉表与原始代理AUC须可从冻结峰组独立复算，不套用预期误分对')
+    check(cross[('unassigned','oxychlorine')]==51 and cross[('unassigned','borate')]==50 and cross[('unassigned','sulfate')]==18 and all(abs(score_auc(rows,m)-data['full_data_auc'][m])<1e-12 for m in METHODS),'交叉表与原始代理AUC须可从冻结峰组独立复算，不套用预期误分对')
     folds=data['folds'];tests=[s for f in folds for s in f['test_sols']]
     check(len(tests)==len(set(tests)) and all(not(set(f['test_sols'])&set(f['train_sols'])) for f in folds) and data['decision']=='close_no_heldout_path' and max(data['sol_blocked_macro_auc'][m] for m in METHODS[1:])<.70 and not data['default_changed'],'Sol留出不能泄漏；三项均未达继续线时必须止损，不接默认')
 
@@ -146,15 +146,11 @@ def main():
         image_checks(Path(folder))
         map_checks(Path(folder))
         trust_checks(Path(folder))
-        # library_checks 对整棵练习树做 sha256 指纹并与冻结 C_交付诊断.json
-        # （0.16.0 时代树）对账；当前仓练习树已更换，指纹必不匹配——
-        # 数据在位才跑，否则显式跳过（重算基线属独立任务）。
-        import os as _os
-        if _os.path.isdir(_os.path.join(str(ROOT), "..", "03_下载数据", "SHERLOC",
-                                        "练习数据", "raw", "sol_00162")):
-            library_checks()
-        else:
-            print("SKIP 数据不在位：练习树 raw/sol_00162 缺席（C_交付诊断指纹绑定 0.16.0 时代树）")
+        # library_checks 与冻结 C_交付诊断.json（2026-11-19 当前练习树重算，
+        # 旧 0.16.0 时代基线存档于 C_交付诊断_0160旧树存档.json）对账；
+        # 练习树或 sherloc 内核再变更时指纹比对 FAIL——按纪律重新诊断冻结，
+        # 不静默跳过。
+        library_checks()
     print('共 %d 项断言，%d 项失败'%(TOTAL,FAIL))
     return int(FAIL>0)
 

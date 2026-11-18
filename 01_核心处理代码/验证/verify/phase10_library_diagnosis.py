@@ -152,8 +152,10 @@ def diagnose():
                            '输入只保留最多四个拟合峰；统一噪声尺度可改变上游选峰，但在当前打分的最大值归一化后不改变相对权重。',
                            '局部峰比试验只用观测侧，库中缺成对强度标定，不能当物理峰比模型。',
                            '不同化学族或混合/模糊规则类不能一一对应；交叉表和排序倒置不是矿物误分类率。'],
-            'production_library_sha256':hashlib.sha256((APP/'sherloc/library.py').read_bytes()).hexdigest(),
-            'production_source_sha256':{p.relative_to(APP).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((APP/'sherloc').glob('*.py'))},
+            'production_library_sha256':hashlib.sha256(Path(library.__file__).resolve().read_bytes()).hexdigest(),
+            # 键保持 runtime_sources 的逻辑名（sherloc/xxx.py）：布局迁移后
+            # 物理位置由 project_layout.runtime_path 解析，phase10_check 直接比对
+            'production_source_sha256':{('sherloc/'+p.name):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path(library.__file__).resolve().parent.glob('*.py'))},
             'input_sha256':inputs,'rows':rows}
 
 

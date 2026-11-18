@@ -89,7 +89,7 @@ CHECKS = [
     ("phase7_pixl_check.py", "第七/八期 SuperCam×PIXL 对照（RMC/映射/负载/降级/报告页）", 8),
     ("phase7_r2bg_experiment.py --check", "R2 续作：背景竞争判别失败事实锁定", 3),
     ("phase9_spatial_experiment.py --check", "第九期 R2 空间维度判别失败事实锁定", 3),
-    ("phase10_check.py", "第十期图像浏览、报告闭环与谱库止损事实（library 指纹段需 0.16.0 时代练习树，暂跳过）", 12),
+    ("phase10_check.py", "第十期图像浏览、报告闭环与谱库止损事实（library 指纹段已绑 2026-11-19 重算基线，止损结论跨树复现）", 16),
     ("phase11_check.py", "第十一期产品状态与发布契约", 23),
     ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离", 26),
     ("pixl_download_check.py", "PIXL清单、官方直链、下载校验、复用/取消与失败隔离", 20),
@@ -104,7 +104,7 @@ CHECKS = [
     ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩、判定结构与类目映射注记", 7),
     ("theme_check.py", "整套主题、导航、配色偏好与原控件/图表/报告", 18),
     ("layout_check.py", "目录分离、数据原件、手册与打包路径", 12),
-    ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹/第二扫描一致性", 26),
+    ("data_audit.py", "独立数据审计：训练谱SHA/CV真留一复算/SFS与APXS峰面积复算/台账指纹/第二扫描一致性/PIQUANT复算", 30),
     ("paper_quant_check.py", "文献定量对账：Bellegarde盐校正+Rocknest3身份+比值矩阵+扫描内标定+APXS峰位自证+APXS比值层+PIQUANT×RQC双扫描对账", 32),
 ]
 

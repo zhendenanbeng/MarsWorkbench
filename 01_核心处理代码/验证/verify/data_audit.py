@@ -10,6 +10,8 @@
   5. PIXL 能量轴/峰面积独立复算 vs sfs_vs_rqc.json（相关系数 ±0.005）
   6. APXS rocknest3_rp 峰面积独立复算 vs apxs_peak_areas.json（逐元素）
   7. 台账/对账摘要来源指纹在场
+  8. PIQUANT 对账复算：行数↔stats 一致性、RQC 原表交叉核验（抽 20 点）、
+     spot 重 quant 逐位复现台账 wt%（确定性拟合）
 
 审计哲学与 independent_check.py 一致：独立重算、逐项报 OK/FAIL/SKIP；
 冻结数字对不上=FAIL（审计失败，需要查管线），缺数据=SKIP（不算失败）。
@@ -24,6 +26,7 @@ import source_paths as _layout            # noqa: E402
 import csv
 import json
 import sys
+import tempfile
 import numpy as np
 from pathlib import Path
 
@@ -55,6 +58,32 @@ def sha256_of(path):
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def _load_enb_pmc(scan_dir, pmc):
+    """读某扫描指定 PMC 的 ENB 原始计数与活时间（PIQUANT spot 复算用）。"""
+    for f in sorted(Path(scan_dir).glob("*.csv")):
+        if "ENB" not in f.name.upper():
+            continue
+        try:
+            sp, meta = sfs_spectra.read_sfs(f)
+        except Exception:
+            continue
+        if sp is None:
+            continue
+        for i, pm in enumerate(meta):
+            try:
+                p = int(float(pm.get("PMC") or 0))
+            except (ValueError, TypeError):
+                continue
+            if p != pmc:
+                continue
+            try:
+                lt = float(pm.get("live_time") or 0)
+            except (ValueError, TypeError):
+                lt = 0.0
+            return np.asarray(sp[i], dtype=float), lt
+    return None, None
 
 
 def main():
@@ -449,6 +478,107 @@ def main():
         ca_corr2 = float(np.corrcoef(ca2[ok2], wt2[ok2])[0, 1])
         check(ca_corr2 >= 0.98,
               "第二扫描逐 PMC Ca 相关 ≥0.98（%.4f，n=%d）" % (ca_corr2, int(ok2.sum())))
+
+    # ========== 5c. PIQUANT 对账复算（官方开源定量层）==========
+    pq_p = data_root / "PIXL" / "缓存" / "piquant_vs_rqc.json"
+    if not pq_p.is_file():
+        skip("PIQUANT 复算（piquant_vs_rqc.json 不在位——02 号脚本未跑）")
+    else:
+        pq = json.loads(pq_p.read_text(encoding="utf-8"))
+        rows_pq = pq.get("rows") or []
+        stats_pq = pq.get("stats") or {}
+        check(pq.get("n_quantified") == len(rows_pq) and len(rows_pq) >= 250
+              and pq.get("n_failed") == 0 and pq.get("detector") == "ENB",
+              "PIQUANT 对账行数与自报一致（%d 点零失败，ENB）" % len(rows_pq))
+        # 逐氧化物统计量从结果行独立复算（不读 stats 字段本身）
+        ok_stats, bad_stats = 0, []
+        for ox, s in stats_pq.items():
+            pv = np.array([r.get("piquant_" + ox) for r in rows_pq], dtype=float)
+            rv = np.array([r.get("rqc_" + ox) for r in rows_pq], dtype=float)
+            good = np.isfinite(pv) & np.isfinite(rv) & (rv > 0)
+            if good.sum() < 10:
+                continue
+            rel = (pv[good] - rv[good]) / rv[good]
+            corr = float(np.corrcoef(pv[good], rv[good])[0, 1])
+            med = float(np.median(rel) * 100)
+            if (abs(med - s["median_rel_dev_pct"]) < 0.05
+                    and abs(corr - s["corr"]) < 0.005):
+                ok_stats += 1
+            else:
+                bad_stats.append(ox)
+        check(ok_stats == len(stats_pq) and ok_stats >= 8,
+              "PIQUANT 逐氧化物统计量可从结果行独立复算（%d/%d%s）"
+              % (ok_stats, len(stats_pq), "；不一致：" + "、".join(bad_stats)
+                 if bad_stats else ""))
+        # RQC 侧交叉核验：抽 20 个 PMC 与官方 RQC 原表逐值比对
+        rq_src = data_root / "PIXL" / "随包示例" / str(pq.get("rqc") or "")
+        if rq_src.is_file():
+            rqc_chk = {}
+            for r in csv.DictReader(open(rq_src, encoding="utf-8-sig", newline="")):
+                try:
+                    rqc_chk[int(float(r["PMC"]))] = r
+                except (ValueError, KeyError):
+                    continue
+            sample = rows_pq[::max(len(rows_pq) // 20, 1)][:20]
+            mismatch = 0
+            for r in sample:
+                row_rq = rqc_chk.get(r["pmc"])
+                if row_rq is None:
+                    mismatch += 1
+                    continue
+                for col in ("SiO2", "FeO-T", "CaO"):
+                    try:
+                        ref = float(row_rq.get(col + "_wt%", "") or "nan")
+                    except ValueError:
+                        ref = float("nan")
+                    if not (abs(r.get("rqc_" + col, float("nan")) - ref) < 1e-9
+                            or (r.get("rqc_" + col) != r.get("rqc_" + col)
+                                and ref != ref)):
+                        mismatch += 1
+            check(mismatch == 0,
+                  "PIQUANT 台账 RQC 侧抽 20 点与官方原表逐值一致（%d 处不符）"
+                  % mismatch)
+        else:
+            skip("PIQUANT RQC 交叉核验（随包原表不在位）")
+        # spot 复算：抽 2 个 PMC 重导 MSA 重 quant（确定性拟合应逐位复现）
+        try:
+            from instruments import piquant_bridge as _pb
+        except Exception:
+            _pb = None
+        if _pb is None or not _pb.available():
+            skip("PIQUANT spot 复算（桥接层不可用）")
+        else:
+            scan_dir_pq = data_root / "PIXL" / "下载" / str(pq.get("scan_dir") or "")
+            axis_pq = {"keV_per_ch": pq.get("axis_keV_per_ch", 0.0),
+                       "zero_keV": pq.get("axis_zero_keV", 0.0)}
+            picks = [rows_pq[0], rows_pq[len(rows_pq) // 2]]
+            bad_spot = []
+            with tempfile.TemporaryDirectory(prefix="mw-audit-pq-") as pq_tmp:
+                for r in picks:
+                    spec_by_pmc_spot, lt_spot = _load_enb_pmc(
+                        scan_dir_pq, r["pmc"])
+                    if spec_by_pmc_spot is None:
+                        bad_spot.append("PMC%d 谱缺失" % r["pmc"])
+                        continue
+                    msa = _pb.sfs_to_msa(
+                        spec_by_pmc_spot, lt_spot, axis_pq,
+                        Path(pq_tmp) / ("spot%05d.msa" % r["pmc"]),
+                        title="audit PMC%d" % r["pmc"])
+                    q, why = _pb.run_quant(
+                        msa, pq_tmp,
+                        "Na_K Mg_K Al_K Si_K K_K Ca_K Ti_K Fe_K S_K Cl_K Ar_I")
+                    if q is None:
+                        bad_spot.append("PMC%d quant 失败:%s" % (r["pmc"], why))
+                        continue
+                    for col in ("SiO2", "FeO-T", "CaO"):
+                        if abs(q["oxides"].get(col, -1) - r["piquant_" + col]) > 1e-9:
+                            bad_spot.append("PMC%d %s: %.2f vs 台账 %.2f"
+                                            % (r["pmc"], col,
+                                               q["oxides"].get(col, -1),
+                                               r["piquant_" + col]))
+            check(not bad_spot,
+                  "PIQUANT spot 复算逐位复现台账 wt%%（%s）"
+                  % ("；".join(bad_spot) if bad_spot else "2 点全一致"))
 
     # ========== 6. APXS rocknest3_rp 峰面积复算 ==========
     fix = (_layout.project_layout.VERIFY / "fixtures/apxs/sol00102")
