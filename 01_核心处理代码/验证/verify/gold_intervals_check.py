@@ -80,7 +80,7 @@ def main():
     check(any(r.get("item") == "PLS_loo_rmse_ground_5m" for r in rows),
           "Wiens 2012 Table 8c 留一 RMSE 基线在册（Phase 1 CV 对账锚点）")
     check(any(r.get("item") == "inflight_cal_target_rmsep" for r in rows),
-          "Ytsma 2023 在轨靶精度条目在册（待转录，growth_path 记录）")
+          "Ytsma 2023 在轨靶精度条目在册（Table 1 已转录，growth_path 记录）")
 
     print("共 %d 项断言，%d 项失败" % (TOTAL, FAIL))
     return int(FAIL > 0)

@@ -248,7 +248,7 @@
     }
    },
    "moc_rmsep": {
-    "note": "官方 MOC 训练集 RMSEP（自研 CV 的对照区间 ±60%）；TiO2 官方 RMSEP 数值待转录（Ytsma 2023 在册未转录），故无 TiO2 区间判定——不得据此宣称 TiO2 达标。",
+    "note": "官方 MOC 训练集 RMSEP（自研 CV 的对照区间 ±60%，四舍五入到 0.1 wt%）。2026-11-19 从 Ytsma 2023 Table 1 转录（SuperCam PDS RMSE 列=Anderson 2022 Table 5 RMSEP，论文脚注 3 明示一致）：SiO2 6.1 / TiO2 0.3 / Al2O3 1.8 / FeOT 3.1 / MgO 1.1 / CaO 1.3 / Na2O 0.5 / K2O 0.6 wt%；预印本 PDF sha256=7ef24657…。",
     "oxides": {
      "SiO2": {
       "reference": 6.1,
@@ -284,6 +284,11 @@
       "reference": 0.6,
       "lower": 0.2,
       "upper": 1.0
+     },
+     "TiO2": {
+      "reference": 0.3,
+      "lower": 0.1,
+      "upper": 0.5
      }
     }
    }

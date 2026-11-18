@@ -119,6 +119,8 @@ def main(argv=None):
                            "reference": band["reference"]}
             print("  对照 %s: %.3f vs 官方MOC RMSEP %.1f（区间 %s）"
                   % (ox, r["rmse"], band["reference"], verdict[ox]["band"]))
+    n_in = sum(1 for v in verdict.values() if v["in_band"])
+    n_all = len(verdict)
 
     if args.fit_model and cv_rows:
         names = sorted(spectra)
@@ -154,7 +156,10 @@ def main(argv=None):
                        "predictions": r["predictions"], "true": r["true"]}
                   for ox, r in cv_rows.items()},
            "moc_rmsep_verdict": verdict,
-           "moc_rmsep_verdict_note": "区间判定如实记录（当前 0/7 worse）；TiO2 官方 RMSEP 待转录无锚点，不参与判定。",
+           "moc_rmsep_verdict_note": "区间判定 %d/%d 落带内（锚点=Ytsma 2023 Table 1 转录，"
+                                     "SuperCam PDS 列=Anderson 2022 Table 5 RMSEP，±60%% 带）；"
+                                     "带外氧化物如实记录——%d 靶训练集精度弱于官方 334 标样为预期，"
+                                     "不作官方替代。" % (n_in, n_all, len(spectra)),
            "composition_sha256": sha256_of(data_root / "SuperCam" / "缓存"
                                            / "scct_composition.json"),
            "training_manifest_sha256": sha256_of(data_root / "SuperCam" / "下载"
