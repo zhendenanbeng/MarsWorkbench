@@ -18,7 +18,8 @@ var order=['SiO2','TiO2','Al2O3','FeOT','MgO','CaO','Na2O','K2O'];
 var neg=[];
 order.forEach(function(ox){var v=q.values[ox];if(!v)return;
 var vv=v.value.toFixed(2);if(v.value<0){neg.push(ox);vv+='↑';}
-var oc=(official&&official.oxides[ox])?official.oxides[ox][0].toFixed(2):'—';
+var oc='—';
+if(official){if(official.oxides&&official.oxides[ox]!==undefined)oc=official.oxides[ox][0].toFixed(2);else if(official[ox]&&Array.isArray(official[ox]))oc=official[ox][0].toFixed(2);}
 h+='<tr><td>'+ox+'</td><td>'+vv+'</td><td>'+(v.rmse==null?'—':('±'+v.rmse.toFixed(2)))+'</td>'+(official?('<td>'+oc+'</td>'):'')+'</tr>';});
 h+='</table><p class="ev">训练靶：'+q.trained_targets.join('、')+'；本观测使用 '+q.n_points_used+' 个点。独立复现参考——官方成分（MOC）仍是定量引用口径。'+(official?('官方列为 MOC 对本观测的预测（靶：'+official.target+'）。'):'')+(neg.length?('负值预测（'+neg.join('、')+'）↑ =低于检出参考零（|值|在 ±RMSE 内属正常波动），不截断以保真。'):'')+'</p>';
 box.innerHTML=h;box.hidden=false;}
