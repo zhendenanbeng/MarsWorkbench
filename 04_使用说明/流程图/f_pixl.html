@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}::-webkit-scrollbar{width:0;height:0}html{overflow:hidden}
+body{margin:0;background:#fff;font-family:'Segoe UI','Microsoft YaHei',sans-serif;color:#1e293b}
+.poster{width:1280px;padding:36px 44px 44px}
+.head{border-bottom:3px solid #0f172a;padding-bottom:14px;margin-bottom:6px}
+.head h1{font-size:26px;font-weight:700;letter-spacing:.5px}
+.head h1 .en{color:#64748b;font-weight:600;font-size:15px;margin-left:10px}
+.head .sub{font-size:13px;color:#475569;margin-top:6px;line-height:1.5}
+.legend{display:flex;gap:14px;margin:14px 0 4px;font-size:12px;color:#475569;align-items:center}
+.legend .chip{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1.5px solid}
+.phase{margin-top:22px}
+.phase .pt{display:flex;align-items:baseline;gap:10px;background:#f1f5f9;border-left:5px solid #0f172a;
+  padding:7px 14px;font-size:16px;font-weight:700;border-radius:0 4px 4px 0}
+.phase .pt .no{color:#64748b;font-size:13px;font-weight:600}
+.phase .body{padding:14px 8px 0 26px}
+.node{position:relative;background:#fff;border:1.5px solid #94a3b8;border-left-width:5px;
+  border-radius:6px;padding:10px 16px;margin-bottom:0;max-width:900px}
+.node .t{font-size:14.5px;font-weight:700;line-height:1.4}
+.node .d{font-size:12.5px;color:#475569;line-height:1.55;margin-top:3px}
+.node .m{font-size:11.5px;color:#64748b;font-family:Consolas,monospace;margin-top:4px}
+.arrow{height:26px;display:flex;align-items:center;justify-content:flex-start;padding-left:60px}
+.arrow .stem{width:2px;height:100%;background:#64748b}
+.arrow{position:relative}
+.arrow::after{content:'';position:absolute;left:55px;bottom:0;border:7px solid transparent;border-top-color:#64748b}
+.row{display:flex;gap:14px;margin-top:0}
+.row .node{flex:1;max-width:none;margin-bottom:0}
+.rowwrap{position:relative;padding:0 8px 0 26px}
+.rowwrap .arrow-m{height:26px;display:flex;justify-content:center}
+.arrow-m .stem{width:2px;height:100%;background:#64748b}
+.arrow-m{position:relative}
+.arrow-m::after{content:'';position:absolute;left:50%;margin-left:-7px;bottom:0;border:7px solid transparent;border-top-color:#64748b}
+.merge{font-size:12px;color:#475569;text-align:center;margin-top:2px}
+.foot{margin-top:26px;border-top:1.5px solid #cbd5e1;padding-top:10px;font-size:12px;color:#475569;line-height:1.6}
+.foot b{color:#0f172a}
+.blue{background:#eff6ff;border-color:#3b82f6}
+.green{background:#f0fdf4;border-color:#10b981}
+.amber{background:#fff7ed;border-color:#f59e0b}
+.slate{background:#f8fafc;border-color:#64748b}
+</style></head><body><div class="poster"><div class="head"><h1>PIXL 数据处理流程<span class="en">Planetary Instrument for X-ray Lithochemistry</span></h1><div class="sub">六层定量链：能量自证 → 自研峰面积 → 比值/标定 → PIQUANT 官方层 → 三线对账 → 输出</div></div><div class="legend"><span class="chip"><span class="sw" style="background:#3b82f6"></span>数据获取 / IO</span><span class="chip"><span class="sw" style="background:#10b981"></span>自研计算层</span><span class="chip"><span class="sw" style="background:#f59e0b"></span>官方 / 文献对账基准</span><span class="chip"><span class="sw" style="background:#64748b"></span>输出与冻结</span></div><div class="phase"><div class="pt"><span class="no">阶段 1</span><span>数据获取（PDS 归档）</span></div><div class="body"><div class="rowwrap"><div class="row"><div class="node blue"><div class="t">SFS 原始谱下载</div><div class="d">data_raw_spectroscopy 集合：逐 PMC 4096 通道 XRF 计数，ENA/ENB 双探测器 CSV；清单+直链+SHA-256 校验</div><div class="m">PIXL/instruments/pixl_download.py</div></div><div class="node blue"><div class="t">官方产品获取（只作对账基准）</div><div class="d">RQC 逐点成分 / RXL 坐标 / MCC 图像；官方衍生表不作为输出</div><div class="m">随包示例 · pixl_browser.py</div></div></div><div class="arrow-m"><div class="stem"></div></div></div></div></div><div class="phase"><div class="pt"><span class="no">阶段 2</span><span>能量轴自证（v4，自研）</span></div><div class="body"><div class="node green"><div class="t">多点线系能量自证</div><div class="d">10 线系支持评分（Si/S/Cl/K/Ca/Ti/Mn/Fe）→ g≈0.00786 keV/ch；发现并修正旧轴 13% 增益偏差；双扫描独立自证一致 ±0.3%</div><div class="m">PIXL/instruments/sfs_spectra.py calibrate_energy v4</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 3</span><span>自研谱层（峰面积信号）</span></div><div class="body"><div class="node green"><div class="t">Kα 窗净峰面积 + 检出判定</div><div class="d">逐元素窗净面积 + 泊松误差；A/B 探测器择低（Schmidt 2025 Table S4 口径）</div><div class="m">sfs_spectra.peak_areas</div></div><div class="arrow"><div class="stem"></div></div><div class="rowwrap"><div class="row"><div class="node green"><div class="t">66 对比值矩阵</div><div class="d">全元素两两 log-log 比值相关（Top：Si/Fe 0.994）</div><div class="m">01_sfs_pipeline.py</div></div><div class="node green"><div class="t">扫描内半定量标定</div><div class="d">wt = k×area 过原点最小二乘（Ca R²=0.981）；k 仅本扫描有效</div><div class="m">01_sfs_pipeline.py</div></div></div><div class="arrow-m"><div class="stem"></div></div></div></div></div><div class="phase"><div class="pt"><span class="no">阶段 4</span><span>PIQUANT 官方开源定量层</span></div><div class="body"><div class="node green"><div class="t">SFS→MSA 导出 → Piquant quant</div><div class="d">MSA 单列计数格式 + 本扫描自证轴；FM 配置 + FM 标定（官方 COMMENT 指定 ENB）→ 逐 PMC wt%；sha256 指纹防静默换版</div><div class="m">instruments/piquant_bridge.py · 数据准备脚本/02_piquant_quantify.py</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 5</span><span>对账（三线，官方 / 文献基准）</span></div><div class="body"><div class="rowwrap"><div class="row"><div class="node amber"><div class="t">自研层 × RQC</div><div class="d">逐 PMC 相关 + 盐校正对账（Schmidt 2025：8/10 氧化物落 ±σ）</div><div class="m">sfs_vs_rqc.json</div></div><div class="node amber"><div class="t">PIQUANT × RQC（双扫描）</div><div class="d">Bellegarde 281 点：FeO-T/SiO2/CaO/Al2O3 中位偏差 -1.6/-2.3/-4.0/-4.3%、相关 ≥0.98；sol0300 334 点复验泛化</div><div class="m">piquant_vs_rqc.json · piquant_vs_rqc_sol0300.json</div></div><div class="node amber"><div class="t">独立数据审计（三路复算）</div><div class="d">rows↔stats 一致性 / RQC 原表抽 20 点交叉核验 / spot 重 quant 逐位复现</div><div class="m">verify/data_audit.py · piquant_check.py</div></div></div><div class="arrow-m"><div class="stem"></div></div></div><div class="merge">三线口径分开：自研峰面积 / PIQUANT 官方算法复现 / 官方 RQC（A/B 择低）</div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 6</span><span>输出</span></div><div class="body"><div class="node slate"><div class="t">UI 面板 / 对账缓存 / 批量入口</div><div class="d">MCC 图像+逐点成分浏览、SFS 面板（能量轴+比值+PIQUANT 状态+批量对账按钮）、独立导出</div><div class="m">pixl_view.py · pixl_workflow.py PiquantJob · PIXL 台</div></div></div></div><div class="foot"><b>口径边界：</b>自研峰面积是原始信号量不是浓度；PIQUANT 输出代表官方算法复现；官方 RQC 为定量引用口径；FM 标定不覆盖 P2O5/MnO/Cr2O3/Sr（无 ECF 条目）如实排除。</div></div></body></html>

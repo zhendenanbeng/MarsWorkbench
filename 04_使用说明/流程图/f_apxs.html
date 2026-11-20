@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}::-webkit-scrollbar{width:0;height:0}html{overflow:hidden}
+body{margin:0;background:#fff;font-family:'Segoe UI','Microsoft YaHei',sans-serif;color:#1e293b}
+.poster{width:1280px;padding:36px 44px 44px}
+.head{border-bottom:3px solid #0f172a;padding-bottom:14px;margin-bottom:6px}
+.head h1{font-size:26px;font-weight:700;letter-spacing:.5px}
+.head h1 .en{color:#64748b;font-weight:600;font-size:15px;margin-left:10px}
+.head .sub{font-size:13px;color:#475569;margin-top:6px;line-height:1.5}
+.legend{display:flex;gap:14px;margin:14px 0 4px;font-size:12px;color:#475569;align-items:center}
+.legend .chip{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1.5px solid}
+.phase{margin-top:22px}
+.phase .pt{display:flex;align-items:baseline;gap:10px;background:#f1f5f9;border-left:5px solid #0f172a;
+  padding:7px 14px;font-size:16px;font-weight:700;border-radius:0 4px 4px 0}
+.phase .pt .no{color:#64748b;font-size:13px;font-weight:600}
+.phase .body{padding:14px 8px 0 26px}
+.node{position:relative;background:#fff;border:1.5px solid #94a3b8;border-left-width:5px;
+  border-radius:6px;padding:10px 16px;margin-bottom:0;max-width:900px}
+.node .t{font-size:14.5px;font-weight:700;line-height:1.4}
+.node .d{font-size:12.5px;color:#475569;line-height:1.55;margin-top:3px}
+.node .m{font-size:11.5px;color:#64748b;font-family:Consolas,monospace;margin-top:4px}
+.arrow{height:26px;display:flex;align-items:center;justify-content:flex-start;padding-left:60px}
+.arrow .stem{width:2px;height:100%;background:#64748b}
+.arrow{position:relative}
+.arrow::after{content:'';position:absolute;left:55px;bottom:0;border:7px solid transparent;border-top-color:#64748b}
+.row{display:flex;gap:14px;margin-top:0}
+.row .node{flex:1;max-width:none;margin-bottom:0}
+.rowwrap{position:relative;padding:0 8px 0 26px}
+.rowwrap .arrow-m{height:26px;display:flex;justify-content:center}
+.arrow-m .stem{width:2px;height:100%;background:#64748b}
+.arrow-m{position:relative}
+.arrow-m::after{content:'';position:absolute;left:50%;margin-left:-7px;bottom:0;border:7px solid transparent;border-top-color:#64748b}
+.merge{font-size:12px;color:#475569;text-align:center;margin-top:2px}
+.foot{margin-top:26px;border-top:1.5px solid #cbd5e1;padding-top:10px;font-size:12px;color:#475569;line-height:1.6}
+.foot b{color:#0f172a}
+.blue{background:#eff6ff;border-color:#3b82f6}
+.green{background:#f0fdf4;border-color:#10b981}
+.amber{background:#fff7ed;border-color:#f59e0b}
+.slate{background:#f8fafc;border-color:#64748b}
+</style></head><body><div class="poster"><div class="head"><h1>APXS 数据处理流程<span class="en">Alpha-Particle X-ray Spectrometer</span></h1><div class="sub">自研峰拟合 + Si 内标比值层与官方 rwp 对账口径分开</div></div><div class="legend"><span class="chip"><span class="sw" style="background:#3b82f6"></span>数据获取 / IO</span><span class="chip"><span class="sw" style="background:#10b981"></span>自研计算层</span><span class="chip"><span class="sw" style="background:#f59e0b"></span>官方 / 文献对账基准</span><span class="chip"><span class="sw" style="background:#64748b"></span>输出与冻结</span></div><div class="phase"><div class="pt"><span class="no">阶段 1</span><span>数据获取（PDS 归档）</span></div><div class="body"><div class="node blue"><div class="t">rsp 能谱 + rwp 官方氧化物表下载</div><div class="d">APXS 能谱原件与官方衍生表（rwp 只作对账基准）</div><div class="m">APXS/instruments/apxs.py · 数据准备脚本/01_multitarget_calib.py</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 2</span><span>自研峰拟合层</span></div><div class="body"><div class="node green"><div class="t">14 元素 Kα 高斯峰拟合</div><div class="d">线性背景 + Pu 子体参考线（子体线不计元素）；输出峰面积 + 泊松误差 + 检出判定；峰位自证 argmax vs 理论 Kα ≤0.06 keV</div><div class="m">APXS/instruments/apxs_fit.py</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 3</span><span>浓度路线（历史负结果 + 比值层）</span></div><div class="body"><div class="node green"><div class="t">绝对面积→浓度：不可行（负结果入档）</div><div class="d">25 靶绝对面积标定斜率≈0——跨靶几何/接触距离因子主导；历史结论冻结，不再走绝对标定路线</div><div class="m">数据准备脚本/01_multitask_calib 结论</div></div><div class="arrow"><div class="stem"></div></div><div class="node green"><div class="t">Si 内标比值层（幂律双参标定）</div><div class="d">元素/SiO2 比值 log-log 标定；Ca 相关 0.976、留出中位相对误差 2.5%；rocknest3_rp 时代外边界验证（负结果入档）</div><div class="m">数据准备脚本/02_ratio_calibration.py</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 4</span><span>对账（官方 / 文献基准）</span></div><div class="body"><div class="rowwrap"><div class="row"><div class="node amber"><div class="t">官方 rwp 氧化物表对账</div><div class="d">元素序与比值级对账（rocknest3_rp 首靶：Fe/Ca 面积比 6.69 vs 官方元素比 4.25，同量级区间）</div><div class="m">verify/apxs_fit_check.py</div></div><div class="node amber"><div class="t">文献身份与独立审计</div><div class="d">Schmidt 2013 rocknest3_rp 身份对账；峰面积独立复算逐元素对账</div><div class="m">verify/paper_quant_check.py · data_audit.py</div></div></div><div class="arrow-m"><div class="stem"></div></div></div><div class="merge">对账结论只进台账/报告注记，不回写官方产品</div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 5</span><span>输出</span></div><div class="body"><div class="node slate"><div class="t">峰面积表 / 比值标定缓存 / 官方氧化物配对表</div><div class="d">apxs_peak_areas.json · apxs_ratio_calib.json · UI 氧化物配对表与峰拟合可视化</div><div class="m">APXS 台</div></div></div></div><div class="foot"><b>口径边界：</b>比值预测是元素/SiO2 半定量信号，不是绝对浓度；全基本参数法定量不在此层（Campbell 2012 路线仅参数转录备查）。</div></div></body></html>

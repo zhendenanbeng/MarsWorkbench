@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}::-webkit-scrollbar{width:0;height:0}html{overflow:hidden}
+body{margin:0;background:#fff;font-family:'Segoe UI','Microsoft YaHei',sans-serif;color:#1e293b}
+.poster{width:1280px;padding:36px 44px 44px}
+.head{border-bottom:3px solid #0f172a;padding-bottom:14px;margin-bottom:6px}
+.head h1{font-size:26px;font-weight:700;letter-spacing:.5px}
+.head h1 .en{color:#64748b;font-weight:600;font-size:15px;margin-left:10px}
+.head .sub{font-size:13px;color:#475569;margin-top:6px;line-height:1.5}
+.legend{display:flex;gap:14px;margin:14px 0 4px;font-size:12px;color:#475569;align-items:center}
+.legend .chip{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1.5px solid}
+.phase{margin-top:22px}
+.phase .pt{display:flex;align-items:baseline;gap:10px;background:#f1f5f9;border-left:5px solid #0f172a;
+  padding:7px 14px;font-size:16px;font-weight:700;border-radius:0 4px 4px 0}
+.phase .pt .no{color:#64748b;font-size:13px;font-weight:600}
+.phase .body{padding:14px 8px 0 26px}
+.node{position:relative;background:#fff;border:1.5px solid #94a3b8;border-left-width:5px;
+  border-radius:6px;padding:10px 16px;margin-bottom:0;max-width:900px}
+.node .t{font-size:14.5px;font-weight:700;line-height:1.4}
+.node .d{font-size:12.5px;color:#475569;line-height:1.55;margin-top:3px}
+.node .m{font-size:11.5px;color:#64748b;font-family:Consolas,monospace;margin-top:4px}
+.arrow{height:26px;display:flex;align-items:center;justify-content:flex-start;padding-left:60px}
+.arrow .stem{width:2px;height:100%;background:#64748b}
+.arrow{position:relative}
+.arrow::after{content:'';position:absolute;left:55px;bottom:0;border:7px solid transparent;border-top-color:#64748b}
+.row{display:flex;gap:14px;margin-top:0}
+.row .node{flex:1;max-width:none;margin-bottom:0}
+.rowwrap{position:relative;padding:0 8px 0 26px}
+.rowwrap .arrow-m{height:26px;display:flex;justify-content:center}
+.arrow-m .stem{width:2px;height:100%;background:#64748b}
+.arrow-m{position:relative}
+.arrow-m::after{content:'';position:absolute;left:50%;margin-left:-7px;bottom:0;border:7px solid transparent;border-top-color:#64748b}
+.merge{font-size:12px;color:#475569;text-align:center;margin-top:2px}
+.foot{margin-top:26px;border-top:1.5px solid #cbd5e1;padding-top:10px;font-size:12px;color:#475569;line-height:1.6}
+.foot b{color:#0f172a}
+.blue{background:#eff6ff;border-color:#3b82f6}
+.green{background:#f0fdf4;border-color:#10b981}
+.amber{background:#fff7ed;border-color:#f59e0b}
+.slate{background:#f8fafc;border-color:#64748b}
+</style></head><body><div class="poster"><div class="head"><h1>SHERLOC 数据处理流程<span class="en">Scanning Habitable Environments with Raman & Luminescence for Organics & Chemicals</span></h1><div class="sub">拉曼/荧光光谱 + ACI/WATSON 图像 · 自研判读层与官方/文献对账口径分开</div></div><div class="legend"><span class="chip"><span class="sw" style="background:#3b82f6"></span>数据获取 / IO</span><span class="chip"><span class="sw" style="background:#10b981"></span>自研计算层</span><span class="chip"><span class="sw" style="background:#f59e0b"></span>官方 / 文献对账基准</span><span class="chip"><span class="sw" style="background:#64748b"></span>输出与冻结</span></div><div class="phase"><div class="pt"><span class="no">阶段 1</span><span>数据获取（PDS 归档）</span></div><div class="body"><div class="node blue"><div class="t">PDS 归档产品下载与原件校验</div><div class="d">SHERLOC RWS/RRS 光谱 + ACI/WATSON 图像；保留 PDS 原名与配对 label/XML，SHA-256 校验</div><div class="m">SHERLOC/数据准备脚本/01_read_rrs · 04_fetch_stowed_background · 05_build_stowed_background</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 2</span><span>读数与预处理（自研层）</span></div><div class="body"><div class="node green"><div class="t">产品解析与观测组织</div><div class="d">逐产品解析 → 光谱×图像配对成观测（同点多模式聚合）</div><div class="m">sherloc/reader.py · organize.py</div></div><div class="arrow"><div class="stem"></div></div><div class="node green"><div class="t">光谱预处理</div><div class="d">波长轴规整、去噪与区域截取，为峰拟合供谱</div><div class="m">sherloc/preprocess.py</div></div><div class="arrow"><div class="stem"></div></div><div class="node green"><div class="t">仪器本底扣除（可开关）</div><div class="d">收纳臂暗天空本底谱按形状缩放相减；缩放 M 仅按 800 cm⁻¹ 主带窗估计（Jakubek 2024 口径），覆盖外通道不动</div><div class="m">sherloc/background.py · 数据准备脚本 04/05</div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 3</span><span>峰提取与矿物判读（自研层）</span></div><div class="body"><div class="node green"><div class="t">峰提取与峰拟合</div><div class="d">逐谱提取拟合峰（峰位/宽度/强度）</div><div class="m">sherloc/peaks.py · fitting.py</div></div><div class="arrow"><div class="stem"></div></div><div class="node green"><div class="t">规则库峰位匹配</div><div class="d">REFERENCE 峰位表匹配打分（库内是峰位表，不含完整代表谱）</div><div class="m">sherloc/library.py</div></div><div class="arrow"><div class="stem"></div></div><div class="rowwrap"><div class="row"><div class="node green"><div class="t">矿物判定（规则标签代理）</div><div class="d">峰组 → 化学族/矿物候选；规则标签是代理，不是矿物真值</div><div class="m">sherloc/minerals.py</div></div><div class="node green"><div class="t">逐点质控分组</div><div class="d">analyse_spectra 输出 mineral_groups 供报告与判读</div><div class="m">sherloc/qc.py</div></div></div><div class="arrow-m"><div class="stem"></div></div></div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 4</span><span>对账（文献 / 冻结基准）</span></div><div class="body"><div class="rowwrap"><div class="row"><div class="node amber"><div class="t">文献逐靶对账</div><div class="d">Sun 2023 / Corpolongo 2023 逐靶：14 类目 7 复现，3 类经 silicate 粗类映射命中</div><div class="m">verify/paper_crosscheck_check.py</div></div><div class="node amber"><div class="t">谱库止损诊断（冻结基线）</div><div class="d">Sol 留出 5 折代理 AUC ≤0.648 < 0.70 继续线 → close_no_heldout_path，跨树复现</div><div class="m">verify/phase10_check.py · C_交付诊断.json</div></div></div><div class="arrow-m"><div class="stem"></div></div></div><div class="merge">对账结论只进台账与报告注记，不改判读输出</div></div></div><div class="arrow"><div class="stem"></div></div><div class="phase"><div class="pt"><span class="no">阶段 5</span><span>输出与复核</span></div><div class="body"><div class="node slate"><div class="t">质控报告 / 导出 / 论文对照标注</div><div class="d">_qc 批量质控报告、PNG+当前谱 CSV 导出；逐点论文对照（一致/不一致/待查 + 备注）存 _notes，不改自动分类</div><div class="m">02_图形界面代码/view.py · SHERLOC 台</div></div></div></div><div class="foot"><b>口径边界：</b>分类是判读对照工具，检查通过不代表矿物鉴定准确率；规则库为峰位表（无完整代表谱），判读不替代独立矿物鉴定。</div></div></body></html>
