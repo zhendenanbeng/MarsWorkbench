@@ -233,6 +233,70 @@ def main():
         diff_in = not np.array_equal(r_on_m[:, in_mask], r_off_m[:, in_mask])
         check(diff_in, "部分覆盖：覆盖内通道确有减除（对照有效）")
 
+    # ---- 原始帧自行扣暗（ERA−ERB，raw_frames）----
+    # 合成迷你 ERA/ERB/RRS 文件（段布局与真实产品一致，通道数缩减），
+    # 走 process_folder 全链，输出文件夹须能被标准管线（organize+reader）
+    # 打开且数值=主动−暗。
+    from sherloc import raw_frames as rf
+
+    def _mini_frames(n_pts, n_ch, base):
+        return {n: base + n * 10 + np.arange(n_pts)[:, None] * 0
+                for n in (1, 2, 3)}
+
+    with tempfile.TemporaryDirectory(prefix="mw-rawdark-") as rd:
+        folder = Path(rd) / "raw"
+        folder.mkdir()
+        n_pts, n_ch = 4, 16
+        wl = 246.616 + np.arange(n_ch) * 0.05
+        act = {1: 100.0 + np.arange(n_pts)[:, None], 2: 50.0 + np.arange(n_pts)[:, None],
+               3: 30.0 + np.arange(n_pts)[:, None]}
+        dark = {1: 20.0 + np.zeros((n_pts, 1)), 2: 10.0 + np.zeros((n_pts, 1)),
+                3: 5.0 + np.zeros((n_pts, 1))}
+        act = {n: np.repeat(act[n], n_ch, axis=1) for n in act}
+        dark = {n: np.repeat(dark[n], n_ch, axis=1) for n in dark}
+
+        def write_frames(path, stem, ptype, frames):
+            prefix = {"ERA": "ACTIVE_SPECTRA_REGION_%d:",
+                      "ERB": "DARK_SPECTRA_REGION_%d:",
+                      "RRS": "LASER-NORMALIZED_SPECTRA_REGION_%d:"}[ptype]
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                if ptype == "RRS":
+                    f.write("WAVELENGTH (NM):\n")
+                    f.write(",".join("Channel_%d" % i for i in range(n_ch)) + "\n")
+                    f.write(",".join("%.3f" % v for v in wl) + "\n")
+                for n in (1, 2, 3):
+                    f.write(prefix % n + "\n")
+                    f.write(",".join("R%d_Channel_%d" % (n, i) for i in range(n_ch)) + "\n")
+                    for row in frames[n]:
+                        f.write(",".join("%.3f" % v for v in row) + "\n")
+
+        write_frames(folder / "ss__0207_0685345852_810ERA__0071836SRLC10000_0_____J06.CSV",
+                     "era", "ERA", act)
+        write_frames(folder / "ss__0207_0685345852_810ERB__0071836SRLC10000_0_____J06.CSV",
+                     "erb", "ERB", dark)
+        write_frames(folder / "ss__0207_0685345852_810rrs__0071836SRLC10000_0_____J06.CSV",
+                     "rrs", "RRS", act)
+
+        rep = rf.process_folder(folder)
+        check(len(rep["pairs"]) == 1 and not rep["skipped"],
+              "原始扣暗：ERA/ERB 配对成功且无跳过")
+        check(rep["wavelength_source"] is not None,
+              "原始扣暗：波长轴借用自同文件夹 RRS")
+
+        out_folder = Path(rep["out_dir"])
+        from sherloc.organize import scan_folder as _scan_folder
+        _, out_scans = _scan_folder(str(out_folder))
+        ok_scan = len(out_scans) == 1
+        if ok_scan:
+            wl2, r1o, _r2o, _r3o = out_scans[0].read_regions()
+            expect = float(np.mean(act[1].astype(float) - dark[1].astype(float)))
+            ok_scan = (r1o is not None and abs(np.mean(r1o) - expect) < 1e-6
+                       and len(wl2) == n_ch)
+        check(ok_scan, "原始扣暗：输出文件夹被标准管线打开，数值=主动−暗（逐位复核）")
+        check(abs(float(np.mean(rf.read_region_frames(
+            str(folder / "ss__0207_0685345852_810ERB__0071836SRLC10000_0_____J06.CSV"))[1])) - 20.0) < 1e-6,
+            "原始扣暗：ERB 暗帧段名 DARK_SPECTRA_REGION 正确解析")
+
     print("共 %d 项断言，%d 项失败" % (TOTAL, FAIL))
     return int(FAIL > 0)
 

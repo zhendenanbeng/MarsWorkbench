@@ -94,7 +94,7 @@ CHECKS = [
     ("pixl_browser_check.py", "PIXL独立台、官方坐标与误差、缺值、导出与隔离、PIQUANT入口前端契约与SFS采样缓存", 28),
     ("pixl_download_check.py", "PIXL清单、官方直链、下载校验、复用/取消与失败隔离", 20),
     ("workflow_alignment_check.py", "工作台操作统一：真实PMC导航、独立导出、全目录报告、PIQUANT对账入口与共享偏好", 17),
-    ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧、部分覆盖越界契约", 20),
+    ("instbkg_check.py", "仪器本底扣除：合成谱M恢复、峰位保持与缺文件/坏JSON安全侧、部分覆盖越界契约、原始帧自行扣暗回环", 24),
     ("published_targets_check.py", "已发表靶点台账：结构、来源DOI、定位与只增不缩", 12),
     ("gold_intervals_check.py", "区间数值基准与标定台账：四仪器自主定量对账契约", 15),
     ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、auto选择、模型往返与安全降级", 21),

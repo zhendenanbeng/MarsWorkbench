@@ -2116,7 +2116,9 @@ def _run_maps(folder, aci_dir=None):
         return {"error": "%s: %s" % (type(exc).__name__, exc),
                 "log": buf.getvalue()[-2000:]}
     if not res.get("count"):
-        return {"error": "这个文件夹里没有能出图的观测（需要有 RRS 和 RLS）",
+        return {"error": "这个文件夹里没有能出图的观测（需要有 RRS 和 RLS）。"
+                         "只有原始件（ERA/ERB）时，先用 数据准备脚本/07_raw_dark_subtract.py "
+                         "自行扣暗，再打开其「自扣暗_输出」文件夹",
                 "log": buf.getvalue()[-2000:]}
     res["log"] = buf.getvalue()[-2000:]
     return res
