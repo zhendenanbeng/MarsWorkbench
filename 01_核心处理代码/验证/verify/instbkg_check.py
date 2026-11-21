@@ -246,8 +246,8 @@ def main():
     with tempfile.TemporaryDirectory(prefix="mw-rawdark-") as rd:
         folder = Path(rd) / "raw"
         folder.mkdir()
-        n_pts, n_ch = 4, 16
-        wl = 246.616 + np.arange(n_ch) * 0.05
+        n_pts, n_ch = 4, 2048
+        wl = np.linspace(246.616, 357.44, n_ch)   # 覆盖拉曼区+荧光区（真实量级）
         act = {1: 100.0 + np.arange(n_pts)[:, None], 2: 50.0 + np.arange(n_pts)[:, None],
                3: 30.0 + np.arange(n_pts)[:, None]}
         dark = {1: 20.0 + np.zeros((n_pts, 1)), 2: 10.0 + np.zeros((n_pts, 1)),
@@ -282,6 +282,48 @@ def main():
               "原始扣暗：ERA/ERB 配对成功且无跳过")
         check(rep["wavelength_source"] is not None,
               "原始扣暗：波长轴借用自同文件夹 RRS")
+
+        # ERA 扫描走逐步预处理管线：暗帧步必须触发（用户主路径）
+        def _label_fixture(csv_path):
+            raw = Path(csv_path).read_bytes().split(b"\n")
+            offs, recs, pos = {}, {}, 0
+            cur = None
+            for ln in raw:
+                s = ln.decode("utf-8", "replace").rstrip("\r")
+                if s.endswith(":") and s[:-1].replace(" ", "").replace("(", "").replace(")", "").isupper():
+                    cur = s[:-1]
+                    header_pending = True
+                    pos += len(ln) + 1
+                    continue
+                if cur and s:
+                    if header_pending:          # 列头行：只推进字节，不计数
+                        header_pending = False
+                        pos += len(ln) + 1
+                        continue
+                    if cur not in offs:
+                        offs[cur] = pos
+                        recs[cur] = 1
+                    else:
+                        recs[cur] += 1
+                pos += len(ln) + 1              # split 吃掉了换行符，补回 1 字节
+            rf.write_label(str(csv_path).replace(".CSV", ".xml").replace(".csv", ".xml"),
+                           Path(csv_path).name, offs, recs, n_ch)
+
+        for n in ("ERA", "ERB", "RRS"):
+            f = folder / ("ss__0207_0685345852_810%s__0071836SRLC10000_0_____J06.CSV" % n)
+            _label_fixture(f)
+        from sherloc.reader import Product
+        from sherloc.organize import Scan
+        from sherloc.preprocess import run_pipeline as _rp
+        era_p = Product(str(folder / "ss__0207_0685345852_810ERA__0071836SRLC10000_0_____J06.CSV"))
+        erb_p = Product(str(folder / "ss__0207_0685345852_810ERB__0071836SRLC10000_0_____J06.CSV"))
+        rrs_p = Product(str(folder / "ss__0207_0685345852_810rrs__0071836SRLC10000_0_____J06.CSV"))
+        sc_raw = Scan(sol="207", sequence_id="srlc10000", sclk="0685345852",
+                      parts=[era_p], products=[era_p, erb_p, rrs_p])
+        rep2 = _rp(sc_raw, {"dark": True, "baseline": True})
+        fired = any("ERA − ERB" in e.get("text", "") for e in rep2["log"])
+        check(fired and rep2["r1"] is not None and rep2["r1"].size > 0,
+              "原始扣暗：ERA 扫描走逐步预处理管线，暗帧步触发（ERA−ERB）")
 
         out_folder = Path(rep["out_dir"])
         from sherloc.organize import scan_folder as _scan_folder

@@ -28,8 +28,8 @@
   {
    "old": "01_软件工作台/sherloc/organize.py",
    "new": "01_核心处理代码/SHERLOC/sherloc/organize.py",
-   "bytes": 12510,
-   "sha256": "0baa7a88bb6433891d1b31ce63f123474bcb8ba4b2deb02fee8427c1657f9b3e"
+   "bytes": 13985,
+   "sha256": "fa935d4c2974f05b2f320d0a91a2fdb72598153b469b91168fcc9f9f097038fe"
   },
   {
    "old": "01_软件工作台/sherloc/peaks.py",
@@ -40,8 +40,8 @@
   {
    "old": "01_软件工作台/sherloc/preprocess.py",
    "new": "01_核心处理代码/SHERLOC/sherloc/preprocess.py",
-   "bytes": 21536,
-   "sha256": "03107b6ee1873972177d0f4a550790f79a11742047014fdc040cfe3ba4d47aa7"
+   "bytes": 22247,
+   "sha256": "b0de29ca670a47e32f54114089c5e44c3395fc6abfefca5d36df2b9ff928d8ee"
   },
   {
    "old": "01_软件工作台/sherloc/qc.py",
@@ -78,6 +78,14 @@
     "01_核心处理代码/SHERLOC/sherloc/preprocess.py"
    ],
    "reason": "instbkg 语义修正（用户复核发现）：本底谱覆盖外通道受 np.interp 端点钳制影响被错误减除，与注释/日志声明的「窗口外不动」不符——改为覆盖内置零（覆盖内全波段按官方做法相减，覆盖外不动）；注释与日志同步对齐。合成护栏 18 项复跑全绿。"
+  },
+  {
+   "date": "2026-11-21",
+   "files": [
+    "01_核心处理代码/SHERLOC/sherloc/organize.py",
+    "01_核心处理代码/SHERLOC/sherloc/preprocess.py"
+   ],
+   "reason": "原始帧路线（用户实测困境修复）：organize 增加 alts 字段（RAW 版与 processed 版合并时保留原始组为备选，view 层据此列出「ERA 原始」条目）、ERA/ECA 分组折叠配对 ERB/ECB 与同序列 RRS 进 products；preprocess.load_scan 波长选择修正——波长候选必须与主动帧通道数等长且光谱产品优先（RMO 之类的 18 点伪波长轴会搅出除零）。对练习树（无 ERA）分组与既有管线结果零影响。护栏 instbkg_check 24→25 随行。"
   }
  ]
 }

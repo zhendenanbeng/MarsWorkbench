@@ -64,18 +64,8 @@ def load_scan(scan):
     dark = [[], [], []]
     has_dark = False
 
-    # 波长表：优先取同一个扫描里做过波长校正的产品（RRS 等）
-    for p in list(scan.parts) + list(scan.products):
-        try:
-            w = p.wavelength_nm()
-        except Exception:                       # noqa: BLE001
-            w = None
-        if w is not None:
-            wl = w
-            wl_source = p.name
-            break
-
-    # 主动帧
+    # 主动帧（先读，拿到通道数——波长候选必须与之等长）
+    n_ch = None
     for p in scan.parts:
         try:
             rs = p.regions()
@@ -84,6 +74,8 @@ def load_scan(scan):
         for i in range(3):
             if rs[i] is not None:
                 act[i].append(rs[i])
+                if n_ch is None:
+                    n_ch = rs[i].shape[1]
         if p.product_type in ("ERA", "ECA"):
             d = _match(scan, "ERB" if p.product_type == "ERA" else "ECB", p.pid.sclk)
             if d is not None:
@@ -92,6 +84,27 @@ def load_scan(scan):
                     if ds[i] is not None:
                         dark[i].append(ds[i])
                 has_dark = True
+
+    # 波长表：优先取同一个扫描里做过波长校正的**光谱产品**（RRS 等）。
+    # 辅助汇总表（RMO 的 0-350 伪波长轴，18 点）也可能带 WAVELENGTH 字样
+    # 的小表——长度必须与主动帧通道数一致，否则会把位移轴搅成除零。
+    wl_fallback = None
+    for p in list(scan.parts) + list(scan.products):
+        try:
+            w = p.wavelength_nm()
+        except Exception:                       # noqa: BLE001
+            w = None
+        if w is None:
+            continue
+        if n_ch is not None and len(w) != n_ch:
+            continue
+        if p.product_type in ("RRS", "RRA", "RRB", "RCS", "RCA", "RCB"):
+            wl, wl_source = w, p.name
+            break
+        if wl_fallback is None:
+            wl_fallback = (w, p.name)
+    if wl is None and wl_fallback is not None:
+        wl, wl_source = wl_fallback
 
     out = {"wl_nm": wl, "wl_source": wl_source, "has_dark": has_dark,
            "product": scan.parts[0].product_type if scan.parts else "?",

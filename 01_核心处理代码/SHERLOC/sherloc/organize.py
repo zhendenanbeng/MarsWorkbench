@@ -33,6 +33,9 @@ class Scan:
     sclk: str
     parts: list = field(default_factory=list)
     products: list = field(default_factory=list)
+    # 同一次观测的原始版本备选组（RAW 版与 processed 版合并时保留，
+    # view 层据此列出「ERA 原始」条目——用户可从暗背景扣除开始自行预处理）
+    alts: list = field(default_factory=list)
 
     @property
     def key(self) -> str:
@@ -243,6 +246,11 @@ def _merge_same_scan(scans: list) -> list:
                 if p.data_path not in seen:
                     seen.add(p.data_path)
                     merged.products.append(p)
+        # 原始版本组挂为 alts（不并入返回列表——phase10/data_audit 的计数
+        # 契约不受影响；view 层据此追加「ERA 原始」条目）
+        for g in group:
+            if g is not best:
+                merged.alts.append(g)
         out.append(merged)
     return out
 
@@ -326,6 +334,15 @@ def build_scans(products) -> list:
                 if q.pid.sclk in sids or str(q.pid.flags.get("expid", "")) in eids:
                     sc.products.append(q)
             sc.products.extend(parts)
+            # 原始主动帧（ERA/ECA）：把配对的暗帧（ERB/ECB，同 SCLK）折进
+            # products——preprocess._match 在 products 里找 ERB 触发暗背景
+            # 扣除步；再把同序列 RRS 也折进去，波长轴借用才有着落。
+            if parts[0].product_type in ("ERA", "ECA"):
+                for q in spectral:
+                    if q.product_type in ("ERB", "ECB") and q.pid.sclk in sids:
+                        sc.products.append(q)
+                    elif q.product_type in ("RRS", "RRA"):
+                        sc.products.append(q)
             scans.append(sc)
     return _merge_same_scan(scans)
 
