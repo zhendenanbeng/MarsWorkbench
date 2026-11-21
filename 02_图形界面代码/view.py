@@ -1827,8 +1827,13 @@ def make_handler(state):
                                        "settings": load_settings()})
                 if path=='/api/recent':return self._json({'folders':history.rows(load_settings())})
                 if path == "/api/steps":
+                    # 原始帧（ERA/ECA）在列表里时，despike 复选框默认勾上
+                    # （对齐官方 c 步——processed 路线维持默认关）
+                    raw_present = any(s.parts and s.parts[0].product_type in ("ERA", "ECA")
+                                      for s in state["scans"])
                     steps_json = [{"key": k, "label": lab,
-                                   "on": k in ("deadpixel", "dark", "laser", "baseline")}
+                                   "on": k in ("deadpixel", "dark", "laser", "baseline")
+                                   or (k == "despike" and raw_present)}
                                   for k, lab in preprocess.STEPS]
                     steps_json += [{"key": k, "label": lab, "on": False, "extra": True}
                                    for k, lab in preprocess.EXTRA_FLAGS]

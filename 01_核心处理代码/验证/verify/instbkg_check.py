@@ -255,11 +255,16 @@ def main():
         act = {n: np.repeat(act[n], n_ch, axis=1) for n in act}
         dark = {n: np.repeat(dark[n], n_ch, axis=1) for n in dark}
 
-        def write_frames(path, stem, ptype, frames):
+        def write_frames(path, stem, ptype, frames, gain="0"):
             prefix = {"ERA": "ACTIVE_SPECTRA_REGION_%d:",
                       "ERB": "DARK_SPECTRA_REGION_%d:",
                       "RRS": "LASER-NORMALIZED_SPECTRA_REGION_%d:"}[ptype]
             with open(path, "w", encoding="utf-8", newline="\n") as f:
+                if ptype in ("ERA", "ERB"):
+                    # 原始帧带 CONFIG_CCD_REGIONS 段（增益一致性核验的数据来源）
+                    f.write("SRLCSPECGENERALSOH_CONFIG_CCD_REGIONS:\n")
+                    f.write("RCE time sync,CCD gain 2D,gain enable\n")
+                    f.write("681349655,%s,7\n" % gain)
                 if ptype == "RRS":
                     f.write("WAVELENGTH (NM):\n")
                     f.write(",".join("Channel_%d" % i for i in range(n_ch)) + "\n")
@@ -324,6 +329,27 @@ def main():
         fired = any("ERA − ERB" in e.get("text", "") for e in rep2["log"])
         check(fired and rep2["r1"] is not None and rep2["r1"].size > 0,
               "原始扣暗：ERA 扫描走逐步预处理管线，暗帧步触发（ERA−ERB）")
+
+        # despike 对原始帧默认开启（对齐官方 c 步）+ 增益一致性核验
+        rep3 = _rp(sc_raw, {})                  # 不传任何键：验证原始帧默认
+        check(any("剔除" in e.get("text", "") and "对齐官方" in e.get("text", "")
+                  for e in rep3["log"]),
+              "原始扣暗：despike 对原始帧默认开启（对齐官方 c 步）")
+        check(any("增益设置一致" in e.get("text", "") for e in rep3["log"]),
+              "原始扣暗：增益一致性核验（CCD gain 2D 一致→声明无需校正）")
+
+        # 尖峰注入：despike 必须精确剔除
+        act_sp = {n: m.copy() for n, m in act.items()}
+        act_sp[1][2, 500] += 5000.0             # 第 2 点、通道 500 注入 5000DN 尖峰
+        spk = folder / "ss__0207_0685345852_811ERA__0071836SRLC10000_0_____J06.CSV"
+        write_frames(spk, "spk", "ERA", act_sp)
+        _label_fixture(spk)
+        era_sp = Product(str(spk))
+        sc_sp = Scan(sol="207", sequence_id="srlc10000", sclk="0685345852",
+                     parts=[era_sp], products=[era_sp, erb_p, rrs_p])
+        rep4 = _rp(sc_sp, {})
+        check(any("剔除 1 个尖峰点" in e.get("text", "") for e in rep4["log"]),
+              "原始扣暗：注入 5000DN 尖峰后 despike 精确剔除 1 个")
 
         out_folder = Path(rep["out_dir"])
         from sherloc.organize import scan_folder as _scan_folder

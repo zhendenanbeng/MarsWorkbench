@@ -606,7 +606,7 @@
   "sherloc/minerals.py": "5ae8139b101f918c7b8dd21cf00c176cb9d2d6a210380fc9eb50675b0e4a42f8",
   "sherloc/organize.py": "fa935d4c2974f05b2f320d0a91a2fdb72598153b469b91168fcc9f9f097038fe",
   "sherloc/peaks.py": "364b093390a50a15a4d323abe5b0f687290f7ffc130722948e9f3f9f89efa1e2",
-  "sherloc/preprocess.py": "b0de29ca670a47e32f54114089c5e44c3395fc6abfefca5d36df2b9ff928d8ee",
+  "sherloc/preprocess.py": "2e412a79f97fff538d5062919f70f92d93c5d6832b35804464156500bfe9199e",
   "sherloc/qc.py": "b2acf84e89620044bcbc8ff7f9b4fde5f811245fef2879f8e4a4ea07e827ffee",
   "sherloc/reader.py": "4edb3f7628d3df7e23c59a81c0b5c20da706e1aef467731d8768d305d99a546c",
   "sherloc/reference.py": "ffa1ed16b719be877dd8aea27138ff318d42740260a0de998c8e5f0cad4b7eae",
@@ -8600,7 +8600,7 @@
    "file": "sherloc/organize.py",
    "old_sha256": "0baa7a88bb6433891d1b31ce63f123474bcb8ba4b2deb02fee8427c1657f9b3e",
    "new_sha256": "fa935d4c2974f05b2f320d0a91a2fdb72598153b469b91168fcc9f9f097038fe",
-   "reason": "原始帧路线内核演进：organize 增加 alts/ERA 分组折叠 ERB+RRS 进 products；preprocess.load_scan 波长选择修正（等长+光谱优先，修 RMO 伪轴除零）。对练习树（无 ERA）分组结果零影响——rows/cross/AUC 由旧内核计算且逐位一致，仅登记指纹演进。"
+   "reason": "原始帧路线内核演进：organize 增加 alts/ERA 分组折叠 ERB+RRS 进 products；preprocess.load_scan 波长选择修正（等长+光谱优先，修 RMO 伪轴除零）。对练习树（无 ERA）分组结果零影响——rows/cross/AUC 由旧内核计算且逐位一致，仅登记指纹演进。；preprocess 同步含增益一致性核验与原始帧 despike 默认开启。"
   }
  ]
 }

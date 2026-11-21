@@ -53,6 +53,14 @@ def _match(scan, ptype, sclk):
     return None
 
 
+def raw_default_scan(scan):
+    """原始主动帧扫描（ERA/ECA）→ despike 默认应对齐官方 c 步。"""
+    try:
+        return scan.parts[0].product_type in ("ERA", "ECA")
+    except (AttributeError, IndexError):
+        return False
+
+
 def load_scan(scan):
     """读入一次扫描的三段光谱，外加配对文件里可能存在的暗背景帧。
 
@@ -193,6 +201,11 @@ def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
     # 日志里 despike 仍是"跳过"）。
     if steps.get("despike_force"):
         steps["despike"] = True
+    # 原始帧（ERA/ECA）默认开启去宇宙射线——对齐官方处理链的 c 步：
+    # 官方对原始帧做宇宙射线去除，processed 路线维持默认关（PDS 已做过，
+    # 二次清理须显式 force）。调用方显式传了 despike 键时不覆盖。
+    if "despike" not in steps and raw_default_scan(scan):
+        steps["despike"] = True
     raw = load_scan(scan)
     log = []
 
@@ -272,6 +285,30 @@ def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
             put("dark", "跳过：这份产品没有配对的暗背景帧", "warn")
     else:
         put("dark", "不扣暗背景", "skip")
+
+    # ---------- 2a. 增益一致性核验（原始帧；信息性，不改数据） ----------
+    #
+    # CCD 增益随观测配置变化。同扫描内增益一致 → 校正为乘性常数，
+    # 已被激光能量归一/基线扣除吸收（判读不受影响）；不一致则跨增益
+    # 强度比较不可信。换算系数（DN→电子）是仪器团队内部知识，不在
+    # PDS 产品里——只报告设置值供核验，不做换算、不冒充官方 g 步。
+    if raw.get("product") in ("ERA", "ECA"):
+        from . import raw_frames as _rf
+        gains = []
+        for q in list(scan.parts) + [p for p in scan.products
+                                     if p.product_type in ("ERB", "ECB")]:
+            for g in _rf.read_gain_settings(q.data_path):
+                gains.append((q.product_type, g))
+        if gains:
+            uniq = sorted(set(g for _, g in gains))
+            if len(uniq) == 1:
+                put("gain", "增益设置一致（CCD gain 2D=%s，%d 帧核验）——"
+                            "同扫描内增益校正为乘性常数，已被激光能量归一/"
+                            "基线扣除吸收，无需修正" % (uniq[0], len(gains)), "done")
+            else:
+                put("gain", "警告：增益设置不一致（%s）——跨增益的强度比较不可信，"
+                            "绝对强度请用官方 RRS"
+                    % "、".join("%s:%s" % (t, g) for t, g in gains), "warn")
 
     # ---------- 2b. 仪器本底扣除（收纳臂口径，默认关） ----------
     #
@@ -403,8 +440,10 @@ def run_pipeline(scan, steps, points=None, region=1, despike_sigma=6.0):
                     if good.sum() > 2:
                         M[i, idx] = np.interp(col[idx], col[good], M[i, good])
             put("despike", "按同一通道跨光谱的稳健统计剔除 %d 个尖峰点"
-                           "（%d 条光谱 x %d 个通道，阈值 %.0f sigma）"
-                % (int(bad.sum()), M.shape[0], M.shape[1], despike_sigma))
+                           "（%d 条光谱 x %d 个通道，阈值 %.0f sigma）%s"
+                % (int(bad.sum()), M.shape[0], M.shape[1], despike_sigma,
+                   "（原始帧默认开启，对齐官方宇宙射线去除）"
+                   if raw.get("product") in ("ERA", "ECA") else ""))
     else:
         put("despike", "不去宇宙射线（原始谱里的尖峰原样保留）", "skip")
 

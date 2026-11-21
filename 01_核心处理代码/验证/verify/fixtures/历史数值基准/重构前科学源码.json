@@ -40,8 +40,8 @@
   {
    "old": "01_软件工作台/sherloc/preprocess.py",
    "new": "01_核心处理代码/SHERLOC/sherloc/preprocess.py",
-   "bytes": 22247,
-   "sha256": "b0de29ca670a47e32f54114089c5e44c3395fc6abfefca5d36df2b9ff928d8ee"
+   "bytes": 24545,
+   "sha256": "2e412a79f97fff538d5062919f70f92d93c5d6832b35804464156500bfe9199e"
   },
   {
    "old": "01_软件工作台/sherloc/qc.py",
@@ -83,9 +83,10 @@
    "date": "2026-11-21",
    "files": [
     "01_核心处理代码/SHERLOC/sherloc/organize.py",
+    "01_核心处理代码/SHERLOC/sherloc/preprocess.py",
     "01_核心处理代码/SHERLOC/sherloc/preprocess.py"
    ],
-   "reason": "原始帧路线（用户实测困境修复）：organize 增加 alts 字段（RAW 版与 processed 版合并时保留原始组为备选，view 层据此列出「ERA 原始」条目）、ERA/ECA 分组折叠配对 ERB/ECB 与同序列 RRS 进 products；preprocess.load_scan 波长选择修正——波长候选必须与主动帧通道数等长且光谱产品优先（RMO 之类的 18 点伪波长轴会搅出除零）。对练习树（无 ERA）分组与既有管线结果零影响。护栏 instbkg_check 24→25 随行。"
+   "reason": "原始帧路线（用户实测困境修复）：organize 增加 alts 字段（RAW 版与 processed 版合并时保留原始组为备选，view 层据此列出「ERA 原始」条目）、ERA/ECA 分组折叠配对 ERB/ECB 与同序列 RRS 进 products；preprocess.load_scan 波长选择修正——波长候选必须与主动帧通道数等长且光谱产品优先（RMO 之类的 18 点伪波长轴会搅出除零）。对练习树（无 ERA）分组与既有管线结果零影响。护栏 instbkg_check 24→25 随行。；preprocess 另含增益一致性核验（读原始帧 CONFIG_CCD_REGIONS 的CCD gain 2D，一致声明/不一致警告）与原始帧 despike 默认开启（对齐官方 c 步）。"
   }
  ]
 }

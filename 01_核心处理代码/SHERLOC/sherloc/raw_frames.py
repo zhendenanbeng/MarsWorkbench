@@ -135,6 +135,30 @@ def read_wavelength(rrs_path):
         return None
 
 
+def read_gain_settings(path):
+    """读原始帧 CONFIG_CCD_REGIONS 里的增益设置（CCD gain 2D 列的值）。
+
+    返回值字符串列表（每条值行一个）；无该段/无此列返回 []。
+    换算系数（DN→电子）是仪器团队内部知识，不在 PDS 产品里——
+    本函数只报告设置值用于一致性核验，不做换算。
+    """
+    sec = parse_sections(path)
+    rows = sec.get("SRLCSPECGENERALSOH_CONFIG_CCD_REGIONS", [])
+    if len(rows) < 2:
+        return []
+    header = [h.strip() for h in rows[0].split(",")]
+    idx = [j for j, h in enumerate(header) if "gain" in h.lower() and "2d" in h.lower()]
+    if not idx:
+        return []
+    out = []
+    for ln in rows[1:]:
+        vals = [v.strip() for v in ln.split(",")]
+        for j in idx:
+            if j < len(vals) and vals[j]:
+                out.append(vals[j])
+    return out
+
+
 def dark_subtract(active, dark):
     """逐点位相减；行数不一致时按较少数量的行截断并如实返回信息。"""
     a = np.asarray(active, dtype=float)
@@ -226,12 +250,9 @@ TABLE_TEMPLATE = """    <Table_Delimited>
 def write_label(out_xml, csv_name, offsets, records_map, n_ch):
     """为自扣暗 CSV 生成配对 XML（offset/records 为实测字节布局）。"""
     blocks = []
-    names = {}
-    if "WAVELENGTH NM" in offsets:
-        names["WAVELENGTH NM"] = "WAVELENGTH NM"
-    for k in sorted(offsets):
-        if k.startswith("DARK"):
-            names[k] = k
+    # 段名不限：ERA 夹具的 ACTIVE_SPECTRA_REGION、输出的
+    # DARK_SUBTRACTED_SPECTRA_REGION、RRS 的 WAVELENGTH 都要能进标签
+    names = {k: k for k in sorted(offsets)}
     for key, name in names.items():
         if key not in offsets:
             continue
