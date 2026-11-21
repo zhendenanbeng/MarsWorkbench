@@ -140,6 +140,26 @@ def scan_listing(folder):
                         "（%d 段）" % len(sc.parts) if sc.is_split else "",
                         " · %s" % sc.sclk[-6:] if dup else ""),
         })
+    # 自扣暗输出子文件夹自动并入（07_raw_dark_subtract.py 的产物）：
+    # 打开父文件夹即可看到「自扣暗」标记的扫描，不必切换目录。
+    extra_dir = os.path.join(folder, "自扣暗_输出")
+    if os.path.isdir(extra_dir):
+        _, extra_scans = scan_folder(extra_dir)
+        for sc in extra_scans:
+            s = sc.spectra
+            scans.append(sc)
+            out.append({
+                "index": len(out),
+                "sol": sc.sol,
+                "sequence_id": sc.sequence_id,
+                "sclk": sc.sclk,
+                "points": sc.n_points or 0,
+                "product": (s.product_type if s else "?") + "·自扣暗",
+                "split": ("%d 段" % len(sc.parts)) if sc.is_split else "单段",
+                "label": "Sol %s · %s · %s 点 · %s · 自扣暗"
+                         % (sc.sol, sc.sequence_id, sc.n_points or 0,
+                            s.product_type if s else "?"),
+            })
     return products, scans, out
 
 
@@ -2118,7 +2138,7 @@ def _run_maps(folder, aci_dir=None):
     if not res.get("count"):
         return {"error": "这个文件夹里没有能出图的观测（需要有 RRS 和 RLS）。"
                          "只有原始件（ERA/ERB）时，先用 数据准备脚本/07_raw_dark_subtract.py "
-                         "自行扣暗，再打开其「自扣暗_输出」文件夹",
+                         "自行扣暗——重新打开本文件夹，带「自扣暗」标记的扫描会自动并入列表",
                 "log": buf.getvalue()[-2000:]}
     res["log"] = buf.getvalue()[-2000:]
     return res
