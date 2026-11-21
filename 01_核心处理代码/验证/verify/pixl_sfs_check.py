@@ -106,6 +106,53 @@ def main():
         check(abs(doc2["axis"]["keV_per_ch"] - gain_true) / gain_true < 0.02,
               "能量轴 JSON 往返一致")
 
+    # ---- 火星尘厚度模型（dust_model，VanBommel 2026 移植）----
+    from instruments import dust_model as dm
+
+    # 1) 已知 T 反演：用混合模型生成"测量计数"，perform_cal 必须找回该 T
+    T_grid = np.linspace(5e-5, 5e-4, 40)
+    lf = np.linspace(0.05, 0.6, 8)[:, None] * np.ones((8, len(T_grid)))
+    lf = np.clip(lf + np.linspace(-0.02, 0.05, len(T_grid))[None, :], 0.01, 0.9)
+    inp_t = {"LF": lf, "Sens": np.array([112.6, 313.6, 687.0, 910.2, 1450.0,
+                                        2800.0, 3292.4, 4297.3]),
+             "PTFE_cps": np.ones(8), "PTFE_cps_err": np.full(8, 0.2),
+             "BL_cps": np.array([0.5, 2.5, 19.9, 0.2, 0.02, 24.1, 6.8, 44.2]),
+             "BF_cps": np.zeros(8),
+             "Start_wt": np.array([7.9, 10.4, 42.5, 1.7, 8.2, 5.4, 1.3, 22.6])}
+    t_k = 2.0e-4
+    comp = np.array([7.9, 10.4, 42.5, 1.7, 8.2, 5.4, 1.3, 22.6])
+    rel_c = comp * inp_t["Sens"]; rel_c = 100.0 * rel_c / rel_c.sum()
+    model_b = lf * rel_c[:, None] + (1.0 - lf) * inp_t["BL_cps"][:, None]
+    i_k = int(np.argmin(np.abs(T_grid - t_k)))
+    inp_t["BF_cps"] = model_b[:, i_k]
+    got = dm.perform_cal(comp, inp_t, T_grid)
+    check(abs(got[3] - T_grid[i_k]) / T_grid[i_k] < 0.02,
+          "尘模型：合成计数反演厚度找回已知 T（%.2e，偏差 <2%%）" % got[3])
+
+    # 2) MCMC 确定性：同种子两次运行结果逐位一致
+    s1, c1 = dm.mcmc(inp_t, T_grid, numiter=3, seed=7)
+    s2, c2 = dm.mcmc(inp_t, T_grid, numiter=3, seed=7)
+    check(np.array_equal(s1, s2) and np.array_equal(c1, c2),
+          "尘模型：MCMC 同种子确定性（结果可复现）")
+
+    # 3) summarize 列序契约：Summary=[totChi, PTFE_Chi2, BHVO_Chi2, PTFE_T, BHVO_T]
+    summ = dm.summarize(s1, c1)
+    check(summ["ptfe_T_gcm2"] == float(np.median(s1[:, 3]))
+          and summ["bhvo_T_gcm2"] == float(np.median(s1[:, 4]))
+          and summ["ptfe_chi2"] == float(np.median(s1[:, 1])),
+          "尘模型：summarize 列序契约（Summary 列 4/5=T、列 2=PTFE χ²，中位数口径）")
+
+    # 4) 真实 LF 表（随包下载）在场时：形状与 T 过滤契约
+    real_csv = (_layout.project_layout.data_root() / "PIXL" / "下载"
+                / "pixl_dust_model" / "PIXL_Sampling_Fractions.csv")
+    if real_csv.is_file():
+        T_real, LF_real = dm.load_fractions(str(real_csv))
+        check(LF_real.shape[0] == 8 and LF_real.shape[1] == len(T_real)
+              and T_real.min() >= 1e-6 and len(T_real) > 100,
+              "尘模型：官方 LF 表解析（8 元素 × %d 档，T≥1e-6 过滤）" % len(T_real))
+    else:
+        check(True, "SKIP 尘模型：官方 LF 表不在位（pixl_dust_model 未下载）")
+
     print("共 %d 项断言，%d 项失败" % (TOTAL, FAIL))
     return int(FAIL > 0)
 

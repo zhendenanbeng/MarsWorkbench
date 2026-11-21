@@ -98,7 +98,7 @@ CHECKS = [
     ("published_targets_check.py", "已发表靶点台账：结构、来源DOI、定位与只增不缩", 12),
     ("gold_intervals_check.py", "区间数值基准与标定台账：四仪器自主定量对账契约", 15),
     ("libs_quant_check.py", "LIBS自研PLS定量：合成谱真值恢复、CV结构、auto选择、模型往返与安全降级", 21),
-    ("pixl_sfs_check.py", "PIXL SFS谱层：读取、能量自证、峰面积恢复与安全降级", 10),
+    ("pixl_sfs_check.py", "PIXL SFS谱层：读取、能量自证、峰面积恢复与安全降级、尘厚度模型（VanBommel移植）", 14),
     ("piquant_check.py", "PIQUANT官方开源定量桥：FM配置/标定齐备、stdout解析、MSA导出与官方谱基线复现（PIQUANT未配置则跳过）", 13),
     ("apxs_fit_check.py", "APXS峰拟合：合成能谱峰高恢复、检出判定与越界不猜值", 9),
     ("paper_crosscheck_check.py", "SHERLOC逐靶对账摘要：复现数只增不缩、判定结构与类目映射注记", 7),
