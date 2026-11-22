@@ -13,6 +13,20 @@ if(q.rows){
   q.rows.forEach(function(r){var ov=(oc&&oc[r.label]!==undefined)?oc[r.label]:null;
     h+='<tr><td>'+r.label+'</td><td>'+r.value.toFixed(0)+'</td><td>±'+r.err.toFixed(0)+'</td><td>'+(r.detected?'检出':'—')+'</td>'+(oc?('<td>'+(ov===null?'—':ov)+'</td>'):'')+'</tr>';});
   h+='</table><p class="ev">本观测使用 '+q.n_points_used+' 个点。'+(oc?'官方列=配对 rwp 的元素 wt（对照参考）。':'')+'</p>';
+  if(q.fp){
+    if(q.fp.available){
+      h+='<p style="margin-top:10px"><b>基本参数法自算 wt%（原始谱独立定量）</b></p><p class="ev">'+(q.fp.scope||'')+' 标定时代：'+(q.fp.calib_era||'—')+'；Sherman 迭代 '+q.fp.iterations+' 轮'+(q.fp.converged?'收敛':'未收敛')+'。</p>';
+      h+='<table class="t"><tr><th>氧化物</th><th>FP wt%</th><th>官方 rwp</th><th>相对偏差</th></tr>';
+      (q.fp.compare||[]).forEach(function(r){
+        var fv=(r.fp===null||r.fp===undefined)?'—':r.fp.toFixed(2);
+        var ov=(r.official===null||r.official===undefined)?'—':r.official.toFixed(2);
+        var rv=(r.rel===null||r.rel===undefined)?'—':(100*r.rel).toFixed(1)+'%';
+        h+='<tr><td>'+r.oxide+'</td><td>'+fv+'</td><td>'+ov+'</td><td>'+rv+'</td></tr>';});
+      h+='</table>';
+    }else{
+      h+='<p class="ev"><b>基本参数法自算：</b>'+q.fp.reason+'</p>';
+    }
+  }
   box.innerHTML=h;box.hidden=false;return;}
 var order=['SiO2','TiO2','Al2O3','FeOT','MgO','CaO','Na2O','K2O'];
 var neg=[];

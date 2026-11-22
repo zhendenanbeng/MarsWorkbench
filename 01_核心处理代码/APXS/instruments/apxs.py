@@ -159,14 +159,17 @@ class APXSBackend(base.Backend):
         if not spectra:
             return {"available": False, "reason": "本观测没有可读的 rsp 能谱"}
         mean = np.mean(spectra, axis=0)
-        areas = apxs_fit.spectrum_areas(energy_kev, mean)
+        fits = apxs_fit.spectrum_areas(energy_kev, mean)
+        areas = {el: r["area"] for el, r in fits.items()
+                 if r["area"] is not None}
         rows = []
-        for el, r in areas.items():
+        for el, r in fits.items():
             if r["area"] is None:
                 continue
             rows.append({"label": el, "value": float(r["amp"]),
                          "err": float(r["error"]),
                          "detected": bool(r["detected"])})
+        # FP-lite 自算氧化物 wt%（原始谱独立定量；标定不在册时显式降级）
         official = None
         for pt in obs.points:
             rwp_path = pt.files.get("rwp")
@@ -184,12 +187,29 @@ class APXSBackend(base.Backend):
                 except Exception:                        # noqa: BLE001
                     official = None
                 break
+        fp = None
+        try:
+            from . import apxs_fp
+            fp = apxs_fp.predict(areas)
+            if fp.get("available") and official:
+                comp = []
+                for ox in apxs_fp.OXIDE_ORDER:
+                    pv, ov = fp["oxides"].get(ox), official.get(ox)
+                    if pv is None and ov is None:
+                        continue
+                    rel = ((pv - ov) / ov) if (pv is not None and ov) else None
+                    comp.append({"oxide": ox, "fp": pv, "official": ov,
+                                 "rel": rel})
+                fp["compare"] = comp
+        except Exception as exc:                         # noqa: BLE001
+            fp = {"available": False, "reason": "FP 层异常：%s" % str(exc)[:60]}
         return {"available": True, "mode": "apxs_peaks", "rows": rows,
                 "official": official,
+                "fp": fp,
                 "n_points_used": len(spectra),
                 "scope": "APXS 峰拟合层：元素 Kα 峰高/净面积（原始信号量，"
-                         "不是浓度）。官方 rwp 氧化物表仍是定量引用口径；"
-                         "基本参数定量不在此层。"}
+                         "不是浓度）。自算定量见 FP 层；官方 rwp 氧化物表"
+                         "仍是定量引用口径。"}
 
     def load_point(self, point, shot, steps_on):
         path = point.files["rsp"]
