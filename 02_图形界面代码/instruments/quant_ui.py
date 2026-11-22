@@ -15,7 +15,7 @@ if(q.rows){
   h+='</table><p class="ev">本观测使用 '+q.n_points_used+' 个点。'+(oc?'官方列=配对 rwp 的元素 wt（对照参考）。':'')+'</p>';
   if(q.fp){
     if(q.fp.available){
-      h+='<p style="margin-top:10px"><b>基本参数法自算 wt%（原始谱独立定量）</b></p><p class="ev">'+(q.fp.scope||'')+' 标定时代：'+(q.fp.calib_era||'—')+'；Sherman 迭代 '+q.fp.iterations+' 轮'+(q.fp.converged?'收敛':'未收敛')+'。</p>';
+      h+='<p style="margin-top:10px"><b>基本参数法自算 wt%（原始谱独立定量）</b></p><p class="ev">'+(q.fp.scope||'')+' 标定时代：'+(q.fp.calib_era||'—')+'；Sherman 迭代 '+q.fp.iterations+' 轮'+(q.fp.converged?'收敛':'未收敛')+'。'+(q.fp.live_median_s?('本观测积分中位 '+Math.round(q.fp.live_median_s)+' s'+(q.fp.live_median_s<2400?'（低统计——轻元素 MgO/Al2O3/Na2O 偏差可超 50%，对账以官方列为准）':'')+''):'')+'</p>';
       h+='<table class="t"><tr><th>氧化物</th><th>FP wt%</th><th>官方 rwp</th><th>相对偏差</th></tr>';
       (q.fp.compare||[]).forEach(function(r){
         var fv=(r.fp===null||r.fp===undefined)?'—':r.fp.toFixed(2);

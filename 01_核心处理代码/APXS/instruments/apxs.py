@@ -140,7 +140,7 @@ class APXSBackend(base.Backend):
         失败显式降级，绝不产出虚构峰面积。
         """
         from . import apxs_fit
-        spectra = []
+        spectra, live_times = [], []
         for pt in obs.points:
             path = pt.files.get("rsp")
             if not path:
@@ -154,6 +154,7 @@ class APXSBackend(base.Backend):
             energy_kev = data[:, 0] / 1000.0
             counts = data[:, 1] if data.shape[1] == 2 else np.median(
                 data[:, 1:-1], axis=1)
+            live_times.append(float(counts[0]))
             energy_kev, counts = energy_kev[1:-1], counts[1:-1]
             spectra.append(np.asarray(counts, dtype=float))
         if not spectra:
@@ -191,6 +192,8 @@ class APXSBackend(base.Backend):
         try:
             from . import apxs_fp
             fp = apxs_fp.predict(areas)
+            if live_times:
+                fp["live_median_s"] = float(np.median(live_times))
             if fp.get("available") and official:
                 comp = []
                 for ox in apxs_fp.OXIDE_ORDER:
